@@ -16,12 +16,12 @@ app.directive("clientOverview", [ function () {
 
         this.onDestroy = function () {
             console.log('qrClientOverview => onDestroy...');
-            unSubscribe(angular.isUndefined($scope.client) ? $scope.dummyClient : $scope.client);
+            unSubscribe();
         };
 
         $scope.expandClient = function (client) {
             if ('undefined' === typeof $scope.client) {
-                unSubscribe($scope.client);
+                unSubscribe();
                 $scope.clients[client].expanded = true;
                 $scope.client = client;
                 subscribe(client);
@@ -29,7 +29,7 @@ app.directive("clientOverview", [ function () {
                 this.expandPair($scope.pair);
                 $scope.clients[$scope.client].expanded = false;
                 if (client !== $scope.client) {
-                    unSubscribe($scope.client);
+                    unSubscribe();
                     $scope.clients[client].expanded = true;
                     $scope.client = client;
                     subscribe(client);
@@ -138,11 +138,13 @@ app.directive("clientOverview", [ function () {
             });
         };
 
-        var unSubscribe = function(client){
+        var unSubscribe = function(){
             if (listener) {
                 listener();
             }
-            NotificationService.unSubscribe(dataType, QRDataService.getClientOverviewParams(client));
+            if(channel){
+                NotificationService.unSubscribe(channel);
+            }
         };
 
     };

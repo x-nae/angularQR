@@ -83,7 +83,7 @@ app.directive("channelOverview", [function () {
         this.onDestroy = function () {
             console.log('qrDataTableXIN => onDestroy....');
             saveSettings();
-            unSubscribe($scope.filter);
+            unSubscribe();
             $scope.$destroy();
         };
 
@@ -122,7 +122,7 @@ app.directive("channelOverview", [function () {
         $scope.$watch("filter",
             function (oldValue, newValue) {
                 if(newValue && oldValue && newValue != oldValue){
-                    unSubscribe(oldValue);
+                    unSubscribe();
                     console.log('qrDataTableXIN => new Filter : ' + newValue);
                     initWidget();
                 }
@@ -162,12 +162,12 @@ app.directive("channelOverview", [function () {
             }
         };
 
-        var unSubscribe = function(filter){
-            if(filter) {
-                if (listener) {
-                    listener();
-                }
-                NotificationService.unSubscribe(dataType, QRDataService.getChannelOverviewParams(filter, false));
+        var unSubscribe = function(){
+            if (listener) {
+                listener();
+            }
+            if(channel) {
+                NotificationService.unSubscribe(channel);
             }
         };
 

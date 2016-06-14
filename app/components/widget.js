@@ -335,88 +335,88 @@ app.directive("widgetSettingsAction", [ function() {
     }
 }]);
 
-//.directive("draggable", function() {
-//    return function(scope, element) {
-//        // this gives us the native JS object
-//        var el = element[0];
-//
-//        el.draggable = true;
-//
-//        el.addEventListener('dragstart', function(e) {
-//                e.dataTransfer.effectAllowed = 'move';
-//                e.dataTransfer.setData('dropProperty', angular.element(this).attr('drag-rel'));
-//                this.classList.add('drag');
-//                return false;
-//            },
-//            false
-//        );
-//
-//        el.addEventListener('dragend', function(e) {
-//                this.classList.remove('drag');
-//                return false;
-//            },
-//            false
-//        );
-//    }
-//}).directive('droppable', function() {
-//    return {
-//        scope: {
-//            drop: '&' // parent
-//        },
-//        link: function(scope, element) {
-//            // again we need the native object
-//            var el = element[0];
-//
-//            el.addEventListener('dragover', function(e) {
-//                    e.dataTransfer.dropEffect = 'move';
-//                    // allows us to drop
-//                    if (e.preventDefault) {
-//                        e.preventDefault();
-//                    }
-//                    angular.element(e.target).closest('.XWIDGET-CONTENT').addClass('over');
-//                    return false;
-//                },
-//                false
-//            );
-//
-//            el.addEventListener('dragenter', function(e) {
-//                    angular.element(e.target).closest('.XWIDGET-CONTENT').addClass('over');
-//                    return false;
-//                },
-//                false
-//            );
-//
-//            el.addEventListener('dragleave', function(e) {
-//                    angular.element(e.target).closest('.XWIDGET-CONTENT').removeClass('over');
-//                    return false;
-//                },
-//                false
-//            );
-//
-//            el.addEventListener('drop', function(e) {
-//                    // Stops some browsers from redirecting.
-//                    if (e.stopPropagation) {
-//                        e.stopPropagation();
-//                    }
-//
-//                    angular.element(e.target).closest('.XWIDGET-CONTENT').removeClass('over');
-//
-//                    var dropProperty = e.dataTransfer.getData('dropProperty');
-//                    //console.log(dropProperty);
-//
-//                    // call the drop passed drop function
-//                    scope.$apply(function(scope) {
-//                        scope.drop()(dropProperty);
-//                        //var fn = scope.drop;
-//                        //if ('undefined' !== typeof fn) {
-//                        //    fn({dropProperty : dropProperty});
-//                        //}
-//                    });
-//
-//                    return false;
-//                },
-//                false
-//            );
-//        }
-//    }
-//});
+app.directive("draggable", function() {
+    return function(scope, element) {
+        // this gives us the native JS object
+        var el = element[0];
+
+        el.draggable = true;
+
+        el.addEventListener('dragstart', function(e) {
+                e.dataTransfer.effectAllowed = 'move';
+                e.dataTransfer.setData('dropProperty', angular.element(this).attr('drag-rel'));
+                this.classList.add('drag');
+                return false;
+            },
+            false
+        );
+
+        el.addEventListener('dragend', function(e) {
+                this.classList.remove('drag');
+                return false;
+            },
+            false
+        );
+    }
+}).directive('droppable', function() {
+    return {
+        scope: {
+            drop: '&' // parent
+        },
+        link: function(scope, element) {
+            // again we need the native object
+            var el = element[0];
+
+            el.addEventListener('dragover', function(e) {
+                    e.dataTransfer.dropEffect = 'move';
+                    // allows us to drop
+                    if (e.preventDefault) {
+                        e.preventDefault();
+                    }
+                    angular.element(e.target).closest('.XWIDGET-CONTENT').addClass('over');
+                    return false;
+                },
+                false
+            );
+
+            el.addEventListener('dragenter', function(e) {
+                    angular.element(e.target).closest('.XWIDGET-CONTENT').addClass('over');
+                    return false;
+                },
+                false
+            );
+
+            el.addEventListener('dragleave', function(e) {
+                    angular.element(e.target).closest('.XWIDGET-CONTENT').removeClass('over');
+                    return false;
+                },
+                false
+            );
+
+            el.addEventListener('drop', function(e) {
+                    // Stops some browsers from redirecting.
+                    if (e.stopPropagation) {
+                        e.stopPropagation();
+                    }
+
+                    angular.element(e.target).closest('.XWIDGET-CONTENT').removeClass('over');
+
+                    var dropProperty = e.dataTransfer.getData('dropProperty');
+                    //console.log(dropProperty);
+
+                    // call the drop passed drop function
+                    scope.$apply(function(scope) {
+                        scope.drop()(dropProperty);
+                        //var fn = scope.drop;
+                        //if ('undefined' !== typeof fn) {
+                        //    fn({dropProperty : dropProperty});
+                        //}
+                    });
+
+                    return false;
+                },
+                false
+            );
+        }
+    }
+});

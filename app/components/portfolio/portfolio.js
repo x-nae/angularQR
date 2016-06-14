@@ -41,7 +41,7 @@ app.directive("portfolio", [ function() {
         this.onDestroy = function(){
             console.log('qrPortfolio => destroying..');
             getChartContainer().highcharts().destroy();
-            unSubscribe($scope.portfolioObj);
+            unSubscribe();
         };
 
         $scope.changeType = function(type){
@@ -122,7 +122,7 @@ app.directive("portfolio", [ function() {
             // This is the change listener, called when the value returned from the above function changes
             function (newValue, oldValue) {
                 if(newValue && oldValue && newValue != oldValue){
-                    unSubscribe(oldValue);
+                    unSubscribe();
                     subscribe(newValue);
                 }
             }
@@ -276,16 +276,19 @@ app.directive("portfolio", [ function() {
             $scope.unrealizedProfit = formatNumbers(unrealizedProfit, 2);
         };
 
-        var unSubscribe = function(portfolio){
-            if(portfolio){
-                if(portfolioUpdateListener){
-                    portfolioUpdateListener();
-                }
-                if(navUpdateListener){
-                    navUpdateListener();
-                }
-                NotificationService.unSubscribe(portfolioUpdateChannel, TradeService.getPortfolioParams(portfolio.account));
-                NotificationService.unSubscribe(navUpdateChannel, NAVDataService.getLatestNavParams(portfolio.key));
+        var unSubscribe = function(){
+            if(portfolioUpdateListener){
+                portfolioUpdateListener();
+            }
+            if(portfolioUpdateChannel){
+                NotificationService.unSubscribe(portfolioUpdateChannel);
+            }
+
+            if(navUpdateListener){
+                navUpdateListener();
+            }
+            if(navUpdateChannel){
+                NotificationService.unSubscribe(navUpdateChannel);
             }
         };
 

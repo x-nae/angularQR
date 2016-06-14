@@ -45,10 +45,12 @@ app.directive("navChart", [ function() {
             });
         };
 
-        var unSubscribe = function(portfolio){
+        var unSubscribe = function(){
             if(navUpdateListener){
                 navUpdateListener();
-                NotificationService.unSubscribe(navUpdateChannel, NAVDataService.getLatestNavParams(portfolio.key));
+            }
+            if(navUpdateChannel){
+                NotificationService.unSubscribe(navUpdateChannel);
             }
         };
 

@@ -72,7 +72,9 @@ app.directive("serverStatus", [function() {
             if (listener) {
                 listener();
             }
-            NotificationService.unSubscribe(dataType, {});
+            if(channel){
+                NotificationService.unSubscribe(channel);
+            }
         };
 
         this.onDestroy = function(){

@@ -81,7 +81,7 @@ app.directive("admin", [ function() {
             if (updateTimeLeftListener) {
                 updateTimeLeftListener();
             }
-            NotificationService.unSubscribe(dataTypeTimeLeft, {});
+            NotificationService.unSubscribe(updateTimeLeftChannel);
         };
 
         var subscribeToServerStatus = function(){
@@ -97,7 +97,7 @@ app.directive("admin", [ function() {
             if (updateServerStatusListener) {
                 updateServerStatusListener();
             }
-            NotificationService.unSubscribe(dataTypeServerStatus, {});
+            NotificationService.unSubscribe(updateServerStatusChannel);
         };
 
     };

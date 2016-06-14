@@ -7,13 +7,13 @@ app.directive("tradeHistory", [ function() {
         this.onWidgetLoad = function () {
             console.info('qrTradingHistory => onWidgetLoad Triggered ' + $scope.widgetId);
             if(angular.isUndefined($scope.filter)){
-                $scope.filter = '';
+                $scope.filter = 'Boeck_xCLQ6_COQ6_70';
             }
             initWidget();
         };
 
         this.onDestroy = function(){
-            unSubscribe($scope.filter);
+            unSubscribe();
             $scope.$destroy();
         };
 
@@ -22,7 +22,7 @@ app.directive("tradeHistory", [ function() {
         };
 
         $scope.changeModel = function(modelParam){
-            unSubscribe($scope.filter);
+            unSubscribe();
             $scope.filter = modelParam;
             initWidget();
         };
@@ -150,12 +150,12 @@ app.directive("tradeHistory", [ function() {
             }
         };
 
-        var unSubscribe = function(filter){
-            if(filter) {
-                if (listener) {
-                    listener();
-                }
-                NotificationService.unSubscribe(dataType, QRDataService.getTradeHistoryParams(filter));
+        var unSubscribe = function(){
+            if (listener) {
+                listener();
+            }
+            if(channel){
+                NotificationService.unSubscribe(channel);
             }
         };
 

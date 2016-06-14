@@ -151,7 +151,7 @@ app.directive("accountSummary", [ function() {
             // This is the change listener, called when the value returned from the above function changes
             function (newValue, oldValue) {
                 if(newValue && oldValue && newValue != oldValue){
-                    unSubscribe(oldValue);
+                    unSubscribe();
                     subscribe(newValue);
                 }
             }
@@ -166,12 +166,12 @@ app.directive("accountSummary", [ function() {
             }
         };
 
-        var unSubscribe = function(portfolio){
-            if(portfolio) {
-                if (listener) {
-                    listener();
-                }
-                NotificationService.unSubscribe(dataType, TradeService.getAccountSummaryParams(portfolio.account));
+        var unSubscribe = function(){
+            if (listener) {
+                listener();
+            }
+            if(channel){
+                NotificationService.unSubscribe(channel);
             }
         };
 
@@ -180,7 +180,7 @@ app.directive("accountSummary", [ function() {
         };
 
         this.onDestroy = function(){
-            unSubscribe($scope.portfolioObj);
+            unSubscribe();
         };
 
     };

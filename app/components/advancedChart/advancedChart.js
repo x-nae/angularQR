@@ -53,11 +53,11 @@ app.directive("advancedChart", [ function() {
         };
 
         var unSubscribe = function(){
-            if($scope.model) {
-                if (updateListener) {
-                    updateListener();
-                }
-                NotificationService.unSubscribe(dataType, QRDataService.getTickUpdatesParams($scope.model));
+            if (updateListener) {
+                updateListener();
+            }
+            if(updateChannel){
+                NotificationService.unSubscribe(updateChannel);
             }
         };
 

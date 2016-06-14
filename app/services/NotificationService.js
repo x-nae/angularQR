@@ -1,4 +1,4 @@
-app.factory('NotificationService', function (DataService, $rootScope, $q, $timeout) {
+app.factory('NotificationService', function (DataService, $rootScope, $q, $timeout, $log) {
 
     var subscriptions = {};
 
@@ -18,18 +18,18 @@ app.factory('NotificationService', function (DataService, $rootScope, $q, $timeo
     };
 
     var dataUpdateFrequency = {
-        ln: 10000,
-        nu: 10000,
-        t: 10000,
-        tu: 10000,
-        as: 30000,
-        h: 30000,
-        tl : 10000,
-        ise : 10000,
-        c : 10000,
-        th : 10000,
-        ci : 10000,
-        cc : 10000
+        ln: 60000,
+        nu: 60000,
+        t: 60000,
+        tu: 60000,
+        as: 60000,
+        h: 60000,
+        tl : 60000,
+        ise : 60000,
+        c : 60000,
+        th : 60000,
+        ci : 60000,
+        cc : 60000
     };
 
     var getDataPromiseByType = function(type, key){
@@ -66,12 +66,7 @@ app.factory('NotificationService', function (DataService, $rootScope, $q, $timeo
         });
         $q.all(promises).then(function (responseArray) {
             angular.forEach(responseArray, function (response, index) {
-                var data;
-                if(type === dataServiceTypes.CLIENT_CHANNELS){
-                    data = response;
-                }else{
-                    data = response.data;
-                }
+                var data = response.data;
                 var channel = getSubscriptionChannel(type, subscriptions[type].keys[index]);
                 subscriptions[type].data[channel] = data;
                 emitData(channel, data);
@@ -91,13 +86,18 @@ app.factory('NotificationService', function (DataService, $rootScope, $q, $timeo
         return type + '|' + key;
     };
 
-    var getTypeFromChannel = function (channel, key) {
-        return channel.substring(0, channel.indexOf('|' + key));
+    var getTypeFromChannel = function (channel) {
+        return channel.substring(0, channel.indexOf('|'));
+    };
+
+    var getKeyFromChannel = function (channel) {
+        return channel.substring(channel.indexOf('|')+1);
     };
 
     var subscribe = function (type, key) {
         var stringifiedKey = JSON.stringify(key);
         var channel = getSubscriptionChannel(type, stringifiedKey);
+        $log.info('NotificationService subscribe channel : ' + channel);
         if (angular.isUndefined(subscriptions[type])) {//if no subscriptions for this type
             subscriptions[type] = {
                 keys: [],
@@ -122,9 +122,10 @@ app.factory('NotificationService', function (DataService, $rootScope, $q, $timeo
         return channel;
     };
 
-    var unSubscribe = function (channel, key) {
-        var stringifiedKey = JSON.stringify(key);
-        var type = getTypeFromChannel(channel, stringifiedKey);
+    var unSubscribe = function (channel) {
+        $log.info('NotificationService unSubscribe channel : ' + channel);
+        var type = getTypeFromChannel(channel);
+        var stringifiedKey = getKeyFromChannel(channel);
         if (subscriptions[type]) {
             if (subscriptions[type].listeners[stringifiedKey] === 1) {
                 var index = subscriptions[type].keys.indexOf(stringifiedKey);
