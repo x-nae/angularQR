@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" data-ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>QR</title>
+    <link href="app/styles/gridstack/gridstack.min.css" rel="stylesheet"/>
+    <link href="app/styles/gridstack/gridstackextra.min.css" rel="stylesheet"/>
+    <link href="lib/bootstrap/bootstrap3.css" rel="stylesheet"/>
+    <link href="app/styles/framework/infinit.css" rel="stylesheet"/>
+    <link href="app/styles/framework/xinfinitDark.css" rel="stylesheet"/>
+    <link href="app/styles/framework/xinInfinit.css" rel="stylesheet"/>
+    <link href="app/styles/framework/appIcons.css" rel="stylesheet"/>
+    <link href="app/styles/jQuery/jQueryUI.css" rel="stylesheet"/>
+    <link href="app/styles/jQuery/jQueryUI_extended.css" rel="stylesheet"/>
+    <link href="app/styles/jQuery/jQuery.loadmask.css" rel="stylesheet"/>
+    <link href="app/styles/qrStyles.css" rel="stylesheet"/>
+    <link href="app/components/admin/admin.css" rel="stylesheet"/>
+    <link href="app/components/channelOverview/channelOverview.css" rel="stylesheet"/>
+    <link href="app/components/clientOverview/clientOverview.css" rel="stylesheet"/>
+    <link href="app/components/serverStatus/serverStatus.css" rel="stylesheet"/>
+</head>
+<body>
+    <div class="">
+        <div class="AREA-NORTH">
+            <header></header>
+            <menu></menu>
+        </div>
+        <div class="WRAPPER row">
+            <div class="CONTAINER col-sm-24">
+                <div ng-view></div>
+            </div>
+        </div>
+        <div class="AREA-SOUTH">
+            <footer></footer>
+        </div>
+    </div>
+
+    <!-- libraries-->
+    <script src="lib/jQuery/jQuery.js"></script>
+    <script src="lib/jQuery/jQueryUI.js"></script>
+    <script src="lib/jQuery/jQuery.loadmask.js"></script>
+    <script src="lib/angular/angular.min.js"></script>
+    <script src="lib/angular/angular-route.js"></script>
+    <script src="lib/lodash/lodash.js"></script>
+    <script src="lib/gridstack/gridstack.js"></script>
+    <script src="lib/bootstrap/bootstarp.js"></script>
+    <script src="lib/highstock/highstock.js"></script>
+    <script src="lib/highstock/highcharts.more.js"></script>
+    <!--app-->
+    <script src="app/app.js"></script>
+    <!--storage-->
+    <script src="app/storage/storage.js"></script>
+    <!--services-->
+    <script src="app/services/DataService.js"></script>
+    <script src="app/services/NotificationService.js"></script>
+    <script src="app/services/QRDataService.js"></script>
+    <script src="app/services/TradeService.js"></script>
+    <script src="app/services/StatisticsDataService.js"></script>
+    <script src="app/services/NAVDataService.js"></script>
+    <!-- structure -->
+    <script src="app/header/header.js"></script>
+    <script src="app/footer/footer.js"></script>
+    <script src="app/menu/menu.js"></script>
+    <!--widgets-->
+    <script src="app/components/widget.js"></script>
+    <script src="app/components/admin/admin.js"></script>
+    <script src="app/components/accountSummary/accountSummary.js"></script>
+    <script src="app/components/portfolio/portfolio.js"></script>
+    <script src="app/components/advancedChart/highstockChart.js"></script>
+    <script src="app/components/advancedChart/advancedChart.js"></script>
+    <script src="app/components/aggregatedChart/aggChart.js"></script>
+    <script src="app/components/clientOverview/clientOverview.js"></script>
+    <script src="app/components/navChart/navChart.js"></script>
+    <script src="app/components/chart/canvasChart.js"></script>
+    <script src="app/components/chart/smallChart.js"></script>
+    <script src="app/components/tradeLog/tradeHistory.js"></script>
+    <script src="app/components/channelOverview/channelOverview.js"></script>
+    <script src="app/components/serverStatus/serverStatus.js"></script>
+
+</body>
+</html>

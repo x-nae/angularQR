@@ -1,0 +1,20 @@
+<div class="XWIDGET-CONTENT">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <thead>
+        <tr>
+            <th>Symbol</th>
+            <th>MS since Last Update</th>
+            <th>Bid</th>
+            <th>Ask</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat='data in finalData'>
+            <td>{{data.symbol}}</td>
+            <td>{{data.lastUpdatedMs}}</td>
+            <td>{{data.bid}}</td>
+            <td>{{data.ask}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

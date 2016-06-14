@@ -1,0 +1,36 @@
+<div class="XWIDGET-TABS-l2">
+    <ul>
+        <li ng-click="changeType('Performance')" name="type" id="type_Performance">Performance</li>
+        <li ng-click="changeType('Spread')" name="type" id="type_Spread">Spread</li>
+    </ul>
+</div>
+<div class="clearfix"></div>
+<div class="XWIDGET-FILTER">
+    <div class="col-sm-10"><label for="mainPortfolioChooser">Main Portfolio</label>
+        <select name="mainPortfolioChooser" ng-change="changePortfolio()"
+                ng-options="portfolio.content for portfolio in portfolios track by portfolio.key" ng-model="mainPortfolio">
+        </select>
+    </div>
+    <div class="col-sm-10 XWIDGET-TABS-l2 QR-NOBG">
+        <ul>
+            <li ng-click="changeCompareType('Single')" name="compareType" id="compareType_Single">Single</li>
+            <li class="current" ng-click="changeCompareType('All')" name="compareType" id="compareType_All">All</li>
+        </ul>
+    </div>
+    <div class="clearfix"></div>
+    <div class="POSITION-REL">
+        <ul class="QR-UL">
+            <li name='period' ng-click="changePeriod('1M')" id="period_1M">1M</li>
+            <li name='period' ng-click="changePeriod('3M')" id="period_3M">3M</li>
+            <li name='period' ng-click="changePeriod('6M')" id="period_6M">6M</li>
+            <li name='period' ng-click="changePeriod('YTD')" id="period_YTD">YTD</li>
+            <li name='period' ng-click="changePeriod('1Y')" id="period_1Y">1Y</li>
+            <li name='period' ng-click="changePeriod('2Y')" id="period_2Y">2Y</li>
+            <li name='period' ng-click="changePeriod('3Y')" id="period_3Y">3Y</li>
+            <li name='period' ng-click="changePeriod('5Y')" id="period_5Y">5Y</li>
+            <li name='period' ng-click="changePeriod('ALL')" id="period_ALL">ALL</li>
+        </ul>
+    </div>
+    <div rel="chart_container"></div>
+</div>
+

@@ -1,0 +1,24 @@
+
+.loadmask-msg {
+    z-index: 20001;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.loadmask-msg div {
+
+    line-height: 16px;
+    color: #fc5d31;
+    font: normal 11px tahoma, arial, helvetica, sans-serif;
+    cursor: wait;
+    font-size: 24px;
+}
+.masked {
+    overflow: hidden !important;
+}
+.masked-relative {
+    position: relative !important;
+}
+.masked-hidden {
+    visibility: hidden !important;
+}

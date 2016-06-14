@@ -1,0 +1,29 @@
+<div class="XWIDGET">
+    <div class="XWIDGET-HEADER box-header grid-stack-item-title">
+        <span ng-bind="::widgetHeader"></span>
+
+        <div class="OPTIONS">
+            <ul rel='widgetControls'>
+                <li rel="c" widget-close="#c" data-w-id="{{::widgetId}}"><span class="icon ico-close"></span></li>
+                <li rel="m" widget-minimize="#m" data-w-id="{{::widgetId}}"><span class="icon ico-arrows-expand"></span></li>
+                <li rel="s" widget-settings-action="#s" data-w-id="{{::widgetId}}"><span class="icon ico-wrench"></span></li>
+                <li rel="l" widget-link="#l" data-w-channel="{{::widgetChannel}}" data-w-id="{{::widgetId}}">
+                    <span class="icon ico-link" rel="selectedChannel" ng-class="wSelectedLinkCls"></span>
+                    <ul class="XWIDGET-ACTIONS link">
+                        <li class='XMAGENTA' rel="r"></li>
+                        <li class='XPRPL' rel="b"></li>
+                        <li class='XAQUA' rel="g"></li>
+                        <li class='XYELLOW' rel="y"></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="XWIDGET-SETTINGS XPOPUP FONT14">
+        <div class="XWIDGET-SETTINGS-CLOSE">
+            <span class="icon ico-close"></span>
+        </div>
+    </div>
+    <div class="XWIDGET-CONTENT">
+    </div>
+</div>

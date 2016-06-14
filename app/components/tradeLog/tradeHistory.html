@@ -1,0 +1,38 @@
+<div droppable drop="changeModel" >
+    <table width="100%" border="0" height='100%' cellspacing="0" cellpadding="0">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Date</th>
+            <th>PnL</th>
+            <th>A</th>
+            <th>SIZE</th>
+            <th>B</th>
+            <th>SIZE</th>
+            <th>Trade1</th>
+            <th>Diff</th>
+            <th>Trade2</th>
+            <th>Diff</th>
+            <th>Loss</th>
+            <th>dLoss</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat='data in finalData'>
+            <td>{{data.td1}}</td>
+            <td>{{data.date1}}</td>
+            <td>{{data.td3}}</td>
+            <td>{{data.symbol1}}</td>
+            <td>{{data.size1}} &gt; {{data.pos1}}</td>
+            <td>{{data.symbol2}}</td>
+            <td>{{data.size2}} &gt; {{data.pos2}}</td>
+            <td>{{data.tradePrice1}}</td>
+            <td class="{{bgColor1}}"><small>{{data.diff1}}</small></td>
+            <td>{{data.tradePrice2}}</td>
+            <td class="{{bgColor2}}"><small>{{data.diff2}}</small></td>
+            <td>{{data.totalDiff1}}</td>
+            <td>{{data.dLoss}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

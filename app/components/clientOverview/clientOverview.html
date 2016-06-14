@@ -1,0 +1,108 @@
+<table class="table table-condensed table-bordered">
+    <thead>
+    <tr>
+        <th></th>
+        <th>Client</th>
+        <th>NAV</th>
+        <th>MTD</th>
+        <th>YTD</th>
+        <th>Total</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat-start="(clientKey, client) in clients">
+        <td>
+            <button ng-click="expandClient(clientKey)">
+                <span ng-bind="client.expanded ? '-' : '+'"></span>
+            </button>
+        </td>
+        <td>{{clientKey}}</td>
+        <td>{{client.nav}}</td>
+        <td>{{client.changeMonth}}</td>
+        <td>{{client.changeYear}}</td>
+        <td>{{client.changeAll}}</td>
+    </tr>
+    <tr ng-if="client.expanded" ng-repeat-start="(key, pair) in client.pairs">
+        <td>
+        </td>
+        <td>
+            <span style="float: left;">
+                <button ng-click="expandPair(key)">
+                    <span ng-bind="pair.expanded ? '-' : '+'"></span>
+                </button>
+            </span>
+            <span style="padding-left: 10px;">{{key}}</span>
+        </td>
+        <td>{{pair.nav}}</td>
+        <td>{{pair.changeMonth}}</td>
+        <td>{{pair.changeYear}}</td>
+        <td>{{pair.changeAll}}</td>
+    </tr>
+    <tr class="cc_channel" ng-if="pair.expanded" ng-repeat-end>
+        <td></td>
+        <td colspan="5">
+            <table class="table table-condensed table-bordered">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Size</th>
+                    <th></th>
+                    <th>Limits</th>
+                    <th></th>
+                    <th>Change</th>
+                    <th>NAV</th>
+                    <th>Real.</th>
+                    <th>Starting</th>
+                    <th>Bias</th>
+                    <th>Long</th>
+                    <th>Short</th>
+                    <th>RS</th>
+                    <th>Signals</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="data in pair.channels">
+                    <td class='TEXT-CENTER'>
+                        <input type="checkbox" name="{{data.name}}" ng-init="switchModelData=data.enabled" ng-model="switchModelData" ng-change="switchModel(data.name,switchModelData)"/>
+                    </td>
+                    <td class='TEXT-CENTER'>
+                        <input type="checkbox" name="{{data.name}}_2" ng-init="switchModelDataLong=data.enableLong" ng-model="switchModelDataLong" ng-change="switchModelLong(data.name,switchModelDataLong)"/>
+                    </td>
+                    <td class='TEXT-CENTER'>
+                        <input type="checkbox" name="{{data.name}}_3" ng-init="switchModelDataShort=data.enableShort" ng-model="switchModelDataShort" ng-change="switchModelShort(data.name,switchModelDataShort)"/>
+                    </td>
+                    <td class='TEXT-LEFT move'><span draggable drag-rel="{{data.name}}" ng-bind="data.name"></span></td>
+                    <td ng-bind="data.size"></td>
+                    <td class='TEXT-CENTER'><span ng-class='getEnabledGreenClass(data.activeLong)'></span></td>
+                    <td title="Bid : {{data.bid}}, Ask : {{data.ask}}, Buy Limit : {{data.buyLimit}} , Sell Limit : {{data.sellLimit}}">
+                        <div>
+                            <div style="position:relative;left:25px;width:72px;top:0px">
+                                <div ng-class='bgLimitBarClass(data.size)' style="position:absolute;left:{{((data.bid - data.buyLimit)/(data.sellLimit - data.buyLimit))*50}}px;width:{{((data.ask - data.bid)/(data.sellLimit - data.buyLimit))*50}}px;height:15px">&nbsp;</div>
+                                <div style="background-color:#DD0000;position:absolute;left:0px;width:2px;height:15px">&nbsp;</div>
+                                <div style="background-color:#00DD00;position:absolute;left:50px;width:2px;height:15px">&nbsp;</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class='TEXT-CENTER'><span ng-class='getEnabledRedClass(data.activeShort)'></span></td>
+                    <td ng-bind="data.netchng"></td>
+                    <td ng-bind="data.navPair"></td>
+                    <td ng-bind="data.nav - data.startingCapital"></td>
+                    <td ng-bind="data.startingCapital"></td>
+                    <td ng-bind="data.bias"></td>
+                    <td ng-bind="data.multipleLong"></td>
+                    <td ng-bind="data.multipleShort"></td>
+                    <td>
+                        <input type="checkbox" name="{{data.name}}_6" ng-init="switchModelDataRunScript=data.runScript" ng-model="switchModelDataRunScript" ng-change="switchRunScript(data.name,switchModelDataRunScript)"/></td>
+                    <td>{{data.s1}}/{{data.s2}}/{{data.s3}}/{{data.s4}}</td>
+
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    <tr ng-repeat-end ng-hide="true"></tr>
+    </tbody>
+</table>

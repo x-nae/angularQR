@@ -1,0 +1,75 @@
+<div class="TABLE-SEARCH-TOP">
+    <ul>
+        <li ><input type="text" tabindex="2" ng-model="filter" ng-model-options="{ debounce: 1000 }"/> </li>
+        <li ng-if="hideColumns('vs','vvs')">NAV: {{dataModel.nav}}</li>
+        <li ng-if="hideColumns('vs','vvs')">Size: {{dataModel.size}}</li>
+        <li ng-if="hideColumns('vs','vvs')">Chang: {{dataModel.change}}</li>
+        <li ng-if="hideColumns('vs','vvs')">({{dataModel.pchg | number : 2 }})</li>
+    </ul>
+</div>
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <thead>
+    <tr>
+        <th ng-if="hideColumns('vvs')"></th>
+        <th ng-if="hideColumns('vvs')"></th>
+        <th ng-if="hideColumns('vvs')"></th>
+        <th>Name</th>
+        <th ng-if="hideColumns('vs','vvs')">Size</th>
+        <th ng-if="hideColumns('vs','vvs')"></th>
+        <th ng-if="hideColumns('vs','vvs')">Limits</th>
+        <th ng-if="hideColumns('vs','vvs')"></th>
+        <th ng-if="hideColumns('vs','vvs')">Change</th>
+        <th ng-if="hideColumns('s' ,'vs','vvs')">NAV</th>
+        <th ng-if="hideColumns('s' ,'vs','vvs')">Real.</th>
+        <th ng-if="hideColumns('s' ,'vs','vvs')">Starting</th>
+        <th ng-if="hideColumns('s' , 'm','vs','vvs')">Bias</th>
+        <th ng-if="hideColumns('s' , 'm','vs','vvs')">Long</th>
+        <th ng-if="hideColumns('s' , 'm','vs','vvs')">Short</th>
+        <th ng-if="hideColumns('s' , 'm','vs','vvs')">RS</th>
+        <th ng-if="hideColumns('l', 's' , 'm','vs','vvs')">Signals</th>
+        <!--th>Trades</th>
+        <th>Chart</th-->
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="data in dataModel.models track by data.name"  >
+        <td class='TEXT-CENTER'  ng-if="hideColumns('vvs')">
+            <input type="checkbox" name="{{data.name}}"   ng-init="switchModelData=data.enabled" ng-model="switchModelData" ng-change="switchModel(data.name,switchModelData)"/>
+        </td>
+        <td class='TEXT-CENTER'  ng-if="hideColumns('vvs')">
+            <input type="checkbox" name="{{data.name}}_2" ng-init="switchModelDataLong=data.enableLong" ng-model="switchModelDataLong" ng-change="switchModelLong(data.name,switchModelDataLong)"  />
+        </td>
+        <td class='TEXT-CENTER'  ng-if="hideColumns('vvs')">
+            <input type="checkbox" name="{{data.name}}_3" ng-init="switchModelDataShort=data.enableShort" ng-model="switchModelDataShort" ng-change="switchModelShort(data.name,switchModelDataShort)"/>
+        </td>
+        <td class='TEXT-LEFT move' ><span draggable drag-rel="{{data.name}}" ng-bind="data.name"></span></td>
+        <td  ng-bind="data.size" ng-if="hideColumns('vs','vvs')"></td>
+        <td  class='TEXT-CENTER'  ng-if="hideColumns('vs','vvs')"><span ng-class='getEnabledGreenClass(data.activeLong)'></span></td>
+        <td  ng-if="hideColumns('vs','vvs')" title="Bid : {{data.bid}}, Ask : {{data.ask}}, Buy Limit : {{data.buyLimit}} , Sell Limit : {{data.sellLimit}}">
+            <div>
+                <div style="position:relative;left:25px;width:72px;top:0px">
+                    <div ng-class='bgLimitBarClass(data.size)' style="position:absolute;top:-7px;left:{{((data.bid - data.buyLimit)/(data.sellLimit - data.buyLimit))*50}}px;width:{{((data.ask - data.bid)/(data.sellLimit - data.buyLimit))*50}}px;height:15px">
+                        &nbsp;</div>
+                    <div style="background-color:#DD0000;position:absolute;top:-7px;left:0px;width:2px;height:15px">
+                        &nbsp;</div>
+                    <div style="background-color:#00DD00;position:absolute;top:-7px;left:50px;width:2px;height:15px">
+                        &nbsp;</div>
+                </div>
+            </div>
+        </td>
+        <td class='TEXT-CENTER' ng-if="hideColumns('vs','vvs')"><span ng-class='getEnabledRedClass(data.activeShort)'></span></td>
+        <td ng-if="hideColumns('vs','vvs')" ng-bind="data.netchng"></td>
+        <td ng-if="hideColumns('s' ,'vs','vvs')" ng-bind="data.navPair"></td>
+        <td ng-if="hideColumns('s' ,'vs','vvs')" ng-bind="data.nav - data.startingCapital"></td>
+        <td ng-if="hideColumns('s' ,'vs','vvs')" ng-bind="data.startingCapital"></td>
+        <td ng-if="hideColumns('s' , 'm','vs','vvs')" ng-bind="data.bias"></td>
+        <td ng-if="hideColumns('s' , 'm','vs','vvs')" ng-bind="data.multipleLong"></td>
+        <td ng-if="hideColumns('s' , 'm','vs','vvs')" ng-bind="data.multipleShort"></td>
+        <td ng-if="hideColumns('s' , 'm','vs','vvs')"><input type="checkbox" name="{{data.name}}_6"  ng-init="switchModelDataRunScript=data.runScript" ng-model="switchModelDataRunScript" ng-change="switchRunScript(data.name,switchModelDataRunScript)"/></td>
+        <td ng-if="hideColumns('l', 's' , 'm','vs','vvs')">{{data.s1}}/{{data.s2}}/{{data.s3}}/{{data.s4}}</td>
+        <!--td><a ng-click="widget.onSelectModel(data.name)" href="#">Trades</a></td>
+        <td><a ng-click="widget.onSelectModel(data.name)" href="#">Chart</a></td-->
+    </tr>
+    </tbody>
+</table>

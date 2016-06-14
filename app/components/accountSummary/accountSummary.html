@@ -1,0 +1,98 @@
+<div class="XWIDGET-FILTER">
+    <div class="col-sm-8"><label for="mainPortfolioChooser">Portfolio</label>
+        <select id="mainPortfolioChooser" ng-options="portfolio.key for portfolio in portfolios track by portfolio.key" ng-model="portfolioObj">
+        </select>
+    </div>
+    <div style="float:right">
+        <span>Currency : </span><span class="FONT14">{{data.currency}}</span>
+    </div>
+</div>
+<div><span class="FONT20">Balances</span></div>
+<div class="col-sm-24">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tbody>
+        <tr>
+            <td class="TH-TEXT">Net Liquidation:</td>
+            <td><span id="qras_netLiquidation">{{data.netLiquidation}}</span></td>
+        </tr>
+        <tr>
+            <td class="TH-TEXT">Total Cash Value:</td>
+            <td><span id="qras_totalCashValue">{{data.totalCashValue}}</span></td>
+        </tr>
+        <tr>
+            <td class="TH-TEXT">Settled Cash:</td>
+            <td><span id="qras_settledCash">{{data.settledCash}}</span></td>
+        </tr>
+        <tr>
+            <td class="TH-TEXT">Accrued Cash:</td>
+            <td><span id="qras_accruedCash">{{data.accruedCash}}</span></td>
+        </tr>
+        <tr>
+            <td class="TH-TEXT">Buying Power:</td>
+            <td><span id="qras_buyingPower">{{data.buyingPower}}</span></td>
+        </tr>
+        <tr>
+            <td class="TH-TEXT">Equity with Loan Value:</td>
+            <td><span id="qras_equityWithLoanValue">{{data.equityWithLoanValue}}</span></td>
+        </tr>
+        <tr>
+            <td class="TH-TEXT">Previous Equity with Loan Value:</td>
+            <td><span id="qras_previousEquityWithLoanValue">{{data.previousEquityWithLoanValue}}</span></td>
+        </tr>
+        <tr>
+            <td class="TH-TEXT">Gross Postition Value:</td>
+            <td><span id="qras_grossPositionValue">{{data.grossPositionValue}}</span></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<br>
+<div class="clearfix"></div>
+<div><span class="FONT20">Margin Requirements</span></div>
+<div class="col-sm-24">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tbody>
+        <tr>
+            <td class="TH-TEXT">Initial Margin:</td>
+            <td><span id="qras_initMarginReq">{{data.initMarginReq}}</span></td>
+        </tr>
+        <tr>
+            <td class="TH-TEXT">Maintenance Margin:</td>
+            <td><span id="qras_maintMarginReq">{{data.maintMarginReq}}</span></td>
+        </tr>
+        <tr>
+            <td class="TH-TEXT">Full Initial Margin:</td>
+            <td><span id="qras_fullInitMarginReq">{{data.fullInitMarginReq}}</span></td>
+        </tr>
+        <tr>
+            <td class="TH-TEXT">Full Maintenance Margin:</td>
+            <td><span id="qras_fullMaintMarginReq">{{data.fullMaintMarginReq}}</span></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<br>
+<div class="clearfix"></div>
+<div><span class="FONT20">Available for Trading</span></div>
+<div class="col-sm-24">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tbody>
+        <tr>
+            <td class="TH-TEXT">Available Funds:</td>
+            <td><span id="qras_availableFunds">{{data.availableFunds}}</span></td>
+        </tr>
+        <tr>
+            <td class="TH-TEXT">Excess Liquidity:</td>
+            <td><span id="qras_excessLiquidity">{{data.excessLiquidity}}</span></td>
+        </tr>
+        <tr>
+            <td class="TH-TEXT">Full Available Funds:</td>
+            <td><span id="qras_fullAvailableFunds">{{data.fullAvailableFunds}}</span></td>
+        </tr>
+        <tr>
+            <td class="TH-TEXT">Full Excess Liquidity</td>
+            <td><span id="qras_fullExcessLiquidity">{{data.fullExcessLiquidity}}</span></td>
+        </tr>
+        </tbody>
+    </table>
+</div>

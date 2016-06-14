@@ -1,0 +1,18 @@
+<div>
+    <div class="QR-footer">
+        <span  style="float:left"> Time to enable open/close : <span class="FONT20">{{timeleft}}</span> </span>
+        <button class="GRA-SEC XBORDER0 CENTRALIZE ROUND7 DISPLAY-BLOCK Xbutton " ng-click="_enable()">Open/Close</button>
+        <button class="GRA-BA XBORDER0 CENTRALIZE ROUND7 DISPLAY-BLOCK Xbutton" ng-click="_disable()">Close</button>
+
+        <div style="float:right; margin-top:5px;">
+            <div class="switch">
+                {{serviceStaus}}
+                <input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round" type="checkbox" ng-click="onOff()"  ng-model="serverStatus" >
+                <label for="cmn-toggle-1"></label>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

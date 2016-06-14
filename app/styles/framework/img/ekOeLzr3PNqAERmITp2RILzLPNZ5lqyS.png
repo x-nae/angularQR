@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" class="login-pf">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="robots" content="noindex, nofollow">
+
+            <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <title>    You are already logged in.
+</title>
+    <link rel="icon" href="/auth/resources/1.9.7.final/login/keycloak/img/favicon.ico" />
+            <link href="/auth/resources/1.9.7.final/login/keycloak/lib/patternfly/css/patternfly.css" rel="stylesheet" />
+            <link href="/auth/resources/1.9.7.final/login/keycloak/lib/zocial/zocial.css" rel="stylesheet" />
+            <link href="/auth/resources/1.9.7.final/login/keycloak/css/login.css" rel="stylesheet" />
+</head>
+
+<body class="">
+    <div id="kc-logo"><a href="http://www.keycloak.org"><div id="kc-logo-wrapper"></div></a></div>
+
+    <div id="kc-container" class="">
+        <div id="kc-container-wrapper" class="">
+
+            <div id="kc-header" class="col-xs-12 col-sm-8 col-md-8 col-lg-7">
+                <div id="kc-header-wrapper" class="">    You are already logged in.
+</div>
+            </div>
+
+
+            <div id="kc-content" class="col-sm-12 col-md-12 col-lg-12 container">
+                <div id="kc-content-wrapper" class="row">
+
+
+                    <div id="kc-form" class="col-xs-12 col-sm-8 col-md-8 col-lg-7 login">
+                        <div id="kc-form-wrapper" class="">
+    <div id="kc-info-message">
+        <p class="instruction">You are already logged in.</p>
+                <p><a href="">&laquo; Back to Application</a></p>
+    </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<div class="XWIDGET-FILTER">
+    <div class="col-sm-8"><label for="mainPortfolioChooser">Portfolio</label>
+        <select id="mainPortfolioChooser" ng-options="portfolio.key for portfolio in portfolios track by portfolio.key" ng-model="portfolioObj">
+        </select>
+    </div>
+    <div class="col-sm-8">
+        <span>NAV : </span> <span class="FONT20" style="padding-left:10px">{{nav}}</span> <span class="font10">{{navTime}}</span>
+    </div>
+    <div class="col-sm-8">
+        <span>Unrealized Profit : </span> <span class="FONT20" style="padding-left:10px">{{unrealizedProfit}}</span>
+    </div>
+</div>
+<div>
+    <div class="clearfix"></div>
+    <div class="col-sm-12">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <thead>
+            <tr>
+                <th class="FONT11">&nbsp;</th>
+                <th class="FONT11">{{benchmark.key}} (Benchmark) </th>
+                <th class="FONT11">{{portfolio.key}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Sharpe Ratio</td>
+                <td>{{benchmarkData.sharpe}}</td>
+                <td>{{portfolioData.sharpe}}</td>
+            </tr>
+            <tr>
+                <td>Volatility<br></td>
+                <td>{{benchmarkData.volatility}}</td>
+                <td>{{portfolioData.volatility}}</td>
+            </tr>
+            <tr>
+                <td>Treynor Ratio</td>
+                <td>{{benchmarkData.treynor}}</td>
+                <td>{{portfolioData.treynor}}</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-sm-12">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <thead>
+            <tr>
+                <th class="FONT11">&nbsp;</th>
+                <th class="FONT11">{{benchmark.key}} (Benchmark) </th>
+                <th class="FONT11">{{portfolio.key}} </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="TH-TEXT">MTD Perf:</td>
+                <td><span id="qrPortfolio_mtdb">{{benchmarkData.mtdPerformance}}%</span></td>
+                <td ><span id="qrPortfolio_mtdp">{{portfolioData.mtdPerformance}}%</span></td>
+            </tr>
+            <tr>
+                <td class="TH-TEXT">YTD Perf:</td>
+                <td><span id="qrPortfolio_ytdb">{{benchmarkData.ytdPerformance}}%</span></td>
+                <td><span id="qrPortfolio_ytdp">{{portfolioData.ytdPerformance}}%</span></td>
+            </tr>
+            <tr>
+                <td class="TH-TEXT">1Y Perf:</td>
+                <td><span id="qrPortfolio_oyb">{{benchmarkData.oneYrPerformance}}%</span></td>
+                <td><span id="qrPortfolio_oyp">{{portfolioData.oneYrPerformance}}%</span></td>
+            </tr>
+            <tr>
+                <td class="TH-TEXT">2Y Perf:</td>
+                <td><span id="qrPortfolio_tyb">{{benchmarkData.twoYrPerformance}}%</span></td>
+                <td><span id="qrPortfolio_typ">{{portfolioData.twoYrPerformance}}%</span></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="clearfix"></div>
+
+    <div class="XWIDGET-TABS-l2">
+        <ul>
+            <li ng-click="changeType('Summary')" name="type" id="type_Summary">Summary</li>
+            <li ng-click="changeType('Positions')" name="type" id="type_Positions">Positions</li>
+        </ul>
+    </div>
+
+    <div rel="chart">
+        <div class="clearfix"></div>
+        <div class="POSITION-REL">
+            <ul class="QR-UL" style="padding-top: 10px;">
+                <li name='chartPeriod' ng-click="changeChartPeriod('1M')" id="chartPeriod_1M">1M</li>
+                <li name='chartPeriod' ng-click="changeChartPeriod('3M')" id="chartPeriod_3M">3M</li>
+                <li name='chartPeriod' ng-click="changeChartPeriod('6M')" id="chartPeriod_6M">6M</li>
+                <li name='chartPeriod' ng-click="changeChartPeriod('YTD')" id="chartPeriod_YTD">YTD</li>
+                <li name='chartPeriod' ng-click="changeChartPeriod('1Y')" id="chartPeriod_1Y">1Y</li>
+                <li name='chartPeriod' ng-click="changeChartPeriod('2Y')" id="chartPeriod_2Y">2Y</li>
+                <li name='chartPeriod' ng-click="changeChartPeriod('3Y')" id="chartPeriod_3Y">3Y</li>
+                <li name='chartPeriod' ng-click="changeChartPeriod('5Y')" id="chartPeriod_5Y">5Y</li>
+                <li name='chartPeriod' ng-click="changeChartPeriod('ALL')" id="chartPeriod_ALL">ALL</li>
+            </ul>
+            <div class="XWIDGET-TABS-l2 QR-NOBG" style="float:right;">
+                <ul>
+                    <li ng-click="changeChartType('Performance')" name="chartType" id="chartType_Performance">Performance</li>
+                    <li ng-click="changeChartType('Spread')" name="chartType" id="chartType_Spread">Spread</li>
+                </ul>
+            </div>
+        </div>
+        <div id="chart_container"></div>
+    </div>
+
+    <div rel="table">
+        <div class="clearfix"></div>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <thead>
+            <tr>
+                <th class="FONT12">Instrument </th>
+                <th class="FONT12">Position</th>
+                <th class="FONT12">Unrealized Profit</th>
+                <th class="FONT12">Market Value</th>
+                <!--<th class="FONT12">Last</th>-->
+                <th class="FONT12">Average Price</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat='data in positions'>
+                <td>{{data.name}}</td>
+                <td>{{data.position}}</td>
+                <td>{{data.unrealizedPNL}}</td>
+                <td>{{data.marketPrice}}</td>
+                <!--  <td></td>-->
+                <td>{{data.averageCost}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
