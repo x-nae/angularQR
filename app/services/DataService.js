@@ -11,30 +11,30 @@ app.service('DataService', function ($http) {
     if (mock) {
 
         URL = {
-            modelDetails: '/x-one-proxy/proxy/trade/getData/x-mock-rest-2/rest/qr_service/modelDetails.jsp?',
-            setModel: '/x-one-proxy/proxy/trade/getData/x-mock-rest-2/rest/qr_service/setModels.jsp?',
-            contractInfo: '/x-one-proxy/proxy/trade/getData/x-mock-rest-2/rest/qr_service/contractinfo.jsp',
-            isEnabled: '/x-one-proxy/proxy/trade/getData/x-mock-rest-2/rest/qr_service/isenabled.jsp',
-            enable: '/x-one-proxy/proxy/trade/getData/x-mock-rest-2/rest/qr_service/isenabled.jsp',
-            disable: '/x-one-proxy/proxy/trade/getData/x-mock-rest-2/rest/qr_service/isenabled.jsp',
-            on: '/x-one-proxy/proxy/trade/getData/x-mock-rest-2/rest/qr_service/isenabled.jsp',
-            off: '/x-one-proxy/proxy/trade/getData/x-mock-rest-2/rest/qr_service/isenabled.jsp',
-            timeLeft: '/x-one-proxy/proxy/trade/getData/x-mock-rest-2/rest/mockServiceCommon/loadResponse/timeleft',
-            getTrades: '/x-one-proxy/proxy/trade/getData/x-mock-rest-2/rest/qr_service/getTrades.jsp?',
-            ticks: '/x-one-proxy/proxy/trade/getData/x-mock-rest-2/rest/qr_service/ticks.jsp?',
-            tickUpdates: '/x-one-proxy/proxy/trade/getData/x-mock-rest-2/rest/qr_service/tickUpdate.jsp?',
-            history: '/x-one-proxy/proxy/trade/getData/x-mock-rest-2/rest/qr_service/history.jsp?',
-            navHistory: '/x-one-proxy/proxy/trade/getData/x-mock-rest-2/rest/mockServiceCommon/loadResponse/navHistory.jsp?',
-            navLatest: '/x-one-proxy/proxy/trade/getData/x-mock-rest-2/rest/mockServiceCommon/loadResponse/nav.jsp',
-            clients: '/x-one-proxy/proxy/trade/getData/x-mock-rest-2/rest/mockServiceCommon/loadResponse/clients',
+            modelDetails: '/x-one-proxy/proxy/trade/getData/x-mock/rest/qr_service/modelDetails.jsp',
+            setModel: '/x-one-proxy/proxy/trade/getData/x-mock/rest/qr_service/setModels.jsp',
+            contractInfo: '/x-one-proxy/proxy/trade/getData/x-mock/rest/qr_service/contractinfo.jsp',
+            isEnabled: '/x-one-proxy/proxy/trade/getData/x-mock/rest/qr_service/isenabled.jsp',
+            enable: '/x-one-proxy/proxy/trade/getData/x-mock/rest/qr_service/isenabled.jsp',
+            disable: '/x-one-proxy/proxy/trade/getData/x-mock/rest/qr_service/isenabled.jsp',
+            on: '/x-one-proxy/proxy/trade/getData/x-mock/rest/qr_service/isenabled.jsp',
+            off: '/x-one-proxy/proxy/trade/getData/x-mock/rest/qr_service/isenabled.jsp',
+            timeLeft: '/x-one-proxy/proxy/trade/getData/x-mock/rest/mockServiceCommon/loadResponse/timeleft',
+            getTrades: '/x-one-proxy/proxy/trade/getData/x-mock/rest/qr_service/getTrades.jsp',
+            ticks: '/x-one-proxy/proxy/trade/getData/x-mock/rest/qr_service/ticks.jsp',
+            tickUpdates: '/x-one-proxy/proxy/trade/getData/x-mock/rest/qr_service/tickUpdate.jsp',
+            history: '/x-one-proxy/proxy/trade/getData/x-mock/rest/qr_service/history.jsp',
+            navHistory: '/x-one-proxy/proxy/trade/getData/x-mock/rest/mockServiceCommon/loadResponse/navHistory',
+            navLatest: '/x-one-proxy/proxy/trade/getData/x-mock/rest/mockServiceCommon/loadResponse/nav.jsp',
+            clients: '/x-one-proxy/proxy/trade/getData/x-mock/rest/mockServiceCommon/loadResponse/clients',
             accountSummary: '/x-one-proxy/proxy/trade/getData/x-trading/rest/mockTrading/accountSummary',
             portfolio: '/x-one-proxy/proxy/trade/getData/x-trading/rest/mockTrading/portfolio',
-            clientChannel: '/x-one-proxy/proxy/trade/getData/x-mock-rest-2/rest/mockServiceCommon/loadResponse'
+            clientChannel: '/x-one-proxy/proxy/trade/getData/x-mock/rest/mockServiceCommon/loadResponse'
         };
     } else {
         URL = {
-            modelDetails: '/x-one-proxy/proxy/qr/getData/m-x-v/json/modelDetails.jsp?',
-            setModel: '/x-one-proxy/proxy/qr/getData/m-x-v/setModels.jsp?',
+            modelDetails: '/x-one-proxy/proxy/qr/getData/m-x-v/json/modelDetails.jsp',
+            setModel: '/x-one-proxy/proxy/qr/getData/m-x-v/setModels.jsp',
             contractInfo: '/x-one-proxy/proxy/qr/getData/m-x-v/json/contractinfo.jsp',
             isEnabled: '/x-one-proxy/proxy/qr/getData/m-x-v/isenabled.jsp',
             enable: '/x-one-proxy/proxy/qr/getData/m-x-v/enable.jsp',
@@ -42,16 +42,16 @@ app.service('DataService', function ($http) {
             on: '/x-one-proxy/proxy/qr/getData/m-x-v/on.jsp',
             off: '/x-one-proxy/proxy/qr/getData/m-x-v/off.jsp',
             timeLeft: '/x-one-proxy/proxy/qr/getData/m-x-v/timeleft.jsp',
-            getTrades: '/x-one-proxy/proxy/qr/getData/m-x-v/getTrades.jsp?',
-            ticks: '/x-one-proxy/proxy/qr/getData/m-x-v/ticks.jsp?',
-            tickUpdates: '/x-one-proxy/proxy/qr/getData/m-x-v/tickUpdate.jsp?',
-            history: '/x-one-proxy/proxy/qr/getData/m-x-v/history.jsp?',
+            getTrades: '/x-one-proxy/proxy/qr/getData/m-x-v/getTrades.jsp',
+            ticks: '/x-one-proxy/proxy/qr/getData/m-x-v/ticks.jsp',
+            tickUpdates: '/x-one-proxy/proxy/qr/getData/m-x-v/tickUpdate.jsp',
+            history: '/x-one-proxy/proxy/qr/getData/m-x-v/history.jsp',
             navHistory: '/x-one-proxy/proxy/qr/getData/m-x-v/json/navHistory.jsp',
             navLatest: '/x-one-proxy/proxy/qr/getData/m-x-v/json/nav.jsp',
-            clients: '/x-one-proxy/proxy/trade/getData/x-mock-rest-2/rest/mockServiceCommon/loadResponse/clients',
+            clients: '/x-one-proxy/proxy/trade/getData/x-mock/rest/mockServiceCommon/loadResponse/clients',
             accountSummary: '/x-one-proxy/proxy/trade/getData/x-trading/rest/mockTrading/accountSummary',
             portfolio: '/x-one-proxy/proxy/trade/getData/x-trading/rest/mockTrading/portfolio',
-            clientChannel: '/x-one-proxy/proxy/qr/getData//m-x-v/json/clientModelDetails.jsp?'
+            clientChannel: '/x-one-proxy/proxy/qr/getData//m-x-v/json/clientModelDetails.jsp'
         };
     }
 
@@ -152,19 +152,11 @@ app.service('DataService', function ($http) {
     //region aggregated/nav chart
 
     this.getNAVHistory = function (client, periodicity) {
-        if(mock === true){
-            return $http({
-                method: HTTP_METHOD.GET,
-                url: URL.navHistory
-            });
-        }else{
-            return $http({
-                method: HTTP_METHOD.GET,
-                url: URL.navHistory,
-                params : {client: client, periodicity : periodicity}
-            });
-        }
-
+        return $http({
+            method: HTTP_METHOD.GET,
+            url: URL.navHistory,
+            params : {'client': client, 'periodicity' : periodicity}
+        });
     };
 
     //endregion

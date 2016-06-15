@@ -68,8 +68,6 @@
         <td ng-if="hideColumns('s' , 'm','vs','vvs')" ng-bind="data.multipleShort"></td>
         <td ng-if="hideColumns('s' , 'm','vs','vvs')"><input type="checkbox" name="{{data.name}}_6"  ng-init="switchModelDataRunScript=data.runScript" ng-model="switchModelDataRunScript" ng-change="switchRunScript(data.name,switchModelDataRunScript)"/></td>
         <td ng-if="hideColumns('l', 's' , 'm','vs','vvs')">{{data.s1}}/{{data.s2}}/{{data.s3}}/{{data.s4}}</td>
-        <!--td><a ng-click="widget.onSelectModel(data.name)" href="#">Trades</a></td>
-        <td><a ng-click="widget.onSelectModel(data.name)" href="#">Chart</a></td-->
     </tr>
     </tbody>
 </table>

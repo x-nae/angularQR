@@ -1,126 +1,7 @@
 app.factory('NAVDataService', function (DataService, StatisticService, $q) {
 
-    //var portfolios = undefined;
-    //var investments = undefined;
-
-    var investments = {
-        Boeck : {
-            20150826 : 150000
-        },
-        Boeckle : {
-            20150322 : 3000,
-            20150327 : 100000
-        },
-        brandis : {
-            20151222 : 300000
-        },
-        Eis : {
-            20160225 : 250000
-        },
-        Franz : {
-            20151130 : 100000
-        },
-        FRONT : {},
-        Global : {
-            20150722 : 105000,
-            20151125 : 95000
-        },
-        hatz : {
-            20150605 : 111650.74,
-            20150720 : 206182.68
-        },
-        heim : {
-            20150929 : 300000
-        },
-        hoeger : {
-            20150616 : 200000
-        },
-        infinity : {
-            20150612 : 100000
-        },
-        kiessling : {
-            20150514 : 50000,
-            20150518 : 50000
-        },
-        krause : {
-            20150505 : 100000
-        },
-        Kurt : {},
-        Lloyd : {
-            20150410 : 100000
-        },
-        Lutz : {},
-        Maelzer : {
-            20150811 : 125000
-        },
-        Morsch : {
-            20150324 : 100000,
-            20150421 : 30000,
-            20150430 : 70000,
-            20150515 : 40000,
-            20150702 : 100000
-        },
-        Niethammer : {
-            20150807 : 125000
-        },
-        notebook : {
-            20150813 : 50000,
-            20150817 : 50000
-        },
-        Rittau : {
-            20150811 : 100000
-        },
-        stephan : {
-            20151014 : 100000
-        },
-        Schmid : {},
-        Schomann : {},
-        TITTEL : {},
-        U1661094 : {},
-        VIX : {},
-        vtc : {
-            20151211 : 300000
-        },
-        weimer : {
-            20151019 : 300000
-        },
-        welzel : {
-            20150518 : 100000
-        }
-    };
-
-    var portfolios = {
-        Boeck : "Boeck",
-        Boeckle : "Boeckle",
-        brandis : "brandis",
-        Eis : "Eis",
-        Franz : "Franz",
-        FRONT : "FRONT",
-        Global : "Global",
-        hatz : "hatz",
-        heim : "heim",
-        hoeger : "hoeger",
-        infinity : "infinity",
-        kiessling : "kiessling",
-        krause : "krause",
-        Kurt : "Kurt",
-        Lloyd : "Lloyd",
-        Lutz : "Lutz",
-        Maelzer : "Maelzer",
-        Morsch : "Morsch",
-        Niethammer : "Niethammer",
-        notebook : "notebook",
-        Rittau : "Rittau",
-        stephan : "stephan",
-        Schmid : "Schmid",
-        Schomann : "Schomann",
-        TITTEL : "TITTEL",
-        U1661094 : "U1661094",
-        VIX : "VIX",
-        vtc : "vtc",
-        weimer : "weimer",
-        welzel : "welzel"
-    };
+    var portfolios = undefined;
+    var investments = undefined;
 
     var data = {};
 
@@ -363,7 +244,6 @@ app.factory('NAVDataService', function (DataService, StatisticService, $q) {
      * process data
      * @param mainPortfolio
      * @param comparePortfolioArr
-     * @param investments
      * @param period
      * @param isNav
      * @returns {{}}
@@ -659,7 +539,7 @@ app.factory('NAVDataService', function (DataService, StatisticService, $q) {
                 angular.forEach(response.data.clients, function (value, key) {
                     investments[value.name] = {};
                     angular.forEach(value.investments, function (investment, key) {
-                        investments[investment.date] = investment.amount;
+                        investments[value.name][investment.date] = investment.amount;
                     });
                 });
                 deferred.resolve(investments);

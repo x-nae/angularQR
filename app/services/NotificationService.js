@@ -60,22 +60,26 @@ app.factory('NotificationService', function (DataService, $rootScope, $q, $timeo
     };
 
     var updateData = function (type) {
-        var promises = [];
-        angular.forEach(subscriptions[type].keys, function (key, index) {
-            promises.push(getDataPromiseByType(type, JSON.parse(key)));
-        });
-        $q.all(promises).then(function (responseArray) {
-            angular.forEach(responseArray, function (response, index) {
-                var data = response.data;
-                var channel = getSubscriptionChannel(type, subscriptions[type].keys[index]);
-                subscriptions[type].data[channel] = data;
-                emitData(channel, data);
+        if(!angular.isUndefined(subscriptions[type])){
+            var promises = [];
+            angular.forEach(subscriptions[type].keys, function (key, index) {
+                promises.push(getDataPromiseByType(type, JSON.parse(key)));
             });
-        }).finally(function () {
-            subscriptions[type].timer = $timeout(function () {
-                updateData(type);
-            }, dataUpdateFrequency[type]);
-        });
+            $q.all(promises).then(function (responseArray) {
+                angular.forEach(responseArray, function (response, index) {
+                    var data = response.data;
+                    var channel = getSubscriptionChannel(type, subscriptions[type].keys[index]);
+                    subscriptions[type].data[channel] = data;
+                    emitData(channel, data);
+                });
+            }).finally(function () {
+                if(!angular.isUndefined(subscriptions[type])){
+                    subscriptions[type].timer = $timeout(function () {
+                        updateData(type);
+                    }, dataUpdateFrequency[type]);
+                }
+            });
+        }
     };
 
     var emitData = function (channel, data) {
@@ -112,7 +116,7 @@ app.factory('NotificationService', function (DataService, $rootScope, $q, $timeo
             if (index === -1) {
                 subscriptions[type].keys.push(stringifiedKey);
                 subscriptions[type].listeners[stringifiedKey] = 1;
-                $timeout.cancel(subscriptions[stringifiedKey].timer);
+                $timeout.cancel(subscriptions[type].timer);
                 updateData(type);
             } else {
                 subscriptions[type].listeners[stringifiedKey]++;

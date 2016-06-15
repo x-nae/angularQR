@@ -74,32 +74,24 @@ app.factory('QRDataService', function (DataService) {
     var switchModel = function (model, enable) {
         return DataService.switchModel(model, enable).then(function (response) {
             return response.data;
-        }).catch(function (response) {
-            return response;
         });
     };
 
     var switchLong = function (model, enable) {
         return DataService.switchLong(model, enable).then(function (response) {
             return response.data;
-        }).catch(function (response) {
-            return response;
         });
     };
 
     var switchShort = function (model, enable) {
         return DataService.switchShort(model, enable).then(function (response) {
             return response.data;
-        }).catch(function (response) {
-            return response;
         });
     };
 
     var switchRunScript = function (model, enable) {
         return DataService.switchRunScript(model, enable).then(function (response) {
             return response.data;
-        }).catch(function (response) {
-            return response;
         });
     };
 

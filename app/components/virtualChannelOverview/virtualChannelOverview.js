@@ -1,24 +1,21 @@
-app.directive("vChannelOverview", ["$compile", "vDataService", function ($compile, DataService) {
-    var controller = function ($scope, $rootScope, $element, $attrs, $timeout, $http, $window) {
+app.directive("virtualChannelOverview", [function () {
 
-        //Prod urls NOTE : change updateDataModel() function also
-        // var dataUrlPrefix = '/x-one-proxy/proxy/qr/getData/', dataURL = dataUrlPrefix + 'm-x-v/setModels.jsp?';
+    var controller = function ($scope, $rootScope, $element, $attrs, NotificationService, QRDataService, $window) {
 
-        // MOCK data url NOTE : change updateDataModel() function also
-        var dataUrlPrefix = '/x-one-proxy/proxy/trade/getData/';
+        var rowHeight = 25, constHeight = 80, constWidth = 10; // 5 seconds;
 
-        var dataUpdateFrequency = 10000, rowHeight = 25, constHeight = 80, constWidth = 10; // 5 seconds;
-
-        $scope.updateDataModelTimer;
-
-        $scope.viewSize = 'l';
-        $scope.widgetId = 'undefined' === typeof $scope.widgetId ? 'modelsElement1' : $scope.widgetId;
         $scope.dataModel = undefined;
 
         var qrData;
         $scope.scrollTop = 0;
 
         this.onWidgetLoad = function () {
+            if(angular.isUndefined($scope.widgetId)){
+                $scope.widgetId = 'modelsElement1';
+            }
+            if(angular.isUndefined($scope.viewSize)){
+                $scope.viewSize = 'l';
+            }
             loadSettings();
             $window.addEventListener('beforeunload', function() {
                 saveSettings();
@@ -77,39 +74,15 @@ app.directive("vChannelOverview", ["$compile", "vDataService", function ($compil
             return (args.indexOf($scope.viewSize) === -1);
         };
 
-        this.onSelectModel = function (model) {
-            console.log('onSelectModel');
-            if ($ && $.portal) {
-                console.log('vDataTableXIN => onSelectModel portal');
-                $.portal.notifications.manager.notify("private", $scope.widgetChannel, $scope.widgetId, model);
-            }
-        };
-
         var initWidget = function () {
             $scope.filter = 'undefined' === typeof $scope.filter ? '_wCL' : $scope.filter;
-            updateDataModelWithTimer();
-        };
-
-        //Timeout function
-        var updateDataModelTimerFunction = function () {
-            console.log('vDataTableXIN => updateDataModelTimerFunction Starting a new timer');
-            $scope.updateDataModelTimer = $timeout(function () {
-                updateDataModelWithTimer();
-            }, dataUpdateFrequency);
-        };
-
-        var updateDataModelWithTimer = function () {
-            var filter = $scope.filter;
-            filter = filter ? filter : '_';
-            console.log('vDataTableXIN => update with updateDataModel fired....filter : ' + filter);
-            //1st time data loading
-            updateDataModel(filter);
+            subscribe($scope.filter);
         };
 
         this.onDestroy = function () {
             console.log('vDataTableXIN => onDestroy....');
             saveSettings();
-            $timeout.cancel($scope.updateDataModelTimer);
+            unSubscribe();
             $scope.$destroy();
         };
 
@@ -137,42 +110,46 @@ app.directive("vChannelOverview", ["$compile", "vDataService", function ($compil
             }
         };
 
-        var updateDataModel = function (filter) {
-            console.log('vDataTableXIN => Updating Channel Overview Data Model');
-            DataService.getModels(dataUrlPrefix, filter, false, function(data){
-                if(data && data.params.nameFilter === $scope.filter){
-                    qrData = data;
-                    updateDisplayList();
-                    updateDataModelTimerFunction();
-                }
-            }, function () {
-                console.error('vDataTableXIN => Server is busy');
+        $scope.switchModel = function (model, checkBoxStatus) {
+            QRDataService.switchModel(model, checkBoxStatus).then(function(){
+                console.log('vDataTableXIN => switchModel : success');
+            }).catch(function(){
+                console.log('vDataTableXIN => switchModel : fail');
             });
         };
 
-        $scope.switchModel = function (model, checkBoxStatus) {
-            DataService.switchModel(dataUrlPrefix, model, checkBoxStatus);
-        };
-
         $scope.switchModelLong = function (model, checkBoxStatus) {
-            DataService.switchLong(dataUrlPrefix, model, checkBoxStatus);
+            QRDataService.switchLong(model, checkBoxStatus).then(function(){
+                console.log('vDataTableXIN => switchModelLong : success');
+            }).catch(function(){
+                console.log('vDataTableXIN => switchModelLong : fail');
+            });
         };
 
         $scope.switchModelShort = function (model, checkBoxStatus) {
-            DataService.switchShort(dataUrlPrefix, model, checkBoxStatus);
+            QRDataService.switchShort(model, checkBoxStatus).then(function(){
+                console.log('vDataTableXIN => switchModelShort : success');
+            }).catch(function(){
+                console.log('vDataTableXIN => switchModelShort : fail');
+            });
         };
 
         $scope.switchRunScript = function (model, checkBoxStatus) {
-            DataService.switchRunScript(dataUrlPrefix, model, checkBoxStatus);
+            QRDataService.switchRunScript(model, checkBoxStatus).then(function(){
+                console.log('vDataTableXIN => switchRunScript : success');
+            }).catch(function(){
+                console.log('vDataTableXIN => switchRunScript : fail');
+            });
         };
 
-        $scope.setNewFilter = function () {
-            console.log('vDataTableXIN => new Filter : ' + $scope.filter);
-            var newFilter = $scope.filter ? $scope.filter : '_';
-            // Stop the pending timeout
-            $timeout.cancel($scope.updateDataModelTimer);
-            initWidget($scope, newFilter);
-        };
+        $scope.$watch("filter",
+            function (oldValue, newValue) {
+                if(newValue && oldValue && newValue != oldValue){
+                    unSubscribe();
+                    console.log('qrDataTableXIN => new Filter : ' + newValue);
+                    initWidget();
+                }
+            });
 
         var saveSettings = function () {
             $.portal.storage.service.saveWidgetConfig($scope, $scope.widgetId, {filter: $scope.filter}, function () {
@@ -197,27 +174,42 @@ app.directive("vChannelOverview", ["$compile", "vDataService", function ($compil
             });
         };
 
+        var dataType = NotificationService.dataServiceTypes.CHANNELS, listener, channel;
+
+        var subscribe = function(filter) {
+            if(filter){
+                channel = NotificationService.subscribe(dataType, QRDataService.getChannelOverviewParams(filter, false));
+                listener = $rootScope.$on(channel, function(event, data){
+                    qrData = data;
+                    updateDisplayList();
+                });
+            }
+        };
+
+        var unSubscribe = function(){
+            if (listener) {
+                listener();
+            }
+            if(channel) {
+                NotificationService.unSubscribe(channel);
+            }
+        };
+
     };
 
     return {
         "restrict": "E",
         "controller": controller,
         "controllerAs": "widget",
-        "templateUrl": "views/virtualizedChannelOverview.html",
+        "templateUrl": "app/components/virtualChannelOverview/virtualChannelOverview.html",
         link: function (scope, element, attrs, ctrl) {
-            if (ctrl[1].onWidgetLoad) {
-                ctrl[1].onWidgetLoad();
-            }
-            if (ctrl[0].registerForFullScreen) {
-                ctrl[0].registerForFullScreen(ctrl[1].onFullScreen);
-            }
-            if (ctrl[0].registerForResize) {
-                ctrl[0].registerForResize(ctrl[1].onResize);
+            if (ctrl.onWidgetLoad) {
+                ctrl.onWidgetLoad();
             }
 
             element.on('$destroy', function () {
                 console.log('vDataTableXIN => destroying....');
-                ctrl[1].onDestroy();
+                ctrl.onDestroy();
             });
         }
     }
