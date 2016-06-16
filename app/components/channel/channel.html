@@ -1,0 +1,43 @@
+<td class='TEXT-CENTER'>
+    <input type="checkbox" name="{{data.name}}" ng-init="switchModelData=data.enabled"
+           ng-model="switchModelData" ng-change="switchModel(data.name,switchModelData)"/>
+</td>
+<td class='TEXT-CENTER'>
+    <input type="checkbox" name="{{data.name}}_2" ng-init="switchModelDataLong=data.enableLong"
+           ng-model="switchModelDataLong"
+           ng-change="switchModelLong(data.name,switchModelDataLong)"/>
+</td>
+<td class='TEXT-CENTER'>
+    <input type="checkbox" name="{{data.name}}_3" ng-init="switchModelDataShort=data.enableShort"
+           ng-model="switchModelDataShort"
+           ng-change="switchModelShort(data.name,switchModelDataShort)"/>
+</td>
+<td class='TEXT-LEFT move'><span draggable drag-rel="{{data.name}}" ng-bind="data.name"></span></td>
+<td ng-bind="data.size"></td>
+<td class='TEXT-CENTER'><span ng-class='getEnabledGreenClass(data.activeLong)'></span></td>
+<td title="Bid : {{data.bid}}, Ask : {{data.ask}}, Buy Limit : {{data.buyLimit}} , Sell Limit : {{data.sellLimit}}">
+    <div>
+        <div style="position:relative;left:25px;width:72px;top:0px">
+            <div ng-class='bgLimitBarClass(data.size)'
+                 style="position:absolute;left:{{((data.bid - data.buyLimit)/(data.sellLimit - data.buyLimit))*50}}px;width:{{((data.ask - data.bid)/(data.sellLimit - data.buyLimit))*50}}px;height:15px">
+                &nbsp;</div>
+            <div style="background-color:#DD0000;position:absolute;left:0px;width:2px;height:15px">
+                &nbsp;</div>
+            <div style="background-color:#00DD00;position:absolute;left:50px;width:2px;height:15px">
+                &nbsp;</div>
+        </div>
+    </div>
+</td>
+<td class='TEXT-CENTER'><span ng-class='getEnabledRedClass(data.activeShort)'></span></td>
+<td ng-bind="data.netchng"></td>
+<td ng-bind="data.navPair"></td>
+<td ng-bind="data.nav - data.startingCapital"></td>
+<td ng-bind="data.startingCapital"></td>
+<td ng-bind="data.bias"></td>
+<td ng-bind="data.multipleLong"></td>
+<td ng-bind="data.multipleShort"></td>
+<td>
+    <input type="checkbox" name="{{data.name}}_6" ng-init="switchModelDataRunScript=data.runScript"
+           ng-model="switchModelDataRunScript"
+           ng-change="switchRunScript(data.name,switchModelDataRunScript)"/></td>
+<td>{{data.s1}}/{{data.s2}}/{{data.s3}}/{{data.s4}}</td>

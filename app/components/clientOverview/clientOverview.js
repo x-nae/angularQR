@@ -70,7 +70,8 @@ app.directive("clientOverview", [ function () {
             return false;
         };
 
-        var updateOnSuccess = function(data){
+        var updateOnSuccess = function(processedData){
+            var data = processedData.data;
             if ($scope.client && data[$scope.client]) {
                 data[$scope.client].expanded = true;
                 if($scope.pair && data[$scope.client].pairs[$scope.pair]){
@@ -78,50 +79,8 @@ app.directive("clientOverview", [ function () {
                 }
             }
             $scope.clients = data;
-        };
-
-        $scope.bgLimitBarClass = function (size) {
-            return size == 0 ? 'limitClassZero' : size > 0 ? 'limitClassPlus' : 'limitClassMinus';
-        };
-
-        $scope.getEnabledGreenClass = function (flag) {
-            return flag ? 'BULB-ON' : 'BULB-OFF';
-        };
-
-        $scope.getEnabledRedClass = function (flag) {
-            return flag ? 'BULB-RED' : 'BULB-OFF';
-        };
-
-        $scope.switchModel = function (model, checkBoxStatus) {
-            QRDataService.switchModel(model, checkBoxStatus).then(function(){
-                console.log('qrDataTableXIN => switchModel : success');
-            }).catch(function(){
-                console.log('qrDataTableXIN => switchModel : fail');
-            });
-        };
-
-        $scope.switchModelLong = function (model, checkBoxStatus) {
-            QRDataService.switchLong(model, checkBoxStatus).then(function(){
-                console.log('qrDataTableXIN => switchModelLong : success');
-            }).catch(function(){
-                console.log('qrDataTableXIN => switchModelLong : fail');
-            });
-        };
-
-        $scope.switchModelShort = function (model, checkBoxStatus) {
-            QRDataService.switchShort(model, checkBoxStatus).then(function(){
-                console.log('qrDataTableXIN => switchModelShort : success');
-            }).catch(function(){
-                console.log('qrDataTableXIN => switchModelShort : fail');
-            });
-        };
-
-        $scope.switchRunScript = function (model, checkBoxStatus) {
-            QRDataService.switchRunScript(model, checkBoxStatus).then(function(){
-                console.log('qrDataTableXIN => switchRunScript : success');
-            }).catch(function(){
-                console.log('qrDataTableXIN => switchRunScript : fail');
-            });
+            $scope.clientHeaders = processedData.clientHeaders;
+            $scope.pairHeaders = processedData.pairHeaders;
         };
 
         var dataType = NotificationService.dataServiceTypes.CLIENT_CHANNELS, listener, channel;
