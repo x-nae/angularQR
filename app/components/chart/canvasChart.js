@@ -10,7 +10,7 @@ var CanvasChart = function(id, modelName, width, height) {
     this.canvas.height = height;
     this.context = this.canvas.getContext('2d');
 
-    document.getElementById(id + '_container').appendChild(this.canvas);
+    $('div#' + this.id + '_container').append(this.canvas);
 };
 
 CanvasChart.prototype.setModel = function(model) {
@@ -60,6 +60,13 @@ CanvasChart.prototype.update = function(response){
         pos++;
     }
 
+    chart.updateChart();
+
+};
+
+CanvasChart.prototype.updateChart = function(){
+    var chart = this;
+
     if (chart.data.length > chart.width){
         chart.data.splice((chart.counter % (chart.width / 4)), 1);
     }
@@ -91,6 +98,7 @@ CanvasChart.prototype.resize = function(width, height){
     this.height = height - 40;
     this.canvas.width = width - 10;
     this.canvas.height = height - 40;
+    this.updateChart();
 };
 
 CanvasChart.prototype.addRect = function(context, x, y, width, height, color) {
@@ -99,5 +107,5 @@ CanvasChart.prototype.addRect = function(context, x, y, width, height, color) {
 };
 
 CanvasChart.prototype.destroy = function(){
-
+    $('div#' + this.id + '_container').remove();
 };
