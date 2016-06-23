@@ -29,7 +29,7 @@ app.service('DataService', function ($http) {
             clients: '/x-one-proxy/proxy/trade/getData/x-mock/rest/mockServiceCommon/loadResponse/clients',
             accountSummary: '/x-one-proxy/proxy/trade/getData/x-trading/rest/mockTrading/accountSummary',
             portfolio: '/x-one-proxy/proxy/trade/getData/x-trading/rest/mockTrading/portfolio',
-            clientChannel: '/x-one-proxy/proxy/trade/getData/x-mock/rest/mockServiceCommon/loadResponse',
+            clientChannel: '/x-one-proxy/proxy/trade/getData/x-mock/rest/mockServiceCommon/loadResponse/clientModelDetails',
             channelAnalyzer : '/x-one-proxy/proxy/trade/getData/x-mock/rest/mockServiceCommon/loadResponse/channelAnalyzer'
         };
     } else {
@@ -253,12 +253,10 @@ app.service('DataService', function ($http) {
      * @returns {*}
      */
     this.getClientChannels = function (params) {
-        var url = mock === true ? (URL.clientChannel + '/client=' + params.client) : URL.clientChannel;
-        var urlParams = mock === true ? {} : params;
         return $http({
             method: HTTP_METHOD.GET,
-            url: url,
-            params : urlParams
+            url: URL.clientChannel,
+            params : params
         });
     };
 
