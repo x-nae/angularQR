@@ -2,51 +2,44 @@ app.directive("channelAnalyzer", [function () {
 
     var controller = function($element, $scope, QRDataService, $log, $filter){
 
+        $scope.types = ['Profit', 'Positive Trades', 'Negative Trades', 'All Trades'];
+
         this.onWidgetLoad = function(){
             $log.info('channelAnalyzer => onWidgetLoad..');
+            if(angular.isUndefined($scope.type)){
+                $scope.type = $scope.types[0];
+            }
             if(angular.isUndefined($scope.filter)){
-                $scope.filter = '_wCL';
+                $scope.filter = 'TITTEL';
             }
             if(angular.isUndefined($scope.categories)){
-                $scope.categories = [
-                    {key : '60', content : '60'},
-                    {key : '70', content : '70'},
-                    {key : '80', content : '80'},
-                    {key : '90', content : '90'},
-                    {key : '100', content : '100'},
-                    {key : '110', content : '110'},
-                    {key : '120', content : '120'},
-                    {key : '130', content : '130'},
-                    {key : '140', content : '140'},
-                    {key : '150', content : '150'},
-                    {key : '160', content : '160'},
-                    {key : '170', content : '170'},
-                    {key : '180', content : '180'},
-                    {key : '190', content : '190'},
-                    {key : '200', content : '200'},
-                    {key : '250', content : '250'},
-                    {key : '300', content : '300'},
-                    {key : 'U', content : 'U'},
-                    {key : 'V', content : 'V'},
-                    {key : 'X', content : 'X'}
-                ];
+                $scope.categories = '60,70,80,90,100,110,120,130,140,150,160,170,180,190,200,250,300,U,V,X';
             }
-            if(angular.isUndefined($scope.selectedCategories)){
-                $scope.selectedCategories = [];
-                angular.forEach($scope.categories, function(value, index){
-                    $scope.selectedCategories.push(value.key);
-                });
-            }
-            var d;
+            var startDate;
             if(angular.isUndefined($scope.startDate)){
-                d = new Date();
-                d.setFullYear(d.getFullYear()-1);
-                $scope.startDate = d;
+                startDate = new Date();
+                startDate.setFullYear(startDate.getFullYear()-1);
+                $scope.startDate = $filter('date')(startDate, 'yyyy-MM-dd');
+            }else{
+                startDate = new Date($scope.startDate);
             }
+            var endDate;
             if(angular.isUndefined($scope.endDate)){
-                d = new Date();
-                $scope.endDate = d;
+                endDate = new Date();
+                $scope.endDate = $filter('date')(endDate, 'yyyy-MM-dd');
+            }else{
+                endDate = new Date($scope.endDate);
             }
+            $element.find('input[rel="from"]').datepicker({ dateFormat : "yy-mm-dd", onSelect :
+                function(){
+                    $(this).change();
+                }
+            }).datepicker("setDate", startDate);
+            $element.find('input[rel="to"]').datepicker({ dateFormat : "yy-mm-dd", onSelect :
+                function(){
+                    $(this).change();
+                }
+            }).datepicker("setDate", endDate);
             getChartContainer().highcharts(getChartConfig());
             $scope.onAnalyze();
         };
@@ -103,12 +96,13 @@ app.directive("channelAnalyzer", [function () {
         };
 
         $scope.onAnalyze = function(){
-            getData($scope.filter, $scope.selectedCategories, $filter('date')($scope.startDate, 'yyyy-MM-dd'), $filter('date')($scope.endDate, 'yyyy-MM-dd'));
+            $log.debug('channelAnalyzer => onAnalyze called!');
+            getData($scope.type, $scope.filter, $scope.categories, $scope.startDate, $scope.endDate);
         };
 
-        var getData = function(filter, categories, startDate, endDate){
+        var getData = function(type, filter, categories, startDate, endDate){
             showHideMask(true);
-            QRDataService.getChannelAnalyzerData(filter, categories, startDate, endDate).then(function(data){
+            QRDataService.getChannelAnalyzerData(type, filter, categories, startDate, endDate).then(function(data){
                 var chart = getChart();
                 while(chart.series.length > 0){
                     chart.series[0].remove(false);

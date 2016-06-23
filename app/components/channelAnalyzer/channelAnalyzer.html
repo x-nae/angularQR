@@ -1,25 +1,20 @@
 <div class="XWIDGET-FILTER">
-    <div class="col-sm-5">
-        <label>Filter :
-            <input rel="filter" type="text" tabindex="2" ng-model="filter"/>
-        </label>
-    </div>
-    <div class="col-sm-5">
-        <label>Category :</label>
-        <ul style="width: 50px;" drop-down class="list" multi-select="true" dd-list="categories" selected-keys="selectedCategories"></ul>
-    </div>
-    <div class="col-sm-5">
-        <label>From :
-            <input rel="from" type="date" tabindex="2" ng-model="startDate" placeholder="yyyy-MM-dd" />
-        </label>
-    </div>
-    <div class="col-sm-5">
-        <label>To : 
-            <input rel="to" type="date" tabindex="2" ng-model="endDate" placeholder="yyyy-MM-dd"/>
-        </label>
-    </div>
-    <div class="col-sm-4">
-        <input class="GRA-BA DISPLAY-BLOCK" style="margin-top: 13px; color:#ffffff;min-width: 110px;min-height: 20px;" rel="analyze" type="button" ng-click="onAnalyze()" value="Analyze"/>
-    </div>
+    <label>Type :
+        <select ng-model="type" ng-options="viewType for viewType in types track by viewType" ng-change="onAnalyze()">
+        </select>
+    </label>
+    <label>Filter :
+        <input class="ca-filter" ng-model="filter" type="text" ng-model-options="{ debounce: 1000 }" ng-change="onAnalyze()"/>
+    </label>
+    <label>Categories :
+        <input class="ca-categories" ng-model="categories" type="text" ng-model-options="{ debounce: 1000 }" ng-change="onAnalyze()"/>
+    </label>
+    <label>From :
+        <input class="ca-datePicker" rel="from" type="text" placeholder="yyyy-MM-dd" ng-change="onAnalyze()" ng-model="startDate"/>
+    </label>
+    <label>To :
+        <input class="ca-datePicker" rel="to" type="text" placeholder="yyyy-MM-dd" ng-change="onAnalyze()" ng-model="endDate"/>
+    </label>
+    <!--<input class="GRA-BA DISPLAY-BLOCK" style="margin-top: 13px; color:#ffffff;min-width: 110px;min-height: 20px;" rel="analyze" type="button" ng-click="onAnalyze()" value="Analyze"/>-->
 </div>
 <div rel="chart"></div>
