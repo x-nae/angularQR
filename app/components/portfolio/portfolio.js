@@ -456,7 +456,7 @@ app.directive("portfolio", [ function() {
                     }
                 }, false);
             }else{
-                series.update({color: '#f45b5b', lineColor: '#f45b5b', data : []}, false);
+                series.update({name: $scope.benchmarkObj.key, color: '#f45b5b', lineColor: '#f45b5b', data : []}, false);
             }
         };
 
@@ -467,7 +467,7 @@ app.directive("portfolio", [ function() {
                 if('undefined' === typeof series || series === null){
                     chart.addSeries({
                         id: 'portfolio',
-                        name: $scope.portfolio.key,
+                        name: $scope.portfolioObj.key,
                         data: [],
                         type: 'line',
                         color: '#2d81a1',
@@ -478,7 +478,7 @@ app.directive("portfolio", [ function() {
                     }, false);
                 }else{
                     series.setVisible(true, false);
-                    series.update({color: '#2d81a1', lineColor: '#2d81a1', data : []}, false);
+                    series.update({name: $scope.portfolioObj.key, color: '#2d81a1', lineColor: '#2d81a1', data : []}, false);
                 }
             }else{
                 if(series) {
