@@ -1,6 +1,6 @@
 app.directive("virtualChannelOverview", [function () {
 
-    var controller = function ($scope, $rootScope, $element, $attrs, NotificationService, QRDataService, $window) {
+    var controller = function ($scope, $rootScope, $element, $attrs, $window, $timeout, $log, NotificationService, QRDataService) {
 
         var rowHeight = 25, constHeight = 80, constWidth = 10; // 5 seconds;
 
@@ -37,22 +37,22 @@ app.directive("virtualChannelOverview", [function () {
 
         var onScroll = function(){
             $scope.scrollTop = $element.find('div#vList').prop('scrollTop');
-            console.log('vDataTableXIN => scrollTop : ' + $scope.scrollTop);
+            $log.debug('vDataTableXIN => scrollTop : ' + $scope.scrollTop);
             updateDisplayList();
         };
 
         var changeDeviceSize = function (width, event, eventType) {
-            if (width > 980) {
+            if (width > 930) {
                 $scope.viewSize = 'xl';
-            } else if (width < 980 && width > 910) {
+            } else if (width < 930 && width > 865) {
                 $scope.viewSize = 'l';
-            } else if (width < 910 && width > 740) {
+            } else if (width < 865 && width > 690) {
                 $scope.viewSize = 'm';
-            } else if (width < 740 && width > 530) {
+            } else if (width < 690 && width > 495) {
                 $scope.viewSize = 's';
-            } else if (width < 530 && width > 270) {
+            } else if (width < 495 && width > 260) {
                 $scope.viewSize = 'vs';
-            } else if (width < 270) {
+            } else if (width < 260) {
                 $scope.viewSize = 'vvs';
             }
         };
@@ -69,9 +69,57 @@ app.directive("virtualChannelOverview", [function () {
             return flag ? 'activeShort BULB-RED' : 'activeShort BULB-OFF';
         };
 
-        $scope.hideColumns = function () {
-            var args = Array.prototype.slice.call(arguments);
-            return (args.indexOf($scope.viewSize) === -1);
+        $scope.hideColumn = function (column) {
+            var show = true;
+            switch (column){
+                case 'enabled':
+                case 'enableLong':
+                case 'enableShort':
+                    show = $scope.containerWidth > 270;
+                    break;
+                case 'size':
+                    show = $scope.containerWidth > 320;
+                    break;
+                case 'activeLong':
+                    show = $scope.containerWidth > 340;
+                    break;
+                case 'limit':
+                    show = $scope.containerWidth > 420;
+                    break;
+                case 'activeShort':
+                    show = $scope.containerWidth > 440;
+                    break;
+                case 'netchng':
+                    show = $scope.containerWidth > 505;
+                    break;
+                case 'navPair':
+                    show = $scope.containerWidth > 570;
+                    break;
+                case 'real':
+                    show = $scope.containerWidth > 635;
+                    break;
+                case 'startingCapital':
+                    show = $scope.containerWidth > 700;
+                    break;
+                case 'bias':
+                    show = $scope.containerWidth > 750;
+                    break;
+                case 'multipleLong':
+                    show = $scope.containerWidth > 800;
+                    break;
+                case 'multipleShort':
+                    show = $scope.containerWidth > 850;
+                    break;
+                case 'runScript':
+                    show = $scope.containerWidth > 875;
+                    break;
+                case 'signals':
+                    show = $scope.containerWidth > 940;
+                    break;
+                default:
+                    break;
+            }
+            return show;
         };
 
         var initWidget = function () {
@@ -80,7 +128,7 @@ app.directive("virtualChannelOverview", [function () {
         };
 
         this.onDestroy = function () {
-            console.log('vDataTableXIN => onDestroy....');
+            $log.info('vDataTableXIN => onDestroy....');
             saveSettings();
             unSubscribe();
             $scope.$destroy();
@@ -91,7 +139,7 @@ app.directive("virtualChannelOverview", [function () {
                 var pageSize = Math.ceil($scope.containerHeight/rowHeight);
                 var startIndex = Math.max($scope.scrollTop/rowHeight - pageSize, 0) | 0;
                 var endIndex = Math.min(startIndex + (3 * pageSize), qrData.models.length - 1) | 0;
-                console.log('vDataTableXIN => start : ' + startIndex + " & end : " + endIndex);
+                $log.debug('vDataTableXIN => start : ' + startIndex + " & end : " + endIndex);
                 var displayedModels = qrData.models.slice(startIndex, endIndex);
 
                 angular.forEach(displayedModels, function (value, key) {
@@ -106,39 +154,41 @@ app.directive("virtualChannelOverview", [function () {
                     change : qrData.change,
                     pchg : qrData.pchg
                 };
-                $scope.$digest();
+                $timeout(function() {
+                    $scope.$digest();
+                });
             }
         };
 
         $scope.switchModel = function (model, checkBoxStatus) {
             QRDataService.switchModel(model, checkBoxStatus).then(function(){
-                console.log('vDataTableXIN => switchModel : success');
+                $log.log('vDataTableXIN => switchModel : success');
             }).catch(function(){
-                console.log('vDataTableXIN => switchModel : fail');
+                $log.error('vDataTableXIN => switchModel : fail');
             });
         };
 
         $scope.switchModelLong = function (model, checkBoxStatus) {
             QRDataService.switchLong(model, checkBoxStatus).then(function(){
-                console.log('vDataTableXIN => switchModelLong : success');
+                $log.log('vDataTableXIN => switchModelLong : success');
             }).catch(function(){
-                console.log('vDataTableXIN => switchModelLong : fail');
+                $log.error('vDataTableXIN => switchModelLong : fail');
             });
         };
 
         $scope.switchModelShort = function (model, checkBoxStatus) {
             QRDataService.switchShort(model, checkBoxStatus).then(function(){
-                console.log('vDataTableXIN => switchModelShort : success');
+                $log.log('vDataTableXIN => switchModelShort : success');
             }).catch(function(){
-                console.log('vDataTableXIN => switchModelShort : fail');
+                $log.error('vDataTableXIN => switchModelShort : fail');
             });
         };
 
         $scope.switchRunScript = function (model, checkBoxStatus) {
             QRDataService.switchRunScript(model, checkBoxStatus).then(function(){
-                console.log('vDataTableXIN => switchRunScript : success');
+                $log.log('vDataTableXIN => switchRunScript : success');
             }).catch(function(){
-                console.log('vDataTableXIN => switchRunScript : fail');
+                $log.error('vDataTableXIN => switchRunScript : fail');
             });
         };
 
@@ -146,32 +196,38 @@ app.directive("virtualChannelOverview", [function () {
             function (oldValue, newValue) {
                 if(newValue && oldValue && newValue != oldValue){
                     unSubscribe();
-                    console.log('qrDataTableXIN => new Filter : ' + newValue);
+                    $log.debug('qrDataTableXIN => new Filter : ' + newValue);
                     initWidget();
                 }
             });
 
         var saveSettings = function () {
-            $.portal.storage.service.saveWidgetConfig($scope, $scope.widgetId, {filter: $scope.filter}, function () {
-                console.log('vDataTableXIN => settings saved successfully');
-            }, function (data) {
-                console.log('vDataTableXIN => error on settings save :' + data);
-            });
+            if($ && $.portal){
+                $.portal.storage.service.saveWidgetConfig($scope, $scope.widgetId, {filter: $scope.filter}, function () {
+                    $log.log('vDataTableXIN => settings saved successfully');
+                }, function (data) {
+                    $log.error('vDataTableXIN => error on settings save :' + data);
+                });
+            }
         };
 
         var loadSettings = function () {
-            $.portal.storage.service.getWidgetConfig($scope, $scope.widgetId, function (data) {
-                if (data && data.length > 0) {
-                    var config = data[0].config;
-                    var scope = this;
-                    console.log('vDataTableXIN => load settings :' + config.filter);
-                    scope.filter = config.filter;
-                }
+            if($ && $.portal){
+                $.portal.storage.service.getWidgetConfig($scope, $scope.widgetId, function (data) {
+                    if (data && data.length > 0) {
+                        var config = data[0].config;
+                        var scope = this;
+                        $log.log('vDataTableXIN => load settings :' + config.filter);
+                        scope.filter = config.filter;
+                    }
+                    initWidget();
+                }, function (data) {
+                    $log.error('vDataTableXIN => error on load settings :' + data);
+                    initWidget();
+                });
+            }else{
                 initWidget();
-            }, function (data) {
-                console.log('vDataTableXIN => error on load settings :' + data);
-                initWidget();
-            });
+            }
         };
 
         var dataType = NotificationService.dataServiceTypes.CHANNELS, listener, channel;
@@ -180,8 +236,12 @@ app.directive("virtualChannelOverview", [function () {
             if(filter){
                 channel = NotificationService.subscribe(dataType, QRDataService.getChannelOverviewParams(filter, false));
                 listener = $rootScope.$on(channel, function(event, data){
-                    qrData = data;
-                    updateDisplayList();
+                    if(angular.isUndefined(data)){
+                        $log.error('vDataTableXIN => error in subscribe data undefined!');
+                    }else{
+                        qrData = QRDataService.processChannels(data);
+                        updateDisplayList();
+                    }
                 });
             }
         };

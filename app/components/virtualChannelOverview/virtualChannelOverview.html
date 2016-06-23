@@ -12,45 +12,45 @@
 <div class="clearfix"></div>
 <div class="divTable">
     <div class="divHeaderRow">
-        <div class="divCellCheck" ng-if="hideColumns('vvs')">&nbsp;</div>
-        <div class="divCellCheck" ng-if="hideColumns('vvs')">&nbsp;</div>
-        <div class="divCellCheck" ng-if="hideColumns('vvs')">&nbsp;</div>
+        <div class="divCellCheck" ng-if="hideColumn('enabled')">&nbsp;</div>
+        <div class="divCellCheck" ng-if="hideColumn('enableLong')">&nbsp;</div>
+        <div class="divCellCheck" ng-if="hideColumn('enableShort')">&nbsp;</div>
         <div class="divCellName">Name</div>
-        <div class="divCellSmall" ng-if="hideColumns('vs','vvs')">Size</div>
-        <div class="divCellRadio" ng-if="hideColumns('vs','vvs')">&nbsp;</div>
-        <div class="divCell" ng-if="hideColumns('vs','vvs')">Limits</div>
-        <div class="divCellRadio" ng-if="hideColumns('vs','vvs')">&nbsp;</div>
-        <div class="divCell" ng-if="hideColumns('vs','vvs')">Change</div>
-        <div class="divCell" ng-if="hideColumns('s' ,'vs','vvs')">NAV</div>
-        <div class="divCell" ng-if="hideColumns('s' ,'vs','vvs')">Real.</div>
-        <div class="divCell" ng-if="hideColumns('s' ,'vs','vvs')">Starting</div>
-        <div class="divCellSmall" ng-if="hideColumns('s' , 'm','vs','vvs')">Bias</div>
-        <div class="divCellSmall" ng-if="hideColumns('s' , 'm','vs','vvs')">Long</div>
-        <div class="divCellSmall" ng-if="hideColumns('s' , 'm','vs','vvs')">Short</div>
-        <div class="divCellCheck" ng-if="hideColumns('s' , 'm','vs','vvs')">RS</div>
-        <div class="divCell" ng-if="hideColumns('l', 's' , 'm','vs','vvs')">Signals</div>
+        <div class="divCellSmall" ng-if="hideColumn('size')">Size</div>
+        <div class="divCellRadio" ng-if="hideColumn('activeLong')">&nbsp;</div>
+        <div class="divCellLimit" ng-if="hideColumn('limit')">Limits</div>
+        <div class="divCellRadio" ng-if="hideColumn('activeShort')">&nbsp;</div>
+        <div class="divCell" ng-if="hideColumn('netchng')">Change</div>
+        <div class="divCell" ng-if="hideColumn('navPair')">NAV</div>
+        <div class="divCell" ng-if="hideColumn('real')">Real.</div>
+        <div class="divCell" ng-if="hideColumn('startingCapital')">Starting</div>
+        <div class="divCellSmall" ng-if="hideColumn('bias')">Bias</div>
+        <div class="divCellSmall" ng-if="hideColumn('multipleLong')">Long</div>
+        <div class="divCellSmall" ng-if="hideColumn('multipleShort')">Short</div>
+        <div class="divCellCheckRS" ng-if="hideColumn('runScript')">RS</div>
+        <div class="divCell" ng-if="hideColumn('signals')">Signals</div>
     </div>
     <div id="vList" class="virtual_list" style="max-height:{{containerHeight}}px;">
         <div style="height:{{fullHeight}}px;position: relative;">
             <div class="divRow" ng-repeat="data in dataModel.models track by data.name" style="top:{{data.style}}px;">
-                <div class='divCellCheck TEXT-CENTER' ng-if="hideColumns('vvs')">
+                <div class='divCellCheck TEXT-CENTER' ng-if="hideColumn('enabled')">
                     <input type="checkbox" name="{{data.name}}" ng-init="switchModelData=data.enabled"
                            ng-model="switchModelData" ng-change="switchModel(data.name,switchModelData)"/>
                 </div>
-                <div class='divCellCheck TEXT-CENTER' ng-if="hideColumns('vvs')">
+                <div class='divCellCheck TEXT-CENTER' ng-if="hideColumn('enableLong')">
                     <input type="checkbox" name="{{data.name}}_2" ng-init="switchModelDataLong=data.enableLong"
                            ng-model="switchModelDataLong" ng-change="switchModelLong(data.name,switchModelDataLong)"/>
                 </div>
-                <div class='divCellCheck TEXT-CENTER' ng-if="hideColumns('vvs')">
+                <div class='divCellCheck TEXT-CENTER' ng-if="hideColumn('enableShort')">
                     <input type="checkbox" name="{{data.name}}_3" ng-init="switchModelDataShort=data.enableShort"
                            ng-model="switchModelDataShort" ng-change="switchModelShort(data.name,switchModelDataShort)"/>
                 </div>
                 <div class="divCellName"><span draggable drag-rel="{{data.name}}" ng-bind="data.name"></span></div>
-                <div class="divCellSmall" ng-bind="data.size" ng-if="hideColumns('vs','vvs')"></div>
-                <div class='divCellRadio TEXT-CENTER' ng-if="hideColumns('vs','vvs')">
+                <div class="divCellSmall" ng-bind="data.size" ng-if="hideColumn('size')"></div>
+                <div class='divCellRadio TEXT-CENTER' ng-if="hideColumn('activeLong')">
                     <span ng-class='getEnabledGreenClass(data.activeLong)'></span>
                 </div>
-                <div class="divCellLimit" ng-if="hideColumns('vs','vvs')" title="Bid : {{data.bid}}, Ask : {{data.ask}}, Buy Limit : {{data.buyLimit}} , Sell Limit : {{data.sellLimit}}">
+                <div class="divCellLimit" ng-if="hideColumn('limit')" title="Bid : {{data.bid}}, Ask : {{data.ask}}, Buy Limit : {{data.buyLimit}} , Sell Limit : {{data.sellLimit}}">
                     <div>
                         <div style="position:relative;left:0;width:75px;top:2px;">
                             <div ng-class='bgLimitBarClass(data.size)' style="position:absolute;top:2px;left:{{((data.bid - data.buyLimit)/(data.sellLimit - data.buyLimit))*50}}px;width:{{((data.ask - data.bid)/(data.sellLimit - data.buyLimit))*50}}px;height:16px">
@@ -62,21 +62,21 @@
                         </div>
                     </div>
                 </div>
-                <div class='divCellRadio TEXT-CENTER' ng-if="hideColumns('vs','vvs')">
+                <div class='divCellRadio TEXT-CENTER' ng-if="hideColumn('activeShort')">
                     <span ng-class='getEnabledRedClass(data.activeShort)'></span>
                 </div>
-                <div class="divCell" ng-if="hideColumns('vs','vvs')" ng-bind="data.netchng"></div>
-                <div class="divCell" ng-if="hideColumns('s' ,'vs','vvs')" ng-bind="data.navPair"></div>
-                <div class="divCell" ng-if="hideColumns('s' ,'vs','vvs')" ng-bind="data.nav - data.startingCapital"></div>
-                <div class="divCell" ng-if="hideColumns('s' ,'vs','vvs')" ng-bind="data.startingCapital"></div>
-                <div class="divCellSmall" ng-if="hideColumns('s' , 'm','vs','vvs')" ng-bind="data.bias"></div>
-                <div class="divCellSmall" ng-if="hideColumns('s' , 'm','vs','vvs')" ng-bind="data.multipleLong"></div>
-                <div class="divCellSmall" ng-if="hideColumns('s' , 'm','vs','vvs')" ng-bind="data.multipleShort"></div>
-                <div class="divCellCheck" ng-if="hideColumns('s' , 'm','vs','vvs')">
+                <div class="divCell" ng-if="hideColumn('netchng')" ng-bind="data.netchng"></div>
+                <div class="divCell" ng-if="hideColumn('navPair')" ng-bind="data.navPair"></div>
+                <div class="divCell" ng-if="hideColumn('real')" ng-bind="data.nav - data.startingCapital"></div>
+                <div class="divCell" ng-if="hideColumn('startingCapital')" ng-bind="data.startingCapital"></div>
+                <div class="divCellSmall" ng-if="hideColumn('bias')" ng-bind="data.bias"></div>
+                <div class="divCellSmall" ng-if="hideColumn('multipleLong')" ng-bind="data.multipleLong"></div>
+                <div class="divCellSmall" ng-if="hideColumn('multipleShort')" ng-bind="data.multipleShort"></div>
+                <div class="divCellCheckRS" ng-if="hideColumn('runScript')">
                     <input type="checkbox" name="{{data.name}}_6" ng-init="switchModelDataRunScript=data.runScript"
                            ng-model="switchModelDataRunScript" ng-change="switchRunScript(data.name,switchModelDataRunScript)"/>
                 </div>
-                <div class="divCell" ng-if="hideColumns('l', 's' , 'm','vs','vvs')">{{data.s1}}/{{data.s2}}/{{data.s3}}/{{data.s4}}</div>
+                <div class="divCell" ng-if="hideColumn('signals')">{{data.s1}}/{{data.s2}}/{{data.s3}}/{{data.s4}}</div>
             </div>
         </div>
     </div>
