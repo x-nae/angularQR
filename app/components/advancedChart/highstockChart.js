@@ -14,6 +14,9 @@ QRChart.prototype.getHighChartConfig = function(type){
             chart: {
                 renderTo: this.id + '_container'
             },
+            exporting: {
+                enabled: false
+            },
             annotationsOptions: {
                 "enabledButtons": false
             },
@@ -21,7 +24,6 @@ QRChart.prototype.getHighChartConfig = function(type){
             legend: {
                 enabled: true,
                 align: 'right',
-                //backgroundColor : '#FCFFC5',
                 borderColor: 'black',
                 borderWidth: 2,
                 layout: 'vertical',
@@ -64,8 +66,8 @@ QRChart.prototype.getHighChartConfig = function(type){
                 lineWidth: 1,
                 color: '#000000',
                 dataGrouping: {
-                    units: [['week', // unit name
-                        [1] // allowed multiples
+                    units: [['week',
+                        [1]
                     ], ['month', [1, 2, 3, 4, 6]]]
                 }
             }, {
@@ -111,6 +113,9 @@ QRChart.prototype.getHighChartConfig = function(type){
                         }
                     }
                 }
+            },
+            exporting: {
+                enabled: false
             },
             annotationsOptions: {
                 "enabledButtons": false
@@ -159,7 +164,10 @@ QRChart.prototype.getHighChartConfig = function(type){
             },
             rangeSelector: {
                 buttons: [],
-                inputEnabled: false
+                inputEnabled: false,
+                labelStyle: {
+                    visibility: 'hidden'
+                }
             },
             title: {
                 text: mxvChart.model
@@ -337,7 +345,7 @@ QRChart.prototype.resize = function (width, height) {
 };
 
 QRChart.prototype.setModel = function (model) {
-    // exit on same model
+    /* exit on same model*/
     if (model.indexOf(this.model) == 0 && model.length == this.model.length) {
         return;
     }
@@ -450,7 +458,7 @@ QRChart.prototype.recalc = function () {
             }
         };
         if (this.type === "CANDLE") {
-            // TODO :
+            /* TODO :*/
             setData(0, [1, 2, 3, 4], false);
             setData(1, [5, 5, 5, 5], false);
             setData(2, [6, 6, 6, 6], true);
@@ -499,13 +507,12 @@ QRChart.prototype.update = function(dataObj){
 
         if (data.length > 0) {
             if (mxvChart.historyData === undefined) {
-                 console.log("set history data " + data.length);
                 mxvChart.historyData = data;
                 mxvChart.startTime = data[0][0];
                 mxvChart.endTime = data[data.length - 1][0];
                 mxvChart.recalc();
             } else {
-                // console.log("add point " + data.length);
+                /* console.log("add point " + data.length);*/
                 d = data[data.length - 1];
                 highChart.series[0].addPoint([d[0], d[1], d[2]], false);
                 highChart.series[1].addPoint([d[0], d[3], d[4]], false);
