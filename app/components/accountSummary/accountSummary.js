@@ -1,5 +1,6 @@
 app.directive("accountSummary", [ function() {
-    var controller = function ($scope, $rootScope, $element, $attrs, TradeService, NotificationService) {
+
+    var controller = function ($scope, $rootScope, $element, $attrs, $log, TradeService, NotificationService) {
         $scope.portfolios = [];
 
         $scope.portfolioObj = undefined;
@@ -57,14 +58,14 @@ app.directive("accountSummary", [ function() {
         };
 
         var setBalances = function(data){
-            $scope.data.netLiquidation = formatNumbers(data.netLiquidation, 2);
-            $scope.data.totalCashValue = formatNumbers(data.totalCashValue, 2);
-            $scope.data.settledCash = formatNumbers(data.settledCash, 2);
-            $scope.data.accruedCash = formatNumbers(data.accruedCash, 2);
-            $scope.data.buyingPower = formatNumbers(data.buyingPower, 2);
-            $scope.data.equityWithLoanValue = formatNumbers(data.equityWithLoanValue, 2);
-            $scope.data.previousEquityWithLoanValue = formatNumbers(data.previousEquityWithLoanValue, 2);
-            $scope.data.grossPositionValue = formatNumbers(data.grossPositionValue, 2);
+            $scope.data.netLiquidation = data.netLiquidation;
+            $scope.data.totalCashValue = data.totalCashValue;
+            $scope.data.settledCash = data.settledCash;
+            $scope.data.accruedCash = data.accruedCash;
+            $scope.data.buyingPower = data.buyingPower;
+            $scope.data.equityWithLoanValue = data.equityWithLoanValue;
+            $scope.data.previousEquityWithLoanValue = data.previousEquityWithLoanValue;
+            $scope.data.grossPositionValue = data.grossPositionValue;
 
             setSpanColor(data.netLiquidation, 'qras_netLiquidation');
             setSpanColor(data.totalCashValue, 'qras_totalCashValue');
@@ -77,10 +78,10 @@ app.directive("accountSummary", [ function() {
         };
 
         var setRequirements = function(data){
-            $scope.data.initMarginReq = formatNumbers(data.initMarginReq, 2);
-            $scope.data.maintMarginReq = formatNumbers(data.maintMarginReq, 2);
-            $scope.data.fullInitMarginReq = formatNumbers(data.fullInitMarginReq, 2);
-            $scope.data.fullMaintMarginReq = formatNumbers(data.fullMaintMarginReq, 2);
+            $scope.data.initMarginReq = data.initMarginReq;
+            $scope.data.maintMarginReq = data.maintMarginReq;
+            $scope.data.fullInitMarginReq = data.fullInitMarginReq;
+            $scope.data.fullMaintMarginReq = data.fullMaintMarginReq;
 
             setSpanColor(data.initMarginReq, 'qras_initMarginReq');
             setSpanColor(data.maintMarginReq, 'qras_maintMarginReq');
@@ -89,10 +90,10 @@ app.directive("accountSummary", [ function() {
         };
 
         var setTrading = function(data){
-            $scope.data.availableFunds = formatNumbers(data.availableFunds, 2);
-            $scope.data.excessLiquidity = formatNumbers(data.excessLiquidity, 2);
-            $scope.data.fullAvailableFunds = formatNumbers(data.fullAvailableFunds, 2);
-            $scope.data.fullExcessLiquidity = formatNumbers(data.fullExcessLiquidity, 2);
+            $scope.data.availableFunds = data.availableFunds;
+            $scope.data.excessLiquidity = data.excessLiquidity;
+            $scope.data.fullAvailableFunds = data.fullAvailableFunds;
+            $scope.data.fullExcessLiquidity = data.fullExcessLiquidity;
 
             setSpanColor(data.availableFunds, 'qras_availableFunds');
             setSpanColor(data.excessLiquidity, 'qras_excessLiquidity');
@@ -150,7 +151,7 @@ app.directive("accountSummary", [ function() {
         $scope.$watch("portfolioObj",
             // This is the change listener, called when the value returned from the above function changes
             function (newValue, oldValue) {
-                if(newValue && oldValue && newValue != oldValue){
+                if(newValue && newValue != oldValue){
                     unSubscribe();
                     subscribe(newValue);
                 }
@@ -176,10 +177,11 @@ app.directive("accountSummary", [ function() {
         };
 
         this.onResize = function(width, height){
-            console.log('qrAccountSummary => resizing width : ' + width + ", height : " + height);
+            $log.debug('qrAccountSummary => resizing width : ' + width + ", height : " + height);
         };
 
         this.onDestroy = function(){
+            $log.info('qrAccountSummary => destroying..');
             unSubscribe();
         };
 

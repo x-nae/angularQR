@@ -13,35 +13,35 @@
         <tbody>
         <tr>
             <td class="TH-TEXT">Net Liquidation:</td>
-            <td><span id="qras_netLiquidation">{{data.netLiquidation}}</span></td>
+            <td><span id="qras_netLiquidation">{{data.netLiquidation | number : 2 }}</span></td>
         </tr>
         <tr>
             <td class="TH-TEXT">Total Cash Value:</td>
-            <td><span id="qras_totalCashValue">{{data.totalCashValue}}</span></td>
+            <td><span id="qras_totalCashValue">{{data.totalCashValue | number : 2 }}</span></td>
         </tr>
         <tr>
             <td class="TH-TEXT">Settled Cash:</td>
-            <td><span id="qras_settledCash">{{data.settledCash}}</span></td>
+            <td><span id="qras_settledCash">{{data.settledCash | number : 2 }}</span></td>
         </tr>
         <tr>
             <td class="TH-TEXT">Accrued Cash:</td>
-            <td><span id="qras_accruedCash">{{data.accruedCash}}</span></td>
+            <td><span id="qras_accruedCash">{{data.accruedCash | number : 2 }}</span></td>
         </tr>
         <tr>
             <td class="TH-TEXT">Buying Power:</td>
-            <td><span id="qras_buyingPower">{{data.buyingPower}}</span></td>
+            <td><span id="qras_buyingPower">{{data.buyingPower | number : 2 }}</span></td>
         </tr>
         <tr>
             <td class="TH-TEXT">Equity with Loan Value:</td>
-            <td><span id="qras_equityWithLoanValue">{{data.equityWithLoanValue}}</span></td>
+            <td><span id="qras_equityWithLoanValue">{{data.equityWithLoanValue | number : 2 }}</span></td>
         </tr>
         <tr>
             <td class="TH-TEXT">Previous Equity with Loan Value:</td>
-            <td><span id="qras_previousEquityWithLoanValue">{{data.previousEquityWithLoanValue}}</span></td>
+            <td><span id="qras_previousEquityWithLoanValue">{{data.previousEquityWithLoanValue | number : 2 }}</span></td>
         </tr>
         <tr>
             <td class="TH-TEXT">Gross Postition Value:</td>
-            <td><span id="qras_grossPositionValue">{{data.grossPositionValue}}</span></td>
+            <td><span id="qras_grossPositionValue">{{data.grossPositionValue | number : 2 }}</span></td>
         </tr>
         </tbody>
     </table>
@@ -54,19 +54,19 @@
         <tbody>
         <tr>
             <td class="TH-TEXT">Initial Margin:</td>
-            <td><span id="qras_initMarginReq">{{data.initMarginReq}}</span></td>
+            <td><span id="qras_initMarginReq">{{data.initMarginReq | number : 2 }}</span></td>
         </tr>
         <tr>
             <td class="TH-TEXT">Maintenance Margin:</td>
-            <td><span id="qras_maintMarginReq">{{data.maintMarginReq}}</span></td>
+            <td><span id="qras_maintMarginReq">{{data.maintMarginReq | number : 2 }}</span></td>
         </tr>
         <tr>
             <td class="TH-TEXT">Full Initial Margin:</td>
-            <td><span id="qras_fullInitMarginReq">{{data.fullInitMarginReq}}</span></td>
+            <td><span id="qras_fullInitMarginReq">{{data.fullInitMarginReq | number : 2 }}</span></td>
         </tr>
         <tr>
             <td class="TH-TEXT">Full Maintenance Margin:</td>
-            <td><span id="qras_fullMaintMarginReq">{{data.fullMaintMarginReq}}</span></td>
+            <td><span id="qras_fullMaintMarginReq">{{data.fullMaintMarginReq | number : 2 }}</span></td>
         </tr>
         </tbody>
     </table>
@@ -79,19 +79,19 @@
         <tbody>
         <tr>
             <td class="TH-TEXT">Available Funds:</td>
-            <td><span id="qras_availableFunds">{{data.availableFunds}}</span></td>
+            <td><span id="qras_availableFunds">{{data.availableFunds | number : 2 }}</span></td>
         </tr>
         <tr>
             <td class="TH-TEXT">Excess Liquidity:</td>
-            <td><span id="qras_excessLiquidity">{{data.excessLiquidity}}</span></td>
+            <td><span id="qras_excessLiquidity">{{data.excessLiquidity | number : 2 }}</span></td>
         </tr>
         <tr>
             <td class="TH-TEXT">Full Available Funds:</td>
-            <td><span id="qras_fullAvailableFunds">{{data.fullAvailableFunds}}</span></td>
+            <td><span id="qras_fullAvailableFunds">{{data.fullAvailableFunds | number : 2 }}</span></td>
         </tr>
         <tr>
             <td class="TH-TEXT">Full Excess Liquidity</td>
-            <td><span id="qras_fullExcessLiquidity">{{data.fullExcessLiquidity}}</span></td>
+            <td><span id="qras_fullExcessLiquidity">{{data.fullExcessLiquidity | number : 2 }}</span></td>
         </tr>
         </tbody>
     </table>

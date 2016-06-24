@@ -1,5 +1,5 @@
 app.directive("portfolio", [ function() {
-    var controller = function ($scope, $rootScope, $element, $attrs, NAVDataService, TradeService, NotificationService) {
+    var controller = function ($scope, $rootScope, $element, $attrs, $log, NAVDataService, TradeService, NotificationService) {
 
         $scope.portfolios = [];
 
@@ -11,7 +11,7 @@ app.directive("portfolio", [ function() {
             portfolioUpdateListener, navUpdateListener;
 
         this.onWidgetLoad = function () {
-            console.info('qrPortfolio => onWidgetLoad Triggered');
+            $log.info('qrPortfolio => onWidgetLoad Triggered');
             if(angular.isUndefined($scope.widgetId)){
                 $scope.widgetId = 'qrAccountSummary';
             }
@@ -34,12 +34,12 @@ app.directive("portfolio", [ function() {
         };
 
         this.onResize = function(width, height){
-            console.log('qrPortfolio resizing => width : ' + width + ", height : " + height);
+            $log.debug('qrPortfolio resizing => width : ' + width + ", height : " + height);
             getChartContainer().highcharts().setSize(width, height - 250, false);
         };
 
         this.onDestroy = function(){
-            console.log('qrPortfolio => destroying..');
+            $log.info('qrPortfolio => destroying..');
             getChartContainer().highcharts().destroy();
             unSubscribe();
         };
@@ -121,7 +121,7 @@ app.directive("portfolio", [ function() {
         $scope.$watch("portfolioObj",
             // This is the change listener, called when the value returned from the above function changes
             function (newValue, oldValue) {
-                if(newValue && oldValue && newValue != oldValue){
+                if(newValue && newValue != oldValue){
                     unSubscribe();
                     subscribe(newValue);
                 }
@@ -177,22 +177,18 @@ app.directive("portfolio", [ function() {
                     getChartData();
                 }
             );
-            //.then(
-            //    function(data){
-            //        updateRatiosOnSuccess(data);
-            //    }).then(getChartData);
         };
 
         var updateRatiosOnSuccess = function(data){
             if(data){
                 if(data[$scope.benchmarkObj.key]){
                     var benchmarkData = data[$scope.benchmarkObj.key];
-                    $scope.benchmarkData.mtdPerformance = formatNumbers(benchmarkData.mtdPerformance, 2);
-                    $scope.benchmarkData.ytdPerformance = formatNumbers(benchmarkData.ytdPerformance, 2);
-                    $scope.benchmarkData.oneYrPerformance = formatNumbers(benchmarkData.oneYrPerformance, 2);
-                    $scope.benchmarkData.twoYrPerformance = formatNumbers(benchmarkData.twoYrPerformance, 2);
-                    $scope.benchmarkData.sharpe = formatNumbers(benchmarkData.sharpe, 3);
-                    $scope.benchmarkData.volatility = formatNumbers(benchmarkData.volatility, 3);
+                    $scope.benchmarkData.mtdPerformance = benchmarkData.mtdPerformance;
+                    $scope.benchmarkData.ytdPerformance = benchmarkData.ytdPerformance;
+                    $scope.benchmarkData.oneYrPerformance = benchmarkData.oneYrPerformance;
+                    $scope.benchmarkData.twoYrPerformance = benchmarkData.twoYrPerformance;
+                    $scope.benchmarkData.sharpe = benchmarkData.sharpe;
+                    $scope.benchmarkData.volatility = benchmarkData.volatility;
 
                     setSpanColor(benchmarkData.mtdPerformance, 'qrPortfolio_mtdb');
                     setSpanColor(benchmarkData.ytdPerformance, 'qrPortfolio_ytdb');
@@ -201,13 +197,13 @@ app.directive("portfolio", [ function() {
                 }
                 if(data[$scope.portfolioObj.key]){
                     var portfolioData = data[$scope.portfolioObj.key];
-                    $scope.portfolioData.mtdPerformance = formatNumbers(portfolioData.mtdPerformance, 2);
-                    $scope.portfolioData.ytdPerformance = formatNumbers(portfolioData.ytdPerformance, 2);
-                    $scope.portfolioData.oneYrPerformance = formatNumbers(portfolioData.oneYrPerformance, 2);
-                    $scope.portfolioData.twoYrPerformance = formatNumbers(portfolioData.twoYrPerformance, 2);
-                    $scope.portfolioData.sharpe = formatNumbers(portfolioData.sharpe, 3);
-                    $scope.portfolioData.treynor = formatNumbers(portfolioData.treynor, 3);
-                    $scope.portfolioData.volatility = formatNumbers(portfolioData.volatility, 3);
+                    $scope.portfolioData.mtdPerformance = portfolioData.mtdPerformance;
+                    $scope.portfolioData.ytdPerformance = portfolioData.ytdPerformance;
+                    $scope.portfolioData.oneYrPerformance = portfolioData.oneYrPerformance;
+                    $scope.portfolioData.twoYrPerformance = portfolioData.twoYrPerformance;
+                    $scope.portfolioData.sharpe = portfolioData.sharpe;
+                    $scope.portfolioData.treynor = portfolioData.treynor;
+                    $scope.portfolioData.volatility = portfolioData.volatility;
 
                     setSpanColor(portfolioData.mtdPerformance, 'qrPortfolio_mtdp');
                     setSpanColor(portfolioData.ytdPerformance, 'qrPortfolio_ytdp');
@@ -220,7 +216,7 @@ app.directive("portfolio", [ function() {
         var updateRatiosOnError = function(portfolio){
             var msg = 'No data available for ' + portfolio;
             //todo : show msg
-            console.log(msg);
+            $log.error(msg);
         };
 
         var setSpanColor = function(number, spanId){
@@ -268,12 +264,12 @@ app.directive("portfolio", [ function() {
                 $scope.positions.push({
                     name : value.contract.name,
                     position : value.position,
-                    unrealizedPNL : formatNumbers(value.unrealizedPNL, 2),
-                    marketPrice : formatNumbers(value.marketPrice, 2),
-                    averageCost : formatNumbers(value.averageCost, 2)
+                    unrealizedPNL : value.unrealizedPNL,
+                    marketPrice : value.marketPrice,
+                    averageCost : value.averageCost
                 });
             });
-            $scope.unrealizedProfit = formatNumbers(unrealizedProfit, 2);
+            $scope.unrealizedProfit = unrealizedProfit;
         };
 
         var unSubscribe = function(){
@@ -294,8 +290,8 @@ app.directive("portfolio", [ function() {
 
         var updateOnNavUpdate = function(data){
             if(data && data.length > 0){
-                console.log('qrPortfolio => Nav : ' + data);
-                $scope.nav = formatNumbers(data[1], 2);
+                $log.debug('qrPortfolio => Nav : ' + data);
+                $scope.nav = data[1];
                 $scope.navTime = Highcharts.dateFormat('%m.%d %H:%M', data[0]);
             }
         };
