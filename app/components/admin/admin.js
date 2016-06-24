@@ -1,5 +1,6 @@
 app.directive("admin", [ function() {
-    var controller = function ($scope, $rootScope, $element, $attrs, NotificationService, QRDataService) {
+
+    var controller = function ($scope, $rootScope, $element, $attrs, $log, NotificationService, QRDataService) {
 
         $scope.serverStatus = false;
         var newVersion = '6';
@@ -32,17 +33,17 @@ app.directive("admin", [ function() {
 
         $scope._enable = function () {
             QRDataService.enableService().then(function (data) {
-                console.info('qrAdminBtn => enable.jsp success - response : ' + data);
+                $log.info('qrAdminBtn => enable.jsp success - response : ' + data);
             }).catch(function (data) {
-                console.info('qrAdminBtn => enable.jsp fail - response : ' + data);
+                $log.error('qrAdminBtn => enable.jsp fail - response : ' + data);
             });
         };
 
         $scope._disable = function () {
             QRDataService.disableService().then(function (data) {
-                console.info('qrAdminBtn => disable.jsp success - response : ' + data);
+                $log.info('qrAdminBtn => disable.jsp success - response : ' + data);
             }).catch(function (data) {
-                console.info('qrAdminBtn => disable.jsp fail - response : ' + data);
+                $log.error('qrAdminBtn => disable.jsp fail - response : ' + data);
             });
         };
 
@@ -50,10 +51,11 @@ app.directive("admin", [ function() {
             unSubscribeToServerStatus();
             if ($scope.serverStatus) {
                 $scope.serviceStaus = "Sending Turn ON signal to server..";
-                console.debug('qrAdminBtn => ' + $scope.serviceStaus);
+                $log.debug('qrAdminBtn => ' + $scope.serviceStaus);
                 QRDataService.switchOnService().then(function () {
                     subscribeToServerStatus();
                 }).catch(function () {
+                    $log.error('qrAdminBtn => on fail..');
                     subscribeToServerStatus();
                 });
             }else{
@@ -62,6 +64,7 @@ app.directive("admin", [ function() {
                 QRDataService.switchOffService().then(function () {
                     subscribeToServerStatus();
                 }).catch(function () {
+                    $log.error('qrAdminBtn => off fail..');
                     subscribeToServerStatus();
                 });
             }
@@ -87,7 +90,7 @@ app.directive("admin", [ function() {
         var subscribeToServerStatus = function(){
             updateServerStatusChannel = NotificationService.subscribe(dataTypeServerStatus, {});
             updateServerStatusListener = $rootScope.$on(updateServerStatusChannel, function(event, data){
-                var isEnabled = !!(data != undefined && data.trim() =='true');
+                var isEnabled = !!(!angular.isUndefined(data) && data.trim() =='true');
                 $scope.serviceStaus = (isEnabled ? 'Service is currently enabled' : 'Service is currently off');
                 $scope.serverStatus = isEnabled;
             });
