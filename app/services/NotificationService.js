@@ -101,7 +101,7 @@ app.factory('NotificationService', function (DataService, $rootScope, $q, $timeo
     var subscribe = function (type, key) {
         var stringifiedKey = JSON.stringify(key);
         var channel = getSubscriptionChannel(type, stringifiedKey);
-        $log.info('NotificationService subscribe channel : ' + channel);
+        $log.info('NotificationService => subscribe channel : ' + channel);
         if (angular.isUndefined(subscriptions[type])) {//if no subscriptions for this type
             subscriptions[type] = {
                 keys: [],
@@ -120,14 +120,20 @@ app.factory('NotificationService', function (DataService, $rootScope, $q, $timeo
                 updateData(type);
             } else {
                 subscriptions[type].listeners[stringifiedKey]++;
-                emitData(channel, subscriptions[type].data[channel]);
+                if(angular.isUndefined(subscriptions[type].data[channel])){
+                    $log.warn('NotificationService => still waiting for data for channel : ' + channel);
+                }else{
+                    $timeout(function(){
+                        emitData(channel, subscriptions[type].data[channel]);
+                    }, 20);
+                }
             }
         }
         return channel;
     };
 
     var unSubscribe = function (channel) {
-        $log.info('NotificationService unSubscribe channel : ' + channel);
+        $log.info('NotificationService => unSubscribe channel : ' + channel);
         var type = getTypeFromChannel(channel);
         var stringifiedKey = getKeyFromChannel(channel);
         if (subscriptions[type]) {
