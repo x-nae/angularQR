@@ -30,7 +30,8 @@ app.service('DataService', function ($http) {
             accountSummary: '/x-one-proxy/proxy/trade/getData/x-trading/rest/mockTrading/accountSummary',
             portfolio: '/x-one-proxy/proxy/trade/getData/x-trading/rest/mockTrading/portfolio',
             clientChannel: '/x-one-proxy/proxy/trade/getData/x-mock/rest/mockServiceCommon/loadResponse/clientModelDetails',
-            channelAnalyzer : '/x-one-proxy/proxy/trade/getData/x-mock/rest/mockServiceCommon/loadResponse/channelAnalyzer'
+            channelAnalyzer : '/x-one-proxy/proxy/trade/getData/x-mock/rest/mockServiceCommon/loadResponse/channelAnalyzer',
+            keyRiskIndicator : '/x-one-proxy/proxy/trade/getData/x-mock/rest/mockServiceCommon/loadResponse/keyRiskIndicator'
         };
     } else {
         URL = {
@@ -53,7 +54,8 @@ app.service('DataService', function ($http) {
             accountSummary: '/x-one-proxy/proxy/trade/getData/x-trading/rest/mockTrading/accountSummary',
             portfolio: '/x-one-proxy/proxy/trade/getData/x-trading/rest/mockTrading/portfolio',
             clientChannel: '/x-one-proxy/proxy/qr/getData//m-x-v/json/clientModelDetails.jsp',
-            channelAnalyzer : '/x-one-proxy/proxy/trade/getData/x-mock/rest/mockServiceCommon/loadResponse/channelAnalyzer'
+            channelAnalyzer : '/x-one-proxy/proxy/trade/getData/x-mock/rest/mockServiceCommon/loadResponse/channelAnalyzer',
+            keyRiskIndicator : '/x-one-proxy/proxy/trade/getData/x-mock/rest/mockServiceCommon/loadResponse/keyRiskIndicator'
         };
     }
 
@@ -170,6 +172,18 @@ app.service('DataService', function ($http) {
             method: HTTP_METHOD.GET,
             url: URL.navHistory,
             params : {filter: filter, categories : categories, startDate : startDate, endDate : endDate}
+        });
+    };
+
+    //endregion
+
+    //region key risk indicator
+
+    this.getKeyRiskIndicatorData = function(filter){
+        return $http({
+            method: HTTP_METHOD.GET,
+            url: URL.keyRiskIndicator,
+            params : {filter: filter}
         });
     };
 

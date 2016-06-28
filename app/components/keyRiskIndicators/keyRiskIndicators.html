@@ -1,0 +1,16 @@
+<table border="1">
+    <tr>
+        <th>Month</th>
+        <th ng-repeat-start="field in selectedFields">{{meta.fields[field].desc}}</th>
+        <th>{{meta.fields[field].desc}} Delta Month</th>
+        <th>{{meta.fields[field].desc}} Delta 12M</th>
+        <th ng-repeat-end>{{meta.fields[field].desc}} 12M Average</th>
+    </tr>
+    <tr ng-repeat="(key, value) in data">
+        <td>{{meta.dates[key]}}</td>
+        <td ng-repeat-start="field in selectedFields">{{meta.fields[field].type === 'number' ? (value[field] | number : 0) : (value[field] | number : 2)}}</td>
+        <td>{{meta.fields[field].type === 'number' ? (value[field + '_mom'] | number : 0) : (value[field + '_mom'] | number : 2)}}</td>
+        <td>{{meta.fields[field].type === 'number' ? (value[field + '_yoy'] | number : 0) : (value[field + '_yoy'] | number : 2)}}</td>
+        <td ng-repeat-end>{{value[field + '_12ma'] | number : 2}}</td>
+    </tr>
+</table>
