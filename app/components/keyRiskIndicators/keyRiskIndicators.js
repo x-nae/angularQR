@@ -2,9 +2,8 @@ app.directive("keyRiskIndicators", [function () {
 
     var controller = function ($scope, $rootScope, $element, $attrs, $log, QRDataService) {
 
-        $scope.selectedFields = ["f1", "f2"];//fallback
-        $scope.meta = {};
-        $scope.data = {};
+        $scope.selectedFields = [];//fallback
+        $scope.data = [];
 
         this.onWidgetLoad = function(){
             if(angular.isUndefined($scope.filter)){
@@ -12,6 +11,15 @@ app.directive("keyRiskIndicators", [function () {
             }
             subscribeToSettings();
             QRDataService.getKeyRiskIndicatorData($scope.filter).then(function(data){
+                if($scope.selectedFields.length === 0){
+                    for(var field in data.meta.fields){
+                        if(data.meta.fields.hasOwnProperty(field)){
+                            var obj = data.meta.fields[field];
+                            obj.key = field;
+                            $scope.selectedFields.push(obj);
+                        }
+                    }
+                }
                 processData(data);
             });
         };
@@ -20,58 +28,53 @@ app.directive("keyRiskIndicators", [function () {
             unSubscribeFromSettings();
         };
 
+        var getDataCount = function(data){
+            var hasOwn = Object.prototype.hasOwnProperty;
+            var count = 0;
+            for (var k in data) if (hasOwn.call(data, k)) ++count;
+            return count;
+        };
+
         var processData = function (data) {
-
-            var processedData = {};
-            //loop through the fields
-            $.each(data.data, function (field, fieldData) {
-                processedData[field] = {};
-                processedData[field + "_mom"] = {};
-                processedData[field + "_12ma"] = {};
-                processedData[field + "_yoy"] = {};
-
-                var annualData = [];
-                var prevValue;
-                var cumilativeFieldData = 0;
-                var fmom, f12ma, fyoy;
-
-                $.each(fieldData, function (month, value) {
-
-                    annualData.push(value);
-
-                    if (prevValue) {
-                        fmom = value - prevValue;
-                    } else {
-                        fmom = 0;
+            var processedData = [], dataLength = getDataCount(data.meta.dates), i = 0, annualData = {}, cumulativeData = {};
+            for(i; i < dataLength; i++){
+                var date = 't' + i;
+                if(data.data.hasOwnProperty(date)){
+                    var dataObj = {key : i, desc : data.meta.dates[date]};
+                    var fieldData = data.data[date];
+                    for(var field in fieldData){
+                        if(fieldData.hasOwnProperty(field)){
+                            dataObj[field] = fieldData[field];
+                            if(angular.isUndefined(annualData[field])){//only on t0
+                                annualData[field] = [];
+                                annualData[field][0] = fieldData[field];
+                                cumulativeData[field] = fieldData[field];
+                                dataObj[field + "_mom"] = 0;
+                                dataObj[field + "_12ma"] = fieldData[field];
+                                dataObj[field + "_yoy"] = 0;
+                            }else{
+                                if(annualData[field].length === 12){
+                                    cumulativeData[field] += (fieldData[field] - annualData[field][(i) % 12]);
+                                    dataObj[field + "_mom"] = fieldData[field] - annualData[field][(i - 1) % 12];
+                                    dataObj[field + "_12ma"] = cumulativeData[field]/12;
+                                    dataObj[field + "_yoy"] = fieldData[field] - cumulativeData[field]/12;
+                                    annualData[field][i%12] = fieldData[field];
+                                }else{
+                                    annualData[field][i] = fieldData[field];
+                                    cumulativeData[field] += fieldData[field];
+                                    dataObj[field + "_mom"] = fieldData[field] - annualData[field][i - 1];
+                                    dataObj[field + "_12ma"] = cumulativeData[field]/i;
+                                    dataObj[field + "_yoy"] = fieldData[field] - cumulativeData[field]/i;
+                                }
+                            }
+                        }
                     }
-                    prevValue = value;
-
-                    cumilativeFieldData += value;
-                    f12ma = cumilativeFieldData / (annualData.length);
-                    fyoy = value - f12ma;
-
-                    processedData[field][month] = value;
-                    processedData[field + "_mom"][month] = fmom;
-                    processedData[field + "_12ma"][month] = f12ma;
-                    processedData[field + "_yoy"][month] = fyoy;
-
-                    if (annualData.length == 12) {
-                        cumilativeFieldData -= annualData[0];
-                        annualData.splice(0, 1);
-                    }
-                });
-            });
-
-            $scope.meta = data.meta;
-            $.each($scope.meta.dates, function (date, desc) {
-                $scope.data[date] = {};
-                $.each($scope.meta.fields, function (field, fieldDesc) {
-                    $scope.data[date][field] = processedData[field][date];
-                    $scope.data[date][field + "_mom"] = processedData[field + "_mom"][date];
-                    $scope.data[date][field + "_12ma"] = processedData[field + "_12ma"][date];
-                    $scope.data[date][field + "_yoy"] = processedData[field + "_yoy"][date];
-                });
-            });
+                    processedData.push(dataObj);
+                }else{
+                    $log.error('keyRiskIndicators => processData : date key not found for ' + date);
+                }
+            }
+            $scope.data = processedData;
         };
 
         var settingsListener;
@@ -89,6 +92,7 @@ app.directive("keyRiskIndicators", [function () {
             }
         };
     };
+
     return {
         "restrict": "E",
         "controller": controller,

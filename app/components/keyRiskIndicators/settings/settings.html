@@ -5,11 +5,11 @@
     <input type="text" class="xinput" placeholder="Search Column" ng-model="searchColumn" ng-model-options="{ debounce: 100 }" ng-change="onSearch()">
 
     <div class="area ROUND7 XBORDER1 FULL">
-        <ul ng-repeat="col in columns">
+        <ul ng-repeat="col in columns | orderBy : 'order' track by col.key">
             <li>
                 <label>
-                    <input type="checkbox" name="CheckboxGroup1" value="checkbox" ng-click="onSelectChange(col)" ng-checked="displayColumns.indexOf(col) !== -1">
-                {{allColumns[col].desc}}
+                    <input type="checkbox" name="CheckboxGroup1" value="checkbox" ng-click="onSelectChange(col.key)" ng-checked="displayColumns.indexOf(col.key) !== -1">
+                {{col.desc}}
                 </label>
             </li>
         </ul>

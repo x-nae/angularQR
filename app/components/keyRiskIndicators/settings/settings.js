@@ -13,23 +13,11 @@ app.directive("keyRiskIndicatorsSettings", [function() {
                 $scope.allColumns = data;
             }).catch(function(response){
                 $log.error('error in QRDataService.getKeyRiskIndicatorFields ' + response);
-                $scope.allColumns = {
-                    "f1": {
-                        "desc" : "Field 1",
-                        "type" : "number"
-                    },
-                    "f2": {
-                        "desc" : "Field 2",
-                        "type" : "double"
-                    },
-                    "f3": {
-                        "desc" : "Field 3",
-                        "type" : "double"
-                    }
-                };//fallback
             }).finally(function(){
-                $.each($scope.allColumns, function(field, fieldDesc){
-                    $scope.columns.push(field);
+                $.each($scope.allColumns, function(field, fieldData){
+                    fieldData.key = field;
+                    $scope.columns.push(fieldData);
+                    $scope.displayColumns.push(field);
                 });
                 loadSettings();
             });
@@ -56,13 +44,13 @@ app.directive("keyRiskIndicatorsSettings", [function() {
             var resultColumns = [];
             if($scope.searchColumn.trim().length === 0){
                 angular.forEach($scope.allColumns, function(value, index){
-                    resultColumns.push(index);
+                    resultColumns.push(value);
                 });
             }else{
                 var regex = new RegExp("\\b" + $scope.searchColumn.toUpperCase(), "gi");
                 angular.forEach($scope.allColumns, function(value, index){
                     if(value.desc.toUpperCase().match(regex) !== null){
-                        resultColumns.push(index);
+                        resultColumns.push(value);
                     }
                 });
             }
@@ -74,7 +62,7 @@ app.directive("keyRiskIndicatorsSettings", [function() {
         var subscribeToSettingsClose = function() {
             settingsListener = $rootScope.$on($scope.widgetId + "-SettingsClose", function(event, data){
                 $log.info('keyRiskIndicatorsSettings => onClose ');
-                $rootScope.$emit($scope.widgetId + "-Settings", $scope.displayColumns);
+                sendData();
                 saveSettings();
             });
         };
@@ -102,18 +90,24 @@ app.directive("keyRiskIndicatorsSettings", [function() {
                         var config = data[0].config;
                         $log.debug('keyRiskIndicatorsSettings => load settings :' + config);
                         $scope.displayColumns = config.columns;
-                        $rootScope.$emit($scope.widgetId + "-Settings", $scope.displayColumns);
+                        sendData();
                     }else{
-                        $scope.displayColumns = $scope.columns.slice();
-                        $rootScope.$emit($scope.widgetId + "-Settings", $scope.displayColumns);
+                        sendData();
                     }
                 }, function (data) {
                     $log.error('keyRiskIndicatorsSettings => error on load settings :' + data);
-                    $scope.displayColumns = $scope.columns.slice();
-                    $rootScope.$emit($scope.widgetId + "-Settings", $scope.displayColumns);
+                    sendData();
                 });
             }
         };
+
+        var sendData = function(){
+            var dis = [];
+            angular.forEach($scope.displayColumns, function(value, index){
+                dis.push($scope.allColumns[value]);
+            });
+            $rootScope.$emit($scope.widgetId + "-Settings", dis);
+        }
 
     };
 
