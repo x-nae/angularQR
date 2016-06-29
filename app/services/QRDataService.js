@@ -41,7 +41,7 @@ app.factory('QRDataService', function (DataService, $timeout) {
         var data = {};
         angular.forEach(response.clientData, function (value, key) {
             data[value.name] = {
-                name : value.name,
+                name: value.name,
                 change: value.change,
                 nav: value.nav,
                 capShort: value.capShort,
@@ -53,7 +53,7 @@ app.factory('QRDataService', function (DataService, $timeout) {
             var pairs = {};
             angular.forEach(value.pairs, function (pair, index) {
                 pairs[pair.name] = {
-                    name : pair.name,
+                    name: pair.name,
                     nav: pair.nav,
                     changeYear: pair.changeYear,
                     changeMonth: pair.changeMonth,
@@ -136,223 +136,299 @@ app.factory('QRDataService', function (DataService, $timeout) {
         //});
     };
 
-    var getKeyRiskIndicatorData = function(){
+    var getKeyRiskIndicatorData = function () {
         return $timeout(function () {
             return {
-                "meta": {
-                    "fields": {
-                        "f1": {
-                            "desc" : "Field 1",
-                            "type" : "number"
-                        },
-                        "f2": {
-                            "desc" : "Field 2",
-                            "type" : "double"
-                        },
-                        "f3": {
-                            "desc" : "Field 3",
-                            "type" : "double"
-                        }
+                "data" : {
+                    "t4" : {
+                        "f10" : 46,
+                        "f20" : -4.760540319279613,
+                        "f12" : -4.072861236185052,
+                        "f11" : -9950.00000000008,
+                        "f14" : -4.147239263803628,
+                        "f13" : -6759.999999999913,
+                        "f16" : -3.9237392373925797,
+                        "f1" : 174346,
+                        "f15" : -3190.0000000001673,
+                        "f2" : 1630,
+                        "f18" : -11630.000000000095,
+                        "f3" : -97746,
+                        "f17" : 1680.0000000000146,
+                        "f4" : 813,
+                        "f5" : 106,
+                        "f19" : 0.6876790830945618,
+                        "f6" : 214,
+                        "f7" : 2.004920049200492,
+                        "f8" : 36,
+                        "f9" : 30
                     },
-                    "dates": {
-                        JAN16: "JAN-16",
-                        FEB16: "FEB-16",
-                        MAR16: "MAR-16",
-                        APR16: "APR-16",
-                        MAY16: "MAY-16",
-                        JUN16: "JUN-16",
-                        JUL16: "JUL-16",
-                        AUG16: "AUG-16",
-                        SEP16: "SEP-16",
-                        OCT16: "OCT-16",
-                        NOV16: "NOV-16",
-                        DEC16: "DEC-16",
-                        JAN17: "JAN-17",
-                        FEB17: "DEC-17",
-                        MAR17: "MAR-17",
-                        APR17: "APR-17"
+                    "t5" : {
+                        "f10" : 68,
+                        "f20" : -4.816784869976372,
+                        "f12" : -5.283687943262957,
+                        "f11" : -8940.000000000924,
+                        "f14" : -5.939629990263362,
+                        "f13" : -6100.000000000473,
+                        "f16" : -4.270676691730002,
+                        "f1" : 112415,
+                        "f15" : -2840.000000000451,
+                        "f2" : 1027,
+                        "f18" : -8150.000000000022,
+                        "f3" : -105328,
+                        "f17" : -790.0000000009022,
+                        "f4" : 665,
+                        "f5" : 109,
+                        "f19" : -0.46690307328658526,
+                        "f6" : 169,
+                        "f7" : 1.544360902255639,
+                        "f8" : 44,
+                        "f9" : 28
+                    },
+                    "t6" : {
+                        "f10" : 64,
+                        "f20" : -5.058064516128769,
+                        "f12" : -0.8322580645156972,
+                        "f11" : -1289.9999999993306,
+                        "f14" : -0.8309178743958049,
+                        "f13" : -859.999999999658,
+                        "f16" : -0.8349514563100439,
+                        "f1" : 150532,
+                        "f15" : -429.9999999996726,
+                        "f2" : 1035,
+                        "f18" : -7839.999999999593,
+                        "f3" : -98968,
+                        "f17" : 6550.000000000262,
+                        "f4" : 515,
+                        "f5" : 145,
+                        "f19" : 4.225806451613072,
+                        "f6" : 292,
+                        "f7" : 2.0097087378640777,
+                        "f8" : 69,
+                        "f9" : 72
+                    },
+                    "t7" : {
+                        "f10" : 126,
+                        "f20" : -13.304498269896257,
+                        "f12" : -12.214532871972393,
+                        "f11" : -7060.000000000044,
+                        "f14" : -12.778993435448387,
+                        "f13" : -5839.999999999913,
+                        "f16" : -10.082644628100256,
+                        "f1" : 44545,
+                        "f15" : -1220.000000000131,
+                        "f2" : 457,
+                        "f18" : -7690.000000000036,
+                        "f3" : -10676,
+                        "f17" : 629.9999999999927,
+                        "f4" : 121,
+                        "f5" : 97,
+                        "f19" : 1.0899653979238628,
+                        "f6" : 368,
+                        "f7" : 3.7768595041322315,
+                        "f8" : 78,
+                        "f9" : 65
+                    },
+                    "t0" : {
+                        "f10" : 68,
+                        "f20" : 13.005671077504038,
+                        "f12" : 19.187145557655032,
+                        "f11" : 10149.999999999513,
+                        "f14" : 19.932126696831574,
+                        "f13" : 8809.999999999556,
+                        "f16" : 15.40229885057421,
+                        "f1" : 76501,
+                        "f15" : 1339.9999999999563,
+                        "f2" : 442,
+                        "f18" : 6879.999999999636,
+                        "f3" : -23368,
+                        "f17" : 3269.9999999998763,
+                        "f4" : 87,
+                        "f5" : 173,
+                        "f19" : 6.181474480150995,
+                        "f6" : 879,
+                        "f7" : 5.080459770114943,
+                        "f8" : 27,
+                        "f9" : 18
+                    },
+                    "t1" : {
+                        "f10" : 25,
+                        "f20" : 10.989810771469736,
+                        "f12" : 19.650655021833437,
+                        "f11" : 13499.99999999957,
+                        "f14" : 18.917609046849133,
+                        "f13" : 11709.999999999614,
+                        "f16" : 26.323529411764063,
+                        "f1" : 110880,
+                        "f15" : 1789.9999999999563,
+                        "f2" : 619,
+                        "f18" : 7549.999999999709,
+                        "f3" : -5960,
+                        "f17" : 5949.999999999862,
+                        "f4" : 68,
+                        "f5" : 179,
+                        "f19" : 8.6608442503637,
+                        "f6" : 1630,
+                        "f7" : 9.102941176470589,
+                        "f8" : 11,
+                        "f9" : 10
+                    },
+                    "t2" : {
+                        "f10" : 45,
+                        "f20" : 1.624365482233441,
+                        "f12" : 8.502538071065826,
+                        "f11" : 10049.999999999807,
+                        "f14" : 9.016786570743227,
+                        "f13" : 7519.999999999851,
+                        "f16" : 7.27011494252861,
+                        "f1" : 162153,
+                        "f15" : 2529.9999999999563,
+                        "f2" : 834,
+                        "f18" : 1919.9999999999272,
+                        "f3" : -123027,
+                        "f17" : 8129.99999999988,
+                        "f4" : 348,
+                        "f5" : 194,
+                        "f19" : 6.878172588832386,
+                        "f6" : 465,
+                        "f7" : 2.396551724137931,
+                        "f8" : 23,
+                        "f9" : 13
+                    },
+                    "t3" : {
+                        "f10" : 41,
+                        "f20" : -5.2393162393161585,
+                        "f12" : -4.8034188034187135,
+                        "f11" : -5619.9999999998945,
+                        "f14" : -3.2137518684602964,
+                        "f13" : -2149.999999999938,
+                        "f16" : -6.926147704590731,
+                        "f1" : 81811,
+                        "f15" : -3469.9999999999563,
+                        "f2" : 669,
+                        "f18" : -6129.999999999905,
+                        "f3" : -70311,
+                        "f17" : 510.0000000000109,
+                        "f4" : 501,
+                        "f5" : 122,
+                        "f19" : 0.43589743589744523,
+                        "f6" : 163,
+                        "f7" : 1.3353293413173652,
+                        "f8" : 29,
+                        "f9" : 20
                     }
                 },
-                "data": {
-                    "f1": {
-                        "JAN16": 56,
-                        "FEB16": 31,
-                        "MAR16": 82,
-                        "APR16": 79,
-                        "MAY16": 32,
-                        "JUN16": 45,
-                        "JUL16": 32,
-                        "AUG16": 78,
-                        "SEP16": 49,
-                        "OCT16": 72,
-                        "NOV16": 40,
-                        "DEC16": 7,
-                        "JAN17": 9,
-                        "FEB17": 68,
-                        "MAR17": 13,
-                        "APR17": 98
+                "meta" : {
+                    "dates" : {
+                        "t4" : "FEB16",
+                        "t5" : "MAR16",
+                        "t6" : "APR16",
+                        "t7" : "MAY16",
+                        "t0" : "OCT15",
+                        "t1" : "NOV15",
+                        "t2" : "DEC15",
+                        "t3" : "JAN16"
                     },
-                    "f2": {
-                        "JAN16": 92,
-                        "FEB16": 85,
-                        "MAR16": 37,
-                        "APR16": 58,
-                        "MAY16": 83,
-                        "JUN16": 10,
-                        "JUL16": 99,
-                        "AUG16": 37,
-                        "SEP16": 25,
-                        "OCT16": 44,
-                        "NOV16": 98,
-                        "DEC16": 51,
-                        "JAN17": 34,
-                        "FEB17": 30,
-                        "MAR17": 63,
-                        "APR17": 52
-                    },
-                    "f3": {
-                        "JAN16": 4,
-                        "FEB16": 85,
-                        "MAR16": 36,
-                        "APR16": 20,
-                        "MAY16": 95,
-                        "JUN16": 44,
-                        "JUL16": 44,
-                        "AUG16": 2,
-                        "SEP16": 61,
-                        "OCT16": 43,
-                        "NOV16": 50,
-                        "DEC16": 78,
-                        "JAN17": 37,
-                        "FEB17": 19,
-                        "MAR17": 93,
-                        "APR17": 82
-                    },
-                    "f4": {
-                        "JAN16": 86,
-                        "FEB16": 69,
-                        "MAR16": 33,
-                        "APR16": 94,
-                        "MAY16": 78,
-                        "JUN16": 82,
-                        "JUL16": 36,
-                        "AUG16": 48,
-                        "SEP16": 30,
-                        "OCT16": 25,
-                        "NOV16": 73,
-                        "DEC16": 51,
-                        "JAN17": 76,
-                        "FEB17": 79,
-                        "MAR17": 5,
-                        "APR17": 77
-                    },
-                    "f5": {
-                        "JAN16": 86,
-                        "FEB16": 95,
-                        "MAR16": 60,
-                        "APR16": 66,
-                        "MAY16": 15,
-                        "JUN16": 98,
-                        "JUL16": 9,
-                        "AUG16": 88,
-                        "SEP16": 22,
-                        "OCT16": 99,
-                        "NOV16": 63,
-                        "DEC16": 22,
-                        "JAN17": 93,
-                        "FEB17": 21,
-                        "MAR17": 54,
-                        "APR17": 28
-                    },
-                    "f6": {
-                        "JAN16": 18,
-                        "FEB16": 81,
-                        "MAR16": 90,
-                        "APR16": 59,
-                        "MAY16": 62,
-                        "JUN16": 6,
-                        "JUL16": 96,
-                        "AUG16": 75,
-                        "SEP16": 86,
-                        "OCT16": 83,
-                        "NOV16": 17,
-                        "DEC16": 77,
-                        "JAN17": 49,
-                        "FEB17": 1,
-                        "MAR17": 10,
-                        "APR17": 27
-                    },
-                    "f7": {
-                        "JAN16": 61,
-                        "FEB16": 54,
-                        "MAR16": 18,
-                        "APR16": 37,
-                        "MAY16": 9,
-                        "JUN16": 20,
-                        "JUL16": 60,
-                        "AUG16": 37,
-                        "SEP16": 99,
-                        "OCT16": 48,
-                        "NOV16": 61,
-                        "DEC16": 47,
-                        "JAN17": 51,
-                        "FEB17": 50,
-                        "MAR17": 7,
-                        "APR17": 95
-                    },
-                    "f8": {
-                        "JAN16": 23,
-                        "FEB16": 10,
-                        "MAR16": 10,
-                        "APR16": 57,
-                        "MAY16": 46,
-                        "JUN16": 10,
-                        "JUL16": 54,
-                        "AUG16": 46,
-                        "SEP16": 37,
-                        "OCT16": 91,
-                        "NOV16": 85,
-                        "DEC16": 27,
-                        "JAN17": 60,
-                        "FEB17": 59,
-                        "MAR17": 81,
-                        "APR17": 64
-                    },
-                    "f9": {
-                        "JAN16": 32,
-                        "FEB16": 10,
-                        "MAR16": 23,
-                        "APR16": 20,
-                        "MAY16": 67,
-                        "JUN16": 46,
-                        "JUL16": 97,
-                        "AUG16": 68,
-                        "SEP16": 54,
-                        "OCT16": 81,
-                        "NOV16": 37,
-                        "DEC16": 32,
-                        "JAN17": 98,
-                        "FEB17": 47,
-                        "MAR17": 46,
-                        "APR17": 49
-                    },
-                    "f10": {
-                        "JAN16": 49,
-                        "FEB16": 67,
-                        "MAR16": 83,
-                        "APR16": 96,
-                        "MAY16": 46,
-                        "JUN16": 26,
-                        "JUL16": 75,
-                        "AUG16": 44,
-                        "SEP16": 61,
-                        "OCT16": 16,
-                        "NOV16": 46,
-                        "DEC16": 15,
-                        "JAN17": 49,
-                        "FEB17": 39,
-                        "MAR17": 60,
-                        "APR17": 17
+                    "fields": {
+                        "f10": {
+                            "desc": "f10",
+                            "type": "number",
+                            "order" : 10
+                        },
+                        "f20": {
+                            "desc": "f20",
+                            "type": "double",
+                            "order" : 20
+                        },
+                        "f12": {
+                            "desc": "f12",
+                            "type": "number",
+                            "order" : 12
+                        },
+                        "f11": {
+                            "desc": "f11",
+                            "type": "double",
+                            "order" : 11
+                        },
+                        "f14": {
+                            "desc": "f14",
+                            "type": "double",
+                            "order" : 14
+                        },
+                        "f13": {
+                            "desc": "f13",
+                            "type": "double",
+                            "order" : 13
+                        },
+                        "f16": {
+                            "desc": "f16",
+                            "type": "double",
+                            "order" : 16
+                        },
+                        "f1": {
+                            "desc": "Win",
+                            "type": "number",
+                            "order" : 1
+                        },
+                        "f15": {
+                            "desc": "f15",
+                            "type": "double",
+                            "order" : 15
+                        },
+                        "f2": {
+                            "desc": "WinTrds",
+                            "type": "number",
+                            "order" : 2
+                        },
+                        "f18": {
+                            "desc": "f18",
+                            "type": "double",
+                            "order" : 18
+                        },
+                        "f3": {
+                            "desc": "Los",
+                            "type": "number",
+                            "order" : 3
+                        },
+                        "f17": {
+                            "desc": "f17",
+                            "type": "double",
+                            "order" : 17
+                        },
+                        "f4": {
+                            "desc": "LosTrds",
+                            "type": "number",
+                            "order" : 4
+                        },
+                        "f5": {
+                            "desc": "Win/Trd",
+                            "type": "number",
+                            "order" : 5
+                        },
+                        "f19": {
+                            "desc": "f19",
+                            "type": "double",
+                            "order" : 19
+                        },
+                        "f6": {
+                            "desc": "Los/Trd",
+                            "type": "number",
+                            "order" : 6
+                        },
+                        "f7": {
+                            "desc": "f7",
+                            "type": "double",
+                            "order" : 7
+                        },
+                        "f8": {
+                            "desc": "f8",
+                            "type": "number",
+                            "order" : 8
+                        },
+                        "f9": {
+                            "desc": "f9",
+                            "type": "number",
+                            "order" : 9
+                        }
                     }
                 }
             };
@@ -363,23 +439,10 @@ app.factory('QRDataService', function (DataService, $timeout) {
         //});
     };
 
-    var getKeyRiskIndicatorFields = function() {
-        return $timeout(function () {
-            return {
-                    "f1": {
-                        "desc" : "Field 1",
-                        "type" : "number"
-                    },
-                    "f2": {
-                        "desc" : "Field 2",
-                        "type" : "double"
-                    },
-                    "f3": {
-                        "desc" : "Field 3",
-                        "type" : "double"
-                    }
-            };
-        }, 100);
+    var getKeyRiskIndicatorFields = function () {
+        return getKeyRiskIndicatorData().then(function(response){
+            return response.meta.fields;
+        });
 
         //return DataService.getKeyRiskIndicatorData().then(function(response){
         //    return response.data.meta.fields;
@@ -416,8 +479,8 @@ app.factory('QRDataService', function (DataService, $timeout) {
         switchOffService: switchOffService,
         processChannels: processChannels,
         processClientChannels: processClientChannels,
-        getKeyRiskIndicatorData : getKeyRiskIndicatorData,
-        getKeyRiskIndicatorFields : getKeyRiskIndicatorFields,
+        getKeyRiskIndicatorData: getKeyRiskIndicatorData,
+        getKeyRiskIndicatorFields: getKeyRiskIndicatorFields,
         getTickUpdatesParams: getTickUpdatesParams,
         getChannelOverviewParams: getChannelOverviewParams,
         getClientOverviewParams: getClientOverviewParams,
