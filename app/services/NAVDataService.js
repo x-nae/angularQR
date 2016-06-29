@@ -515,8 +515,8 @@ app.factory('NAVDataService', function (DataService, StatisticService, $q) {
     var getPortfolios = function () {
         var deferred = $q.defer();
         if (angular.isUndefined(portfolios)) {
-            portfolios = {};
             DataService.getMetaData().then(function (response) {
+                portfolios = {};
                 angular.forEach(response.data.clients, function (value, key) {
                     portfolios[value.name] = angular.isUndefined(value.displayName) ? value.name : value.displayName;
                 });
