@@ -4,7 +4,9 @@ app.directive("keyRiskIndicatorsSettings", [function() {
 
         $scope.additionalColumnDesc = {
             'mom' : ' Delta Month',
+            'momChg' : ' Delta Month Chg%',
             'yoy' : ' Delta 12M',
+            'yoyChg' : ' Delta 12M Chg%',
             '12ma' : ' 12M Average'
         };
 
@@ -133,10 +135,16 @@ app.directive("keyRiskIndicatorsSettings", [function() {
                     dis.push({"id" : value.id, "type" : value.type, "name" : value.name, "desc" : value.desc});
                 }
                 if(value.showMOM){
-                    dis.push({"id" : value.id + '_mom', "type" : value.type, "name" : value.name, "desc" : value.desc + $scope.additionalColumnDesc['mom']});
+                    dis.push({"id" : value.id + '_mom', "type" : value.type, "name" : value.name + ' \u0394 M', "desc" : value.desc + $scope.additionalColumnDesc['mom']});
+                }
+                if(value.showMOMChg){
+                    dis.push({"id" : value.id + '_momChg', "type" : "percentageBar", "name" : value.name + ' \u0394 M%', "desc" : value.desc + $scope.additionalColumnDesc['momChg']});
                 }
                 if(value.showYOY){
-                    dis.push({"id" : value.id + '_yoy', "type" : value.type, "name" : value.name, "desc" : value.desc + $scope.additionalColumnDesc['yoy']});
+                    dis.push({"id" : value.id + '_yoy', "type" : value.type, "name" : value.name + ' \u0394 Y', "desc" : value.desc + $scope.additionalColumnDesc['yoy']});
+                }
+                if(value.showYOYChg){
+                    dis.push({"id" : value.id + '_yoyChg', "type" : "percentageBar", "name" : value.name + ' \u0394 Y%', "desc" : value.desc + $scope.additionalColumnDesc['yoyChg']});
                 }
                 if(value.show12MA){
                     dis.push({"id" : value.id + '_12ma', "type" : 'double', "name" : value.name, "desc" : value.desc + $scope.additionalColumnDesc['12ma']});
@@ -158,8 +166,14 @@ app.directive("keyRiskIndicatorsSettings", [function() {
                 if(value.showMOM){
                     dis.push(value.id + '_mom');
                 }
+                if(value.showMOMChg){
+                    dis.push(value.id + '_momChg');
+                }
                 if(value.showYOY){
                     dis.push(value.id + '_yoy');
+                }
+                if(value.showYOYChg){
+                    dis.push(value.id + '_yoyChg');
                 }
                 if(value.show12MA){
                     dis.push(value.id + '_12ma');
@@ -185,18 +199,22 @@ app.directive("keyRiskIndicatorsSettings", [function() {
                 angular.forEach($scope.allColumns, function(value, index){
                     value.show = true;
                     value.showMOM = true;
+                    value.showMOMChg = true;
                     value.showYOY = true;
+                    value.showYOYChg = true;
                     value.show12MA = true;
                 });
             }else{
                 angular.forEach($scope.allColumns, function(value, index){
                     value.show = columns.indexOf(value.id) > -1;
                     value.showMOM = columns.indexOf(value.id + '_mom') > -1;
+                    value.showMOMChg = columns.indexOf(value.id + '_momChg') > -1;
                     value.showYOY = columns.indexOf(value.id + '_yoy') > -1;
+                    value.showYOYChg = columns.indexOf(value.id + '_yoyChg') > -1;
                     value.show12MA = columns.indexOf(value.id + '_12ma') > -1;
                 });
             }
-        }
+        };
 
     };
 

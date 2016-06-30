@@ -12,7 +12,9 @@
                 {{col.desc}}
                     <span style="float: right">
                         <input title="{{col.desc + additionalColumnDesc['mom']}}" type="checkbox" name="CheckboxGroupMOM" ng-model="col.showMOM"/>
-                        <input title="{{col.desc + additionalColumnDesc['yoy']}}" type="checkbox" name="CheckboxGroupYOY" ng-model="col.showYOY"/>
+                        <input title="{{col.desc + additionalColumnDesc['momChg']}}" type="checkbox" name="CheckboxGroupYOY" ng-model="col.showMOMChg"/>
+                        <input title="{{col.desc + additionalColumnDesc['yoy']}}" type="checkbox" name="CheckboxGroup12MA" ng-model="col.showYOY"/>
+                        <input title="{{col.desc + additionalColumnDesc['yoyChg']}}" type="checkbox" name="CheckboxGroup12MA" ng-model="col.showYOYChg"/>
                         <input title="{{col.desc + additionalColumnDesc['12ma']}}" type="checkbox" name="CheckboxGroup12MA" ng-model="col.show12MA"/>
                     </span>
                 </label>

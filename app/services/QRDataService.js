@@ -172,21 +172,27 @@ app.factory('QRDataService', function (DataService, $log, $timeout) {
                             annualData[field][0] = fieldData[field];
                             cumulativeData[field] = fieldData[field];
                             dataObj[field + "_mom"] = 0;
+                            dataObj[field + "_momChg"] = 0;
                             dataObj[field + "_12ma"] = fieldData[field];
                             dataObj[field + "_yoy"] = 0;
+                            dataObj[field + "_yoyChg"] = 0;
                         }else{
                             if(annualData[field].length === 12){
                                 cumulativeData[field] += (fieldData[field] - annualData[field][(i) % 12]);
                                 dataObj[field + "_mom"] = fieldData[field] - annualData[field][(i - 1) % 12];
+                                dataObj[field + "_momChg"] = (fieldData[field] - annualData[field][(i - 1) % 12])/annualData[field][(i - 1) % 12] * 100;
                                 dataObj[field + "_12ma"] = cumulativeData[field]/12;
-                                dataObj[field + "_yoy"] = fieldData[field] - cumulativeData[field]/12;
+                                dataObj[field + "_yoy"] = fieldData[field] - dataObj[field + "_12ma"];
+                                dataObj[field + "_yoyChg"] = (fieldData[field] - dataObj[field + "_12ma"])/dataObj[field + "_12ma"] * 100;
                                 annualData[field][i%12] = fieldData[field];
                             }else{
                                 annualData[field][i] = fieldData[field];
                                 cumulativeData[field] += fieldData[field];
                                 dataObj[field + "_mom"] = fieldData[field] - annualData[field][i - 1];
-                                dataObj[field + "_12ma"] = cumulativeData[field]/i;
-                                dataObj[field + "_yoy"] = fieldData[field] - cumulativeData[field]/i;
+                                dataObj[field + "_momChg"] = (fieldData[field] - annualData[field][i - 1])/annualData[field][i - 1] * 100;
+                                dataObj[field + "_12ma"] = cumulativeData[field]/(i + 1);
+                                dataObj[field + "_yoy"] = fieldData[field] - dataObj[field + "_12ma"];
+                                dataObj[field + "_yoyChg"] = (fieldData[field] - dataObj[field + "_12ma"])/dataObj[field + "_12ma"] * 100;
                             }
                         }
                     }
