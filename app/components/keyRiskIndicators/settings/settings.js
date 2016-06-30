@@ -91,7 +91,7 @@ app.directive("keyRiskIndicatorsSettings", [function() {
          */
         var saveSettings = function () {
             if($ && $.portal){
-                $.portal.storage.service.saveWidgetConfig($scope, $scope.widgetId, {columns: $scope.displayColumns}, function () {
+                $.portal.storage.service.saveWidgetConfig($scope, $scope.widgetId, {columns: getVisibleColumnsToSave()}, function () {
                     $log.info('keyRiskIndicatorsSettings => settings saved successfully');
                 }, function (data) {
                     $log.error('keyRiskIndicatorsSettings => error on settings save :' + data);
@@ -123,9 +123,10 @@ app.directive("keyRiskIndicatorsSettings", [function() {
         };
 
         /**
-         * notify key risk indicator widget of column changes
+         * get data to notify widget
+         * @returns {Array}
          */
-        var sendData = function(){
+        var getDataToNotify = function(){
             var dis = [];
             angular.forEach($scope.allColumns, function(value, index){
                 if(value.show){
@@ -141,6 +142,37 @@ app.directive("keyRiskIndicatorsSettings", [function() {
                     dis.push({"id" : value.id + '_12ma', "type" : 'double', "name" : value.name, "desc" : value.desc + $scope.additionalColumnDesc['12ma']});
                 }
             });
+            return dis;
+        };
+
+        /**
+         * get data to save to DB
+         * @returns {Array}
+         */
+        var getVisibleColumnsToSave = function(){
+            var dis = [];
+            angular.forEach($scope.allColumns, function(value, index){
+                if(value.show){
+                    dis.push(value.id);
+                }
+                if(value.showMOM){
+                    dis.push(value.id + '_mom');
+                }
+                if(value.showYOY){
+                    dis.push(value.id + '_yoy');
+                }
+                if(value.show12MA){
+                    dis.push(value.id + '_12ma');
+                }
+            });
+            return dis;
+        };
+
+        /**
+         * notify key risk indicator widget of column changes
+         */
+        var sendData = function(){
+            var dis = getDataToNotify();
             $rootScope.$emit($scope.widgetId + "-Settings", dis);
         };
 
