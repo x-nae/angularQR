@@ -2,14 +2,19 @@
     <h2>Settings</h2>
     <span class="T2">Select Display Columns</span>
 
-    <input type="text" class="xinput" placeholder="Search Column" ng-model="searchColumn" ng-model-options="{ debounce: 100 }" ng-change="onSearch()">
+    <input type="text" class="xinput" placeholder="Search Column" ng-model="searchColumn" ng-model-options="{ debounce: 100 }" ng-change="onSearch()"/>
 
     <div class="area ROUND7 XBORDER1 FULL">
-        <ul ng-repeat="col in columns | orderBy : 'order' track by col.key">
+        <ul ng-repeat="col in columns track by col.id">
             <li>
                 <label>
-                    <input type="checkbox" name="CheckboxGroup1" value="checkbox" ng-click="onSelectChange(col.key)" ng-checked="displayColumns.indexOf(col.key) !== -1">
+                    <input type="checkbox" name="CheckboxGroup" ng-model="col.show"/>
                 {{col.desc}}
+                    <span style="float: right">
+                        <input title="{{col.desc + additionalColumnDesc['mom']}}" type="checkbox" name="CheckboxGroupMOM" ng-model="col.showMOM"/>
+                        <input title="{{col.desc + additionalColumnDesc['yoy']}}" type="checkbox" name="CheckboxGroupYOY" ng-model="col.showYOY"/>
+                        <input title="{{col.desc + additionalColumnDesc['12ma']}}" type="checkbox" name="CheckboxGroup12MA" ng-model="col.show12MA"/>
+                    </span>
                 </label>
             </li>
         </ul>

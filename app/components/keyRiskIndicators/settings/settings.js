@@ -2,43 +2,50 @@ app.directive("keyRiskIndicatorsSettings", [function() {
 
     var controller = function($scope, $rootScope, $element, $attrs, $log, QRDataService) {
 
+        $scope.additionalColumnDesc = {
+            'mom' : ' Delta Month',
+            'yoy' : ' Delta 12M',
+            '12ma' : ' 12M Average'
+        };
+
+        /**
+         * on settings load
+         * subscribe to popup close event to update changes to widget
+         * get all fields
+         * load saved settings
+         */
         this.onSettingsLoad = function(){
             $log.info('keyRiskIndicatorsSettings => onSettingsLoad ');
-            $scope.allColumns = {};
-            $scope.displayColumns = [];
+            $scope.allColumns = [];
             $scope.columns = [];
             $scope.searchColumn = '';
             subscribeToSettingsClose();
-            QRDataService.getKeyRiskIndicatorFields('').then(function(data){
+            QRDataService.getKeyRiskIndicatorFields().then(function(data){
                 $scope.allColumns = data;
             }).catch(function(response){
                 $log.error('error in QRDataService.getKeyRiskIndicatorFields ' + response);
             }).finally(function(){
                 $.each($scope.allColumns, function(field, fieldData){
-                    fieldData.key = field;
                     $scope.columns.push(fieldData);
-                    $scope.displayColumns.push(field);
                 });
                 loadSettings();
             });
         };
 
+        /**
+         * on destroy
+         * unSubscribe from popup close event
+         */
         this.onDestroy = function(){
             $log.info('keyRiskIndicatorsSettings => onDestroy ');
             unSubscribeFromSettingsClose();
             $scope.$destroy();
         };
 
-        $scope.onSelectChange = function(column){
-            $log.info('keyRiskIndicatorsSettings => onSelectChange : ' + column);
-            var index = $scope.displayColumns.indexOf(column);
-            if(index=== -1){
-                $scope.displayColumns.push(column);
-            }else{
-                $scope.displayColumns.splice(index, 1);
-            }
-        };
-
+        /**
+         * search fields using search txt
+         * only matches to description
+         */
         $scope.onSearch = function(){
             $log.info('keyRiskIndicatorsSettings => onSearch : ' + $scope.searchColumn);
             var resultColumns = [];
@@ -59,6 +66,9 @@ app.directive("keyRiskIndicatorsSettings", [function() {
 
         var settingsListener;
 
+        /**
+         * create listener
+         */
         var subscribeToSettingsClose = function() {
             settingsListener = $rootScope.$on($scope.widgetId + "-SettingsClose", function(event, data){
                 $log.info('keyRiskIndicatorsSettings => onClose ');
@@ -67,12 +77,18 @@ app.directive("keyRiskIndicatorsSettings", [function() {
             });
         };
 
+        /**
+         * destroy listener
+         */
         var unSubscribeFromSettingsClose = function(){
             if (settingsListener) {
                 settingsListener();
             }
         };
 
+        /**
+         * save config to DB
+         */
         var saveSettings = function () {
             if($ && $.portal){
                 $.portal.storage.service.saveWidgetConfig($scope, $scope.widgetId, {columns: $scope.displayColumns}, function () {
@@ -83,30 +99,71 @@ app.directive("keyRiskIndicatorsSettings", [function() {
             }
         };
 
+        /**
+         * load saved config from DB
+         */
         var loadSettings = function () {
             if($ && $.portal) {
                 $.portal.storage.service.getWidgetConfig($scope, $scope.widgetId, function (data) {
                     if (data && data.length > 0 && data[0].config && data[0].config.columns) {
                         var config = data[0].config;
                         $log.debug('keyRiskIndicatorsSettings => load settings :' + config);
-                        $scope.displayColumns = config.columns;
+                        setDisplayProperties(config.columns);
                         sendData();
                     }else{
+                        setDisplayProperties();
                         sendData();
                     }
                 }, function (data) {
                     $log.error('keyRiskIndicatorsSettings => error on load settings :' + data);
+                    setDisplayProperties();
                     sendData();
                 });
             }
         };
 
+        /**
+         * notify key risk indicator widget of column changes
+         */
         var sendData = function(){
             var dis = [];
-            angular.forEach($scope.displayColumns, function(value, index){
-                dis.push($scope.allColumns[value]);
+            angular.forEach($scope.allColumns, function(value, index){
+                if(value.show){
+                    dis.push({"id" : value.id, "type" : value.type, "name" : value.name, "desc" : value.desc});
+                }
+                if(value.showMOM){
+                    dis.push({"id" : value.id + '_mom', "type" : value.type, "name" : value.name, "desc" : value.desc + $scope.additionalColumnDesc['mom']});
+                }
+                if(value.showYOY){
+                    dis.push({"id" : value.id + '_yoy', "type" : value.type, "name" : value.name, "desc" : value.desc + $scope.additionalColumnDesc['yoy']});
+                }
+                if(value.show12MA){
+                    dis.push({"id" : value.id + '_12ma', "type" : 'double', "name" : value.name, "desc" : value.desc + $scope.additionalColumnDesc['12ma']});
+                }
             });
             $rootScope.$emit($scope.widgetId + "-Settings", dis);
+        };
+
+        /**
+         * set check box checked using the saved settings
+         * @param columns saved settings
+         */
+        var setDisplayProperties = function(columns){
+            if(angular.isUndefined(columns) || columns.length === 0){
+                angular.forEach($scope.allColumns, function(value, index){
+                    value.show = true;
+                    value.showMOM = true;
+                    value.showYOY = true;
+                    value.show12MA = true;
+                });
+            }else{
+                angular.forEach($scope.allColumns, function(value, index){
+                    value.show = columns.indexOf(value.id) > -1;
+                    value.showMOM = columns.indexOf(value.id + '_mom') > -1;
+                    value.showYOY = columns.indexOf(value.id + '_yoy') > -1;
+                    value.show12MA = columns.indexOf(value.id + '_12ma') > -1;
+                });
+            }
         }
 
     };

@@ -1,16 +1,10 @@
 <table border="1">
     <tr>
         <th>Month</th>
-        <th ng-repeat-start="field in selectedFields | orderBy: 'order' track by field.key">{{field.desc}}</th>
-        <th>{{field.desc}} Delta Month</th>
-        <th>{{field.desc}} Delta 12M</th>
-        <th ng-repeat-end>{{field.desc}} 12M Average</th>
+        <th ng-repeat="field in selectedFields track by field.id">{{field.desc}}</th>
     </tr>
     <tr ng-repeat="indicator in data | orderBy: 'key' track by indicator.key">
         <td>{{indicator.desc}}</td>
-        <td ng-repeat-start="field in selectedFields | orderBy: 'order' track by field.key">{{field.type === 'number' ? (indicator[field.key] | number : 0) : (indicator[field.key] | number : 2)}}</td>
-        <td>{{field.type === 'number' ? (indicator[field.key + '_mom'] | number : 0) : (indicator[field.key + '_mom'] | number : 2)}}</td>
-        <td>{{field.type === 'number' ? (indicator[field.key + '_yoy'] | number : 0) : (indicator[field.key + '_yoy'] | number : 2)}}</td>
-        <td ng-repeat-end>{{indicator[field.key + '_12ma'] | number : 2}}</td>
+        <td ng-repeat="field in selectedFields">{{field.type === 'int' ? (indicator[field.id] | number : 0) : (indicator[field.id] | number : 2)}}</td>
     </tr>
 </table>
