@@ -10,6 +10,13 @@ app.directive("keyRiskIndicatorsSettings", [function() {
             '12ma' : ' 12M Average'
         };
 
+        $scope.changeAll = false;
+        $scope.changeAllMOM = false;
+        $scope.changeAllMOMChg = false;
+        $scope.changeAllYOY = false;
+        $scope.changeAllYOYChg = false;
+        $scope.changeAll12MA = false;
+
         /**
          * on settings load
          * subscribe to popup close event to update changes to widget
@@ -64,6 +71,41 @@ app.directive("keyRiskIndicatorsSettings", [function() {
                 });
             }
             $scope.columns = resultColumns;
+        };
+
+        $scope.changeAllColumns = function(columnType){
+            switch (columnType){
+                case 'mom':
+                    angular.forEach($scope.allColumns, function(value, index){
+                        value.showMOM = $scope.changeAllMOM;
+                    });
+                    break;
+                case 'momChg':
+                    angular.forEach($scope.allColumns, function(value, index){
+                        value.showMOMChg = $scope.changeAllMOMChg;
+                    });
+                    break;
+                case 'yoy':
+                    angular.forEach($scope.allColumns, function(value, index){
+                        value.showYOY = $scope.changeAllYOY;
+                    });
+                    break;
+                case 'yoyChg':
+                    angular.forEach($scope.allColumns, function(value, index){
+                        value.showYOYChg = $scope.changeAllYOYChg;
+                    });
+                    break;
+                case '12ma':
+                    angular.forEach($scope.allColumns, function(value, index){
+                        value.show12MA = $scope.changeAll12MA;
+                    });
+                    break;
+                default :
+                    angular.forEach($scope.allColumns, function(value, index){
+                        value.show = $scope.changeAll;
+                    });
+                    break;
+            }
         };
 
         var settingsListener;
@@ -147,7 +189,7 @@ app.directive("keyRiskIndicatorsSettings", [function() {
                     dis.push({"id" : value.id + '_yoyChg', "type" : "percentageBar", "name" : value.name + ' \u0394 Y%', "desc" : value.desc + $scope.additionalColumnDesc['yoyChg']});
                 }
                 if(value.show12MA){
-                    dis.push({"id" : value.id + '_12ma', "type" : 'double', "name" : value.name, "desc" : value.desc + $scope.additionalColumnDesc['12ma']});
+                    dis.push({"id" : value.id + '_12ma', "type" : 'double', "name" : value.name + ' 12M Avg', "desc" : value.desc + $scope.additionalColumnDesc['12ma']});
                 }
             });
             return dis;
@@ -204,6 +246,12 @@ app.directive("keyRiskIndicatorsSettings", [function() {
                     value.showYOYChg = true;
                     value.show12MA = true;
                 });
+                $scope.changeAll = true;
+                $scope.changeAllMOM = true;
+                $scope.changeAllMOMChg = true;
+                $scope.changeAllYOY = true;
+                $scope.changeAllYOYChg = true;
+                $scope.changeAll12MA = true;
             }else{
                 angular.forEach($scope.allColumns, function(value, index){
                     value.show = columns.indexOf(value.id) > -1;

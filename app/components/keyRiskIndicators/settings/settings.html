@@ -4,6 +4,23 @@
 
     <input type="text" class="xinput" placeholder="Search Column" ng-model="searchColumn" ng-model-options="{ debounce: 100 }" ng-change="onSearch()"/>
 
+    <div class="ROUND7 XBORDER1 FULL">
+        <ul>
+            <li>
+                <label>
+                    <input type="checkbox" name="CheckboxAll" ng-model="changeAll" ng-change="changeAllColumns('')"/>
+                    Select/Deselect All
+                    <span style="float: right">
+                        <input title="{{additionalColumnDesc['mom']}}" type="checkbox" name="CheckboxAllMOM" ng-model="changeAllMOM" ng-change="changeAllColumns('mom')"/>
+                        <input title="{{additionalColumnDesc['momChg']}}" type="checkbox" name="CheckboxAllMOMChg" ng-model="changeAllMOMChg" ng-change="changeAllColumns('momChg')"/>
+                        <input title="{{additionalColumnDesc['yoy']}}" type="checkbox" name="CheckboxAllYOY" ng-model="changeAllYOY" ng-change="changeAllColumns('yoy')"/>
+                        <input title="{{additionalColumnDesc['yoyChg']}}" type="checkbox" name="CheckboxAllYOYChg" ng-model="changeAllYOYChg" ng-change="changeAllColumns('yoyChg')"/>
+                        <input title="{{additionalColumnDesc['12ma']}}" type="checkbox" name="CheckboxAll12MA" ng-model="changeAll12MA" ng-change="changeAllColumns('12ma')"/>
+                    </span>
+                </label>
+            </li>
+        </ul>
+    </div>
     <div class="area ROUND7 XBORDER1 FULL">
         <ul ng-repeat="col in columns track by col.id">
             <li>
@@ -12,9 +29,9 @@
                 {{col.desc}}
                     <span style="float: right">
                         <input title="{{col.desc + additionalColumnDesc['mom']}}" type="checkbox" name="CheckboxGroupMOM" ng-model="col.showMOM"/>
-                        <input title="{{col.desc + additionalColumnDesc['momChg']}}" type="checkbox" name="CheckboxGroupYOY" ng-model="col.showMOMChg"/>
-                        <input title="{{col.desc + additionalColumnDesc['yoy']}}" type="checkbox" name="CheckboxGroup12MA" ng-model="col.showYOY"/>
-                        <input title="{{col.desc + additionalColumnDesc['yoyChg']}}" type="checkbox" name="CheckboxGroup12MA" ng-model="col.showYOYChg"/>
+                        <input title="{{col.desc + additionalColumnDesc['momChg']}}" type="checkbox" name="CheckboxGroupMOMChg" ng-model="col.showMOMChg"/>
+                        <input title="{{col.desc + additionalColumnDesc['yoy']}}" type="checkbox" name="CheckboxGroupYOY" ng-model="col.showYOY"/>
+                        <input title="{{col.desc + additionalColumnDesc['yoyChg']}}" type="checkbox" name="CheckboxGroupYOYChg" ng-model="col.showYOYChg"/>
                         <input title="{{col.desc + additionalColumnDesc['12ma']}}" type="checkbox" name="CheckboxGroup12MA" ng-model="col.show12MA"/>
                     </span>
                 </label>

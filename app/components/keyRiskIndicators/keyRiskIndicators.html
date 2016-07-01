@@ -11,13 +11,13 @@
 <table class="table table-condensed table-bordered">
     <tr>
         <th>Month</th>
-        <th style="white-space: nowrap; max-width: 150px;" ng-repeat="field in selectedFields track by field.id" title="field.desc">
+        <th draggable drag-rel="{{field.id}}" style="white-space: nowrap; max-width: 150px;" ng-repeat="field in selectedFields | orderBy : order track by field.id" title="field.desc" droppable drop="changeColumn">
             {{field.name}}
         </th>
     </tr>
     <tr ng-repeat="indicator in data | orderBy: 'key' track by indicator.key">
         <td>{{indicator.desc}}</td>
-        <td style="max-width: 150px;" ng-repeat="field in selectedFields track by field.id" ng-class="indicator[field.id] < 0 ? 'TX-RED' : (indicator[field.id] === 0 ? '' : 'TX-GREEN')" ng-switch="field.type">
+        <td style="max-width: 150px;" ng-repeat="field in selectedFields | orderBy : order track by field.id" ng-class="indicator[field.id] < 0 ? 'TX-RED' : (indicator[field.id] === 0 ? '' : 'TX-GREEN')" ng-switch="field.type">
             <div ng-switch-when="percentageBar">
                 <table width="100%">
                     <tr class="cc_channel">
