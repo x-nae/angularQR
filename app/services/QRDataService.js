@@ -205,6 +205,12 @@ app.factory('QRDataService', function (DataService, $log, $timeout) {
         return processedData;
     };
 
+    var getCorrelationMatrixData = function(){
+        return DataService.getCorrelationMatrixData().then(function(response){
+            return response.data;
+        });
+    };
+
     //endregion
 
     var getTickUpdatesParams = function (model) {
@@ -239,6 +245,7 @@ app.factory('QRDataService', function (DataService, $log, $timeout) {
         processClientChannels: processClientChannels,
         getKeyRiskIndicatorData: getKeyRiskIndicatorData,
         getKeyRiskIndicatorFields: getKeyRiskIndicatorFields,
+        getCorrelationMatrixData : getCorrelationMatrixData,
         getTickUpdatesParams: getTickUpdatesParams,
         getChannelOverviewParams: getChannelOverviewParams,
         getClientOverviewParams: getClientOverviewParams,

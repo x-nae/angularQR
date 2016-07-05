@@ -31,7 +31,8 @@ app.service('DataService', function ($http) {
             portfolio: '/x-one-proxy/proxy/trade/getData/x-trading/rest/trading/portfolio',
             clientChannel: '/x-one-proxy/proxy/mock/getData/x-mock/rest/mockServiceCommon/loadResponse/clientModelDetails',
             channelAnalyzer : '/x-one-proxy/proxy/mock/getData/x-mock/rest/mockServiceCommon/loadResponse/channelAnalyzer',
-            keyRiskIndicator : '/x-one-proxy/proxy/mock/getData/x-mock/rest/mockServiceCommon/loadResponse/keyRiskIndicator'
+            keyRiskIndicator : '/x-one-proxy/proxy/mock/getData/x-mock/rest/mockServiceCommon/loadResponse/keyRiskIndicator',
+            correlationMatrix : '/x-one-proxy/proxy/mock/getData/x-mock/rest/mockServiceCommon/loadResponse/correlationMatrix'
         };
     } else {
         URL = {
@@ -55,7 +56,8 @@ app.service('DataService', function ($http) {
             portfolio: '/x-one-proxy/proxy/trade/getData/x-trading/rest/trading/portfolio',
             clientChannel: '/x-one-proxy/proxy/qr/getData//m-x-v/json/clientModelDetails.jsp',
             channelAnalyzer : '/x-one-proxy/proxy/trade/getData/x-mock/rest/mockServiceCommon/loadResponse/channelAnalyzer',
-            keyRiskIndicator : '/x-one-proxy/proxy/trade/getData/x-mock/rest/mockServiceCommon/loadResponse/keyRiskIndicator'
+            keyRiskIndicator : '/x-one-proxy/proxy/trade/getData/x-mock/rest/mockServiceCommon/loadResponse/keyRiskIndicator',
+            correlationMatrix : '/x-one-proxy/proxy/trade/getData/x-mock/rest/mockServiceCommon/loadResponse/correlationMatrix'
         };
     }
 
@@ -184,6 +186,17 @@ app.service('DataService', function ($http) {
             method: HTTP_METHOD.GET,
             url: URL.keyRiskIndicator,
             params : {filter: filter}
+        });
+    };
+
+    //endregion
+
+    //region correlation matrix
+
+    this.getCorrelationMatrixData = function(){
+        return $http({
+            method: HTTP_METHOD.GET,
+            url: URL.correlationMatrix
         });
     };
 
