@@ -84,7 +84,7 @@ app.directive('corelationMatrix', [function(){
             //Create an SVG group Element for the Axis elements and call the xAxis function
             var xAxisGroup = svgContainer.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")").call(xAxis);
             //align labels
-            xAxisGroup.selectAll('text').attr("transform", "translate(15, 0)").style('fill', 'white');
+            xAxisGroup.selectAll('text').attr("transform", "translate(30, -15) rotate(-90)").style('fill', 'white');
 
             //Create the Scale for the y-Axis
             var yAxisScale = d3.scaleLinear().domain([0, elementCount]).range([elementCount * elementSize * 3, 0]);
