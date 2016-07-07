@@ -1,6 +1,6 @@
 app.directive('corelationMatrix', [function(){
 
-    var controller = function($scope, $element, $log, QRDataService){
+    var controller = function($scope, $element, $log, $timeout, QRDataService){
 
         var size = 10;
 
@@ -8,13 +8,16 @@ app.directive('corelationMatrix', [function(){
             QRDataService.getCorrelationMatrixData().then(function(data){
                 var processedData = processData(data);
                 drawChart(processedData, data.meta.symbols, size);
-            });
+            })
         };
 
         this.onDestroy = function(){
-            var svgContainer = d3.select($element.find("div#corelationMatrix").get(0));
-            svgContainer.remove();
+            removeContainer();
             $scope.$destroy();
+        };
+
+        this.onResize = function(width){
+            $scope.width = width;
         };
 
         /**
@@ -56,38 +59,68 @@ app.directive('corelationMatrix', [function(){
         };
 
         /**
+         * remove svg container
+         */
+        var removeContainer = function(){
+            var svgContainer = d3.select(getSVGContainer()).select("svg");
+            svgContainer.remove();
+        };
+
+        var getSVGContainer = function(){
+            return $element.find("div#corelationMatrix div.svg-container").get(0);
+        };
+
+        var getTooltipContainer = function(){
+            return $element.find("div#corelationMatrix div.tooltip").get(0);
+        };
+
+        /**
          * draw the matrix chart
          * @param data
          * @param symbols
-         * @param elementSize
          */
-        var drawChart = function(data, symbols, elementSize){
+        var drawChart = function(data, symbols){
+
+            removeContainer();
+
+            var aspectRatio = 1, container = getSVGContainer(),
+                containerWidth = angular.isUndefined($scope.width) ? 720 : $scope.width,
+                containerHeight = aspectRatio * containerWidth;
+
+            var outerElementWidth = containerWidth/symbols.length, innerElementWidth = outerElementWidth/3;
+            var outerElementHeight = containerHeight/symbols.length, innerElementHeight = outerElementHeight/3;
 
             var elementCount = symbols.length,
                 margin = {top: 40, right: 40, bottom: 40, left: 40},
-                width = elementCount * elementSize * 3 - margin.left - margin.right,
-                height = elementCount * elementSize * 3 - margin.top - margin.bottom;
+                width = containerWidth - margin.left - margin.right,
+                height = containerHeight - margin.top - margin.bottom, translate = "translate(" + margin.left + "," + margin.top + ")";
 
-            var svgContainer = d3.select($element.find("div#corelationMatrix").get(0)).append("svg")
-                .attr("width", elementCount * elementSize * 3 + margin.left + margin.right)
-                .attr("height", elementCount * elementSize * 3 + margin.top + margin.bottom)
-                .style('background', '#1c1c1c')
-                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+            var svgContainer = d3.select(container)
+                .append("svg")
+                //responsive SVG needs these 2 attributes and no width and height attr
+                .attr("preserveAspectRatio", "xMinYMin meet")
+                .attr("viewBox", "0 0 " + (containerWidth + margin.left + margin.right) + " " + (containerHeight + margin.top + margin.bottom))
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+                //class to make it responsive
+                .style("class", "svg-content-responsive")
+                .style('background', '#1c1c1c');
 
 
             //Create the Scale for the x-Axis
-            var xAxisScale = d3.scaleLinear().domain([0, elementCount]).range([0, elementCount * elementSize * 3]);
+            var xAxisScale = d3.scaleLinear().domain([0, elementCount]).range([0, containerWidth]);
             //Create the x-Axis
             var xAxis = d3.axisTop(xAxisScale).ticks(elementCount).tickFormat(function(d){
                 return symbols[d];
             });
             //Create an SVG group Element for the Axis elements and call the xAxis function
-            var xAxisGroup = svgContainer.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")").call(xAxis);
+            var xAxisGroup = svgContainer.append("g").attr("transform", translate).call(xAxis);
             //align labels
-            xAxisGroup.selectAll('text').attr("transform", "translate(30, -15) rotate(-90)").style('fill', 'white');
+            xAxisGroup.selectAll('text')
+                .attr("transform", "translate(" + (0.5 * outerElementWidth) +  ", 0) rotate(-90 0 -15)" )
+                .style('fill', 'white');
 
             //Create the Scale for the y-Axis
-            var yAxisScale = d3.scaleLinear().domain([0, elementCount]).range([elementCount * elementSize * 3, 0]);
+            var yAxisScale = d3.scaleLinear().domain([0, elementCount]).range([containerHeight, 0]);
             //Create the y-Axis
             var yAxis = d3.axisLeft(yAxisScale).ticks(elementCount).tickFormat(function(d){
                 return symbols[d];
@@ -97,25 +130,22 @@ app.directive('corelationMatrix', [function(){
                 .attr("transform", "translate(" + margin.left + "," +  margin.top + ")")
                 .call(yAxis);
             //align labels
-            yAxisGroup.selectAll('text').attr("transform", "translate(0,-15)").style('fill', 'white');
-
-            //// Define the div for the tooltip
-            var div = d3.select($element.find("div#corelationMatrix").get(0)).append('div').attr('class', 'tooltip').style("opacity", 0);
+            yAxisGroup.selectAll('text').attr("transform", "translate(0," + (-0.5 * outerElementHeight) + ")").style('fill', 'white');
 
             //create the data bozes
             var rectangles = svgContainer.selectAll("rect").data(data).enter().append("rect")
                 .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
                 .attr("x", function (d) {
-                    return (d.b === true ? (3 * d.x * elementSize) : d.x * elementSize);
+                    return (d.b === true ? (d.x * outerElementWidth) : d.x * innerElementWidth);
                 })
                 .attr("y", function (d) {
-                    return (d.b === true ? (3 * d.y * elementSize) : d.y * elementSize);
+                    return (d.b === true ? (d.y * outerElementHeight) : d.y * innerElementHeight);
                 })
                 .attr("width", function (d) {
-                    return d.b === true ? (3 * elementSize) : elementSize;
+                    return d.b === true ? (outerElementWidth) : innerElementWidth;
                 })
                 .attr("height", function (d) {
-                    return d.b === true ? (3 * elementSize) : elementSize;
+                    return d.b === true ? (outerElementHeight) : innerElementHeight;
                 })
                 .style("stroke", function (d) {
                     return d.b === true ? 'black' : 'none'
@@ -127,6 +157,7 @@ app.directive('corelationMatrix', [function(){
                     return d.b === true;
                 })
                 .on("mouseover", function(d) {
+                    var div = d3.select(getTooltipContainer());
                     div.transition().duration(200).style("opacity", .9);
                     var position = getRelativePosition(d3.event.pageX, d3.event.pageY), html = '<table><thead><tr><th colspan="3">' + d.t + '</th></tr></thead><tbody>';
                     angular.forEach(d.f, function(value, index){
@@ -136,7 +167,7 @@ app.directive('corelationMatrix', [function(){
                     div.html(html).style("left", (position.x) + "px").style("top", (position.y) + "px");
                 })
                 .on("mouseout", function(d) {
-                    div.transition().duration(500).style("opacity", 0);
+                    d3.select(getTooltipContainer()).transition().duration(500).style("opacity", 0);
                 });
         };
 
@@ -186,7 +217,7 @@ app.directive('corelationMatrix', [function(){
         "restrict": "E",
         "controller": controller,
         "controllerAs": "widget",
-        "template": "<div id='corelationMatrix'></div>",
+        "template": "<div id='corelationMatrix'><div class='svg-container'></div><div class='tooltip' style='opacity: 0;'></div></div>",
         link: function (scope, element, attrs, ctrl) {
             element.on('$destroy', function () {
                 ctrl.onDestroy();
