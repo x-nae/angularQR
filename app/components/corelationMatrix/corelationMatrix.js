@@ -2,12 +2,10 @@ app.directive('corelationMatrix', [function(){
 
     var controller = function($scope, $element, $log, $timeout, QRDataService){
 
-        var size = 10;
-
         this.onWidgetLoad = function(){
             QRDataService.getCorrelationMatrixData().then(function(data){
                 var processedData = processData(data);
-                drawChart(processedData, data.meta.symbols, size);
+                drawChart(processedData, data.meta.symbols);
             })
         };
 
@@ -83,15 +81,14 @@ app.directive('corelationMatrix', [function(){
 
             removeContainer();
 
-            var aspectRatio = 1, container = getSVGContainer(),
-                containerWidth = angular.isUndefined($scope.width) ? 720 : $scope.width,
+            var elementCount = symbols.length - 1, aspectRatio = 1, container = getSVGContainer(),
+                containerWidth = angular.isUndefined($scope.width) ? 690 : $scope.width,
                 containerHeight = aspectRatio * containerWidth;
 
-            var outerElementWidth = containerWidth/symbols.length, innerElementWidth = outerElementWidth/3;
-            var outerElementHeight = containerHeight/symbols.length, innerElementHeight = outerElementHeight/3;
+            var outerElementWidth = containerWidth/elementCount, innerElementWidth = outerElementWidth/3;
+            var outerElementHeight = containerHeight/elementCount, innerElementHeight = outerElementHeight/3;
 
-            var elementCount = symbols.length,
-                margin = {top: 40, right: 40, bottom: 40, left: 40},
+            var margin = {top: 40, right: 40, bottom: 40, left: 40},
                 width = containerWidth - margin.left - margin.right,
                 height = containerHeight - margin.top - margin.bottom, translate = "translate(" + margin.left + "," + margin.top + ")";
 
@@ -110,7 +107,7 @@ app.directive('corelationMatrix', [function(){
             var xAxisScale = d3.scaleLinear().domain([0, elementCount]).range([0, containerWidth]);
             //Create the x-Axis
             var xAxis = d3.axisTop(xAxisScale).ticks(elementCount).tickFormat(function(d){
-                return symbols[d];
+                return d < elementCount ? symbols[d] : null;
             });
             //Create an SVG group Element for the Axis elements and call the xAxis function
             var xAxisGroup = svgContainer.append("g").attr("transform", translate).call(xAxis);
@@ -123,7 +120,7 @@ app.directive('corelationMatrix', [function(){
             var yAxisScale = d3.scaleLinear().domain([0, elementCount]).range([containerHeight, 0]);
             //Create the y-Axis
             var yAxis = d3.axisLeft(yAxisScale).ticks(elementCount).tickFormat(function(d){
-                return symbols[d];
+                return d < elementCount ? symbols[d + 1] : null;
             });
             //Create an SVG group Element for the Axis elements and call the yAxis function
             var yAxisGroup = svgContainer.append("g")
