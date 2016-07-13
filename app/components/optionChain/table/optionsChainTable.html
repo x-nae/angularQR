@@ -1,0 +1,61 @@
+<div class="OC-TABLE-W">
+    <div class="OC-TABLE-L1 flip" rel="buyDate">
+        <div class="OC-L1-TABLE">
+            <div class="OC-L1-TR" ng-repeat="expiry in expiryDates | orderBy:'-daysToExpire':true">
+                <div class="OC-L1-TD flip">{{::expiry.name}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="OC-TABLE-M1 flip" rel="buyData">
+        <div class="OC-TABLE">
+            <div class="OC-TR" ng-repeat="expiry in expiryDates | orderBy:'-daysToExpire':true">
+                <div class="OC-TD flip" ng-repeat="strikePrice in strikePrices">{{getPrice(expiry.name, strikePrice, 1) | number : 2}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="OC-TABLE-R1 flip" rel="buyDatePercentage">
+        <div class="OC-L1-TABLE">
+            <div class="OC-L1-TR" ng-repeat="expiry in expiryDates | orderBy:'-daysToExpire':true">
+                <div class="OC-L1-TD flip">{{::expiry.daysToExpire}}d</div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clearfix"></div>
+<div class="OC-X">
+    <div class="OC-X-L1"><span class="icon ico-angle-double-left" ng-click="scrollLeft()"></span></div>
+    <div class="OC-X-M1" rel="midPrice">
+        <div class="OC-TABLE-X1">
+            <div class="OC-TABLE">
+                <div class="OC-X1-TR">
+                    <div ng-repeat="strikePrice in strikePrices" class="OC-TD">{{::strikePrice}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="OC-X-R1"><span class="icon ico-angle-double-right" ng-click="scrollRight()"></span></div>
+</div>
+<div class="clearfix"></div>
+<div class="OC-TABLE-W">
+    <div class="OC-TABLE-L1" rel="sellDate">
+        <div class="OC-L1-TABLE">
+            <div class="OC-L1-TR" ng-repeat="expiry in expiryDates | orderBy:'-daysToExpire':true">
+                <div class="OC-L1-TD">{{::expiry.name}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="OC-TABLE-M1" rel="sellData">
+        <div class="OC-TABLE">
+            <div class="OC-TR" ng-repeat="expiry in expiryDates | orderBy:'-daysToExpire':true">
+                <div class="OC-TD" ng-repeat="strikePrice in strikePrices">{{getPrice(expiry.name, strikePrice, 0) | number : 2}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="OC-TABLE-R1" rel="sellDatePercentage">
+        <div class="OC-L1-TABLE">
+            <div class="OC-L1-TR" ng-repeat="expiry in expiryDates | orderBy:'-daysToExpire':true">
+                <div class="OC-L1-TD">{{::expiry.daysToExpire}}d</div>
+            </div>
+        </div>
+    </div>
+</div>

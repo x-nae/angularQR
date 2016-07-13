@@ -1,0 +1,215 @@
+.OC-WRAPPER {
+    width: 100%;
+    height: inherit;
+    display: inline-block;
+
+}
+
+.OC-TABLE-W {
+    width: 100%;
+    display: block;
+}
+
+.OC-TABLE-L1 {
+    width: 10%;
+    float: left;
+    overflow: hidden;
+    /*overflow: auto;*/
+    height: 182px;
+}
+
+.OC-TABLE-M1 {
+    width: 80%;
+    float: left;
+    overflow: hidden;
+    /*overflow: auto;*/
+    height: 182px;
+}
+
+.OC-TABLE-R1 {
+    width: 10%;
+    float: left;
+    overflow: hidden;
+    /*overflow: auto;*/
+    height: 182px;
+}
+
+.OC-TABLE {
+    display: block;
+    min-width: 100%;
+    line-height: 25px;
+}
+
+.OC-TR {
+    display: flex;
+    /*border-bottom: 1px solid;*/
+    height: 26px;
+}
+
+.OC-TD {
+    display: inline-table;
+    float: left;
+    width: 7.142%;
+    text-align: right;
+    height: 25px;
+    padding: 5px;
+    line-height: 15px;
+    border-bottom: 1px solid;
+}
+
+.OC-X {
+    height: 25px;
+    display: block;
+    width: 100%;
+    line-height: 25px;
+}
+
+.OC-L1-TR {
+    border-bottom: 1px solid;
+}
+
+.OC-L1-TD {
+    height: 25px;
+    width: 100%;
+
+    padding: 5px;
+    line-height: 15px;
+}
+
+.OC-X-W {
+    width: 100%;
+    display: block;
+}
+
+.OC-X-L1 {
+    width: 10%;
+    float: left;
+    height: 25px;
+    line-height: 15px;
+    text-align: left;
+    padding: 5px;
+    font-size: 18px;
+}
+
+.OC-X-M1 {
+    width: 80%;
+    float: left;
+    overflow: hidden;
+    /*overflow: auto;*/
+    height: 25px;
+}
+
+.OC-X-R1 {
+    width: 10%;
+    float: left;
+    height: 25px;
+    background: bisque;
+    line-height: 15px;
+    text-align: right;
+    padding: 5px;
+    font-size: 18px;
+}
+
+.OC-TABLE-X1 {
+    width: 100%;
+    float: left;
+    height: 25px;
+}
+
+.OC-X1-TR {
+    display: flex;
+    border-bottom: 1px solid;
+    height: 26px;
+}
+
+.flip {
+    -moz-transform: scaleY(-1);
+    -o-transform: scaleY(-1);
+    -webkit-transform: scaleY(-1);
+    transform: scaleY(-1);
+    filter: "FlipV";
+    -ms-filter: "FlipV";
+}
+
+/* Dark Theme*/
+
+.OC-WRAPPER {
+    background-color: #02303B;
+}
+
+.OC-TABLE-W {
+}
+
+.OC-TABLE-L1 {
+}
+
+.OC-TABLE-M1 {
+    -webkit-box-shadow: inset 0px 0px 29px -1px rgba(0, 0, 0, 0.62);
+    -moz-box-shadow: inset 0px 0px 29px -1px rgba(0, 0, 0, 0.62);
+    box-shadow: inset 0px 0px 29px -1px rgba(0, 0, 0, 0.62);
+}
+
+.OC-TABLE-R1 {
+}
+
+.OC-TABLE {
+}
+
+.OC-TR {
+    /*border-bottom: 1px solid $ tr-even;*/
+}
+
+.OC-TR:nth-child(even) {
+    background: $ tr-even
+}
+
+.OC-TR:nth-child(odd) {
+    background: $ tr-odd
+}
+
+.OC-TD {
+}
+
+.OC-X {
+    background: $ ba-color;
+
+    background: -moz-linear-gradient(top, $ ba-color 0%, lighten($ ba-color, 10%) 24%, darken($ ba-color, 10%) 79%, $ ba-color 100%);
+
+    background: -webkit-linear-gradient(top, $ ba-color 0%, lighten($ ba-color, 10%) 24%, darken($ ba-color, 10%) 79%, $ ba-color 100%);
+
+    background: linear-gradient(to bottom, $ ba-color 0%, lighten($ ba-color, 10%) 24%, darken($ ba-color, 10%) 79%, $ ba-color 100%);
+    color: $ ba-text-color-ex !important;
+}
+
+.OC-L1-TR {
+    border-bottom: 1px solid lighten($ tr-even, 5);
+}
+
+.OC-L1-TD {
+
+    color: $ ba-color;
+}
+
+.OC-L1-TR:nth-child(even) {
+    background: lighten($ tr-even, 5)
+}
+
+.OC-L1-TR:nth-child(odd) {
+    background: lighten($ tr-odd, 5)
+}
+
+.OC-X-W {
+}
+
+.OC-X-L1 {
+    background: rgba(255, 255, 255, 0.26);
+}
+
+.OC-X-M1 {
+}
+
+.OC-X-R1 {
+    background: rgba(255, 255, 255, 0.26);
+}
+
+.OC-X1-TR{background: transparent; }
