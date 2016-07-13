@@ -14,7 +14,7 @@ app.directive('optionsChainTable', ['priceService', function(priceService){
         $scope.initializeTable = function(){
             $log.debug('optionsChainTable => onWidgetLoad()');
 
-            var tableHeight = (parentContainer.height() - parentContainer.find('div.OC-NORTH').height() - midPriceTable.height())/2;
+            var tableHeight = (parentContainer.height() - parentContainer.find('div.OC-HEADER').height() - midPriceTable.height())/2;
 
             buyDateTable.height(tableHeight);
             buyDataTable.height(tableHeight);

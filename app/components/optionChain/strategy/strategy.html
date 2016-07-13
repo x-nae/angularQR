@@ -1,0 +1,46 @@
+<span ng-click="showStrategies()">Strategies</span>
+<div class="OC-SIDEMENU-LEFT" name="strategyBox" style="display: none;">
+    <div class="OC-W320">
+        <div class="OC-SIDEMENU-LEFT-header">
+            <ul>
+                <li>
+                    <div>Choose Strategy</div>
+                    <div>POP</div>
+                    <div>BR</div>
+                </li>
+            </ul>
+        </div>
+        <div class="OC-W320-body">
+            <ul>
+                <li ng-repeat="(key, value) in strategies" ng-mouseover="onMouseOver(value.sub)">
+                    <div>{{::value.name}}<br><span class="TX-RED">{{::value.sub[value.def].name}}</span></div>
+                    <div><span class="icon ico-like"></span></div>
+                    <div><input type="button" value="Go" class="OC-GO" ng-click="setStrategy(value.sub[value.def].key)"></div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="OC-W280">
+        <div class="OC-SIDEMENU-LEFT-header">
+            <ul>
+                <li>
+                    <div>All Plays</div>
+                    <div>Default</div>
+                    <div></div>
+                </li>
+            </ul>
+        </div>
+        <div class="OC-W320-body">
+            <ul>
+                <li ng-repeat="(k,v) in subData">
+                    <div>
+                        <span class="TX-RED">{{v.name}}</span>
+                    </div>
+                    <div><span class="icon ico-star"></span></div>
+                    <div><input type="button" value="Go" class="OC-GO" ng-click="setStrategy(v.key)"></div>
+                </li>
+                <!--<img src="images/oc.png" width="100%" alt=""/><br>-->
+            </ul>
+        </div>
+    </div>
+</div>

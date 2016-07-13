@@ -1,18 +1,77 @@
 <div class="OC-WRAPPER">
-    <div class="OC-NORTH">
-        <input type="button" value="+" ng-click="scrollDown()">
-        <input type="button" value="-" ng-click="scrollUp()">
-        <input type="button" value="Strategies" ng-click="showStrategies()">
+    <div class="OC-HEADER">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tbody>
+            <tr>
+                <th>Choose One</th>
+                <th>Singles (drag to place)</th>
+                <th>You Are Here</th>
+                <th>Expirations</th>
+            </tr>
+            <tr>
+                <td options-chain-strategy></td>
+                <td>
+                    <div class="XWIDGET-TABS-l2">
+                        <ul>
+                            <li class="current">STK</li>
+                            <li>CALL</li>
+                            <li> PUT</li>
+                        </ul>
+                    </div>
+                </td>
+                <td>
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tbody>
+                        <tr>
+                            <td rowspan="2" class="RED-BOX"><span>Sell</span></td>
+                            <th>Expiration</th>
+                            <th>Strike</th>
+                            <th>Side
+                            </th>
+                            <th>Volume
+                            </th>
+                            <th>Open Int
+                            </th>
+                            <th>Liquidity
+                            </th>
+                            <th>POP</th>
+                        </tr>
+                        <tr>
+                            <td>16 Nov 16</td>
+                            <td>12.23</td>
+                            <td>N/A
+                            </td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A <span class="icon ico-tint"></span></td>
+                            <td>N/A</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </td>
+                <td>
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tbody>
+                        <tr>
+                            <td ng-click="scrollUp()">Time<br>-</td>
+                            <td ng-click="scrollDown()">Time<br>+</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
     <options-chain-table></options-chain-table>
 </div>
-<div name="strategyBox" class="XPOPUP" style="display: none">
-    <ul>
-        <li ng-repeat="(key, value) in strategies">
-            <a ng-click="setStrategy(value.sub[value.def].key)">{{::value.name}}</a>
-            <ul>
-                <li ng-repeat="(sKey, sValue) in value.sub"><a ng-click="setStrategy(sValue.key)">{{::sValue.name}}</a></li>
-            </ul>
-        </li>
-    </ul>
-</div>
+<!--<div name="strategyBox" class="XPOPUP" style="display: none">-->
+    <!--<ul>-->
+        <!--<li ng-repeat="(key, value) in strategies">-->
+            <!--<a ng-click="setStrategy(value.sub[value.def].key)">{{::value.name}}</a>-->
+            <!--<ul>-->
+                <!--<li ng-repeat="(sKey, sValue) in value.sub"><a ng-click="setStrategy(sValue.key)">{{::sValue.name}}</a></li>-->
+            <!--</ul>-->
+        <!--</li>-->
+    <!--</ul>-->
+<!--</div>-->
