@@ -359,85 +359,107 @@
 /* Dark Theme*/
 
 .OC-WRAPPER {
-    background-color: #02303B; }
+    background-color: #02303B;
+}
 
 .OC-TABLE-M1 {
     -webkit-box-shadow: inset 0px 0px 29px -1px rgba(0, 0, 0, 0.62);
     -moz-box-shadow: inset 0px 0px 29px -1px rgba(0, 0, 0, 0.62);
-    box-shadow: inset 0px 0px 29px -1px rgba(0, 0, 0, 0.62); }
+    box-shadow: inset 0px 0px 29px -1px rgba(0, 0, 0, 0.62);
+}
 
 .OC-TR {
-    border-bottom: 1px solid #111c24; }
+    border-bottom: 1px solid #111c24;
+}
 
 .OC-TR:nth-child(even) {
-    background: #111c24; }
+    background: #111c24;
+}
 
 .OC-TR:nth-child(odd) {
-    background: #101010; }
+    background: #101010;
+}
 
 .OC-X {
     background: #2595b4;
     background: -moz-linear-gradient(top, #2595b4 0%, #36b3d6 24%, #1c728a 79%, #2595b4 100%);
     background: -webkit-linear-gradient(top, #2595b4 0%, #36b3d6 24%, #1c728a 79%, #2595b4 100%);
     background: linear-gradient(to bottom, #2595b4 0%, #36b3d6 24%, #1c728a 79%, #2595b4 100%);
-    color: #fff !important; }
+    color: #fff !important;
+}
 
 .OC-L1-TR {
-    border-bottom: 1px solid #192935; }
+    border-bottom: 1px solid #192935;
+}
 
 .OC-L1-TD {
-    color: #2595b4; }
+    color: #2595b4;
+}
 
 .OC-L1-TR:nth-child(even) {
-    background: #192935; }
+    background: #192935;
+}
 
 .OC-L1-TR:nth-child(odd) {
-    background: #1d1d1d; }
+    background: #1d1d1d;
+}
 
 .OC-X1-TR {
-    background: transparent; }
+    background: transparent;
+}
 
 .OC-X-L1 {
-    background: rgba(255, 255, 255, 0.26); }
+    background: rgba(255, 255, 255, 0.26);
+}
 
 .OC-X-R1 {
-    background: rgba(255, 255, 255, 0.26); }
+    background: rgba(255, 255, 255, 0.26);
+}
 
 .OC-HEADER table tr:hover {
-    color: inherit; }
+    color: inherit;
+}
 
 .OC-HEADER table td {
-    background: #223644; }
+    background: #223644;
+}
 
 .OC-HEADER table td table th {
     color: #2595b4;
     background: none !important;
-    box-shadow: none; }
+    box-shadow: none;
+}
 
 .OC-HEADER table td, .OC-HEADER table th {
     border-left: 0px solid #58687b;
-    border-right: 1px solid #58687b; }
+    border-right: 1px solid #58687b;
+}
 
 .OC-HEADER table td:last-child, .OC-HEADER table th:last-child {
     border-left: 0px solid #58687b;
-    border-right: 0px solid #58687b; }
+    border-right: 0px solid #58687b;
+}
 
 .OC-GO {
     background: #2595b4;
     background: -moz-linear-gradient(top, #2595b4 0%, #61c3de 14%, #1c728a 89%, #2595b4 100%);
     background: -webkit-linear-gradient(top, #2595b4 0%, #61c3de 14%, #1c728a 89%, #2595b4 100%);
     background: linear-gradient(to bottom, #2595b4 0%, #61c3de 14%, #1c728a 89%, #2595b4 100%);
-    color: #fff; }
+    color: #fff;
+}
 
 .OC-SIDEMENU-LEFT ul li div .icon {
-    color: #2595b4; }
+    color: #2595b4;
+}
 
 .OC-SIDEMENU-LEFT ul li {
-    border-bottom-color: rgba(37, 149, 180, 0.4); }
+    border-bottom-color: rgba(37, 149, 180, 0.4);
+}
 
 .OC-SIDEMENU-LEFT ul li:hover {
     background: rgba(37, 149, 180, 0.4);
-    color: #fff; }
+    color: #fff;
+}
 
 .OC-HEADER table tr th {
     background: #3c434b;
@@ -446,7 +468,8 @@
     background: -webkit-linear-gradient(top, #434b54 0%, #3c434b 54%, #31363d 100%);
     background: -o-linear-gradient(top, #434b54 0%, #3c434b 54%, #31363d 100%);
     background: -ms-linear-gradient(top, #434b54 0%, #3c434b 54%, #31363d 100%);
-    background: linear-gradient(to bottom, #475059 0%, #3c434b 54%, #2c3137 100%); }
+    background: linear-gradient(to bottom, #475059 0%, #3c434b 54%, #2c3137 100%);
+}
 
 .OC-F-TB {
     background: #3c434b;
@@ -455,13 +478,16 @@
     background: -webkit-linear-gradient(top, #434b54 0%, #3c434b 54%, #31363d 100%);
     background: -o-linear-gradient(top, #434b54 0%, #3c434b 54%, #31363d 100%);
     background: -ms-linear-gradient(top, #434b54 0%, #3c434b 54%, #31363d 100%);
-    background: linear-gradient(to bottom, #475059 0%, #3c434b 54%, #2c3137 100%); }
+    background: linear-gradient(to bottom, #475059 0%, #3c434b 54%, #2c3137 100%);
+}
 
 .OC-F-ULL li {
-    border-right: 1px solid #475059; }
+    border-right: 1px solid #475059;
+}
 
 .OC-F-ULR li {
-    border-left: 1px solid #475059; }
+    border-left: 1px solid #475059;
+}
 
 .OC-F-M2 {
     background: #3c434b;
@@ -471,5 +497,6 @@
     background: -o-linear-gradient(top, #434b54 0%, #3c434b 54%, #31363d 100%);
     background: -ms-linear-gradient(top, #434b54 0%, #3c434b 54%, #31363d 100%);
     background: linear-gradient(to bottom, #475059 0%, #3c434b 54%, #2c3137 100%);
-    border-color: #0a0f14; }
+    border-color: #0a0f14;
+}
 
