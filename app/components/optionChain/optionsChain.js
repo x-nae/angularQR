@@ -1,10 +1,13 @@
 app.directive('optionsChainN', [function () {
 
-    var controller = ['$scope', '$element', '$timeout', '$log', 'optionTradeService',
+    var controller = ['$scope', '$element', '$timeout', '$log', 'priceService',
 
-        function ($scope, $element, $timeout, $log, optionTradeService) {
+        function ($scope, $element, $timeout, $log, priceService) {
 
             $scope.optionMap = {};
+            $scope.mode = 'watchlist';
+
+            var _MS_PER_DAY = 1000 * 60 * 60 * 24;
 
             this.onWidgetLoad = function () {
                 if (angular.isUndefined($scope.widgetId)) {
@@ -31,18 +34,46 @@ app.directive('optionsChainN', [function () {
                 $scope.$destroy();
             };
 
-            /**
-             * show trades using service
-             */
-            $scope.showTrades = function () {
-                var orders = optionTradeService.getOrders();
-                $log.debug('option-chain with id : ' + $scope.widgetId + ' : showTrades() orders => ' + JSON.stringify(orders));
+            $scope.setMode = function(mode){
+                $scope.mode = mode;
             };
 
+            //$scope.scrollDown = function () {
+            //    alert('hi');
+            //};
+            //
+            //$scope.scrollUp = function () {
+            //    alert('hi');
+            //};
+
+            $scope.getPrice = function (expiry, strikePrice, buy) {
+                var symbol = $scope.optionMap[expiry][strikePrice];
+                var snap = priceService.getSnapshot(symbol);
+                return buy ? snap.bestAsk : snap.bestBid;
+            };
+
+            var scrollToCurrentPrice = function(symbol){
+                var snap = priceService.getSnapshot(symbol);
+
+            };
+
+            /**
+             * get difference in days
+             * @param a
+             * @param b
+             * @returns {number}
+             */
+            $scope.getDateDifferenceInDays = function (a, b) {
+                var utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
+                var utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
+
+                return Math.floor((utc2 - utc1) / _MS_PER_DAY);
+            };
         }
     ];
 
     return {
+        restrict : 'E',
         controller: controller,
         templateUrl: "app/components/optionChain/optionsChain.html",
         link: function (scope, element, attrs, ctrl) {

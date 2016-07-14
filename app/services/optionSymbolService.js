@@ -25,7 +25,8 @@ app.factory('optionSymbolService', ['priceService', 'localStorageService', '$q',
                     name : n,
                     underlyingSymbol : underlyingSymbol,
                     expiryDate : e,
-                    strikePrice : j
+                    strikePrice : j,
+                    uid : underlyingSymbol + '~' + e + '~' + j
                 });
             }
         }

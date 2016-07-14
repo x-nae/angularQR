@@ -1,8 +1,8 @@
 app.directive('optionsChainTable', [function(){
 
-    var controller = ['$scope', '$element', '$log', 'optionSymbolService', 'priceService',
+    var controller = ['$scope', '$rootScope', '$element', '$log', 'optionSymbolService', 'optionTradeService', 'priceService',
 
-        function($scope, $element, $log, optionSymbolService, priceService){
+        function($scope, $rootScope, $element, $log, optionSymbolService, optionTradeService, priceService){
 
             var parentContainer = $element.parents('.XWIDGET-CONTENT');
             var buyDateTable = $element.find("div[rel=buyDate]");
@@ -12,21 +12,6 @@ app.directive('optionsChainTable', [function(){
             var sellDataTable = $element.find("div[rel=sellData]");
             var sellDatePercentageTable = $element.find("div[rel=sellDatePercentage]");
             var midPriceTable = $element.find("div[rel=midPrice]");
-
-            var _MS_PER_DAY = 1000 * 60 * 60 * 24;
-
-            /**
-             * get difference in days
-             * @param a
-             * @param b
-             * @returns {number}
-             */
-            var getDateDifferenceInDays = function (a, b) {
-                var utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
-                var utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
-
-                return Math.floor((utc2 - utc1) / _MS_PER_DAY);
-            };
 
             $scope.initializeTable = function () {
                 $log.debug('optionsChainTable => onWidgetLoad()');
@@ -39,7 +24,7 @@ app.directive('optionsChainTable', [function(){
                             $scope.optionMap[value.name] = {};
                             $scope.expiryDates.push({
                                 name: value.name,
-                                daysToExpire: getDateDifferenceInDays(new Date(), new Date(value.expiryDate))
+                                daysToExpire: $scope.getDateDifferenceInDays(new Date(), new Date(value.expiryDate))
                             })
                         }
                         $scope.optionMap[value.name][value.strikePrice] = value;
@@ -60,6 +45,7 @@ app.directive('optionsChainTable', [function(){
             };
 
             $scope.scrollDown = function () {
+                alert('hi');
                 $log.debug('optionsChainTable => scrollDown()');
                 var height = $element.find(".OC-TR").height();
                 buyDateTable.animate({scrollTop: '+=' + height}, 'slow');
@@ -71,6 +57,7 @@ app.directive('optionsChainTable', [function(){
             };
 
             $scope.scrollUp = function () {
+                alert('hi');
                 $log.debug('optionsChainTable => scrollUp()');
                 var height = $element.find(".OC-TR").height();
                 buyDateTable.animate({scrollTop: '-=' + height}, 'slow');
@@ -102,6 +89,15 @@ app.directive('optionsChainTable', [function(){
                 var snap = priceService.getSnapshot(symbol);
                 return buy ? snap.bestAsk : snap.bestBid;
             };
+
+            $scope.onClick = function(expiry, strikePrice, buy){
+                var symbol = $scope.optionMap[expiry][strikePrice];
+                var snap = priceService.getSnapshot(symbol);
+                var order = optionTradeService.createOrder(symbol, buy ? optionTradeService.orderSides.BUY : optionTradeService.orderSides.SELL, buy ? snap.bestAsk : snap.bestBid, 1);
+                $log.debug('optionsChainTable : order => ' + JSON.stringify(order));
+                $scope.setMode('trade');
+                //$scope.mode = 'trade';
+            }
         }
     ];
 

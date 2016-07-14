@@ -63,15 +63,6 @@
             </tbody>
         </table>
     </div>
-    <options-chain-table></options-chain-table>
+    <div ng-if="mode === 'trade'" options-chain-trade-table></div>
+    <div ng-if="mode === 'watchlist'" options-chain-table></div>
 </div>
-<!--<div name="strategyBox" class="XPOPUP" style="display: none">-->
-    <!--<ul>-->
-        <!--<li ng-repeat="(key, value) in strategies">-->
-            <!--<a ng-click="setStrategy(value.sub[value.def].key)">{{::value.name}}</a>-->
-            <!--<ul>-->
-                <!--<li ng-repeat="(sKey, sValue) in value.sub"><a ng-click="setStrategy(sValue.key)">{{::sValue.name}}</a></li>-->
-            <!--</ul>-->
-        <!--</li>-->
-    <!--</ul>-->
-<!--</div>-->

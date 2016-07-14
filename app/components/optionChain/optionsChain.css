@@ -132,7 +132,6 @@
 
 .OC-SIDEMENU-LEFT {
     display: block;
-    /*background: #202c34;*/
     position: absolute;
     bottom: -390px;
     z-index: 100;
@@ -151,14 +150,11 @@
     width: 280px;
     height: 390px;
     float: left;
-    /*background: #2d3f4b;*/
 }
 
 .OC-SIDEMENU-LEFT-header {
     height: 30px;
     width: 100%;
-    /*background: #2f4a5d;*/
-    /*color: aqua;*/
 }
 
 .OC-SIDEMENU-LEFT ul li div {
@@ -177,10 +173,6 @@
     display: block;
     border-bottom: 1px dashed;
     height: 40px;
-}
-
-.OC-SIDEMENU-LEFT ul li:hover {
-    /*background: red;*/
 }
 
 .OC-SIDEMENU-LEFT-header li {
@@ -498,5 +490,22 @@
     background: -ms-linear-gradient(top, #434b54 0%, #3c434b 54%, #31363d 100%);
     background: linear-gradient(to bottom, #475059 0%, #3c434b 54%, #2c3137 100%);
     border-color: #0a0f14;
+}
+
+.OC-SIDEMENU-LEFT {
+    background: #202c34;
+}
+
+.OC-W280 {
+    background: #2d3f4b;
+}
+
+.OC-SIDEMENU-LEFT-header {
+    background: #2f4a5d;
+    color: aqua;
+}
+
+.OC-SIDEMENU-LEFT ul li:hover {
+    background: red;
 }
 

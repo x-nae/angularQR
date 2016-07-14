@@ -9,7 +9,7 @@
     <div class="OC-TABLE-M1 flip" rel="buyData">
         <div class="OC-TABLE">
             <div class="OC-TR" ng-repeat="expiry in expiryDates | orderBy:'-daysToExpire':true">
-                <div class="OC-TD flip" ng-repeat="strikePrice in strikePrices" ng-click="onClick(expiry.name, strikePrice, true)">{{getPrice(expiry.name, strikePrice, true) | number : 2}}</div>
+                <div class="OC-TD flip" ng-repeat="strikePrice in strikePrices">{{getPrice(expiry.name, strikePrice, 1) | number : 2}}</div>
             </div>
         </div>
     </div>
@@ -47,7 +47,7 @@
     <div class="OC-TABLE-M1" rel="sellData">
         <div class="OC-TABLE">
             <div class="OC-TR" ng-repeat="expiry in expiryDates | orderBy:'-daysToExpire':true">
-                <div class="OC-TD" ng-repeat="strikePrice in strikePrices" ng-click="onClick(expiry.name, strikePrice, false)">{{getPrice(expiry.name, strikePrice, false) | number : 2}}</div>
+                <div class="OC-TD" ng-repeat="strikePrice in strikePrices">{{getPrice(expiry.name, strikePrice, 0) | number : 2}}</div>
             </div>
         </div>
     </div>

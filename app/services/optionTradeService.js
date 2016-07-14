@@ -9,6 +9,7 @@ app.factory('optionTradeService', ['priceService', 'localStorageService', '$filt
 
         var _createOrderObject = function (symbol, side, price, quantity) {
             var order = {
+                id : symbol.uid + '|' + Math.random(),
                 symbol: symbol,
                 side: side,
                 price: price,
@@ -16,9 +17,9 @@ app.factory('optionTradeService', ['priceService', 'localStorageService', '$filt
             };
             var orderObj = _getOrders();
             if (angular.isUndefined(orderObj[symbol])) {
-                orderObj[symbol] = [];
+                orderObj[symbol.uid] = [];
             }
-            orderObj[symbol].push(order);
+            orderObj[symbol.uid].push(order);
             localStorageService.save(_getId(), orderObj);
             return order;
         };
@@ -59,11 +60,11 @@ app.factory('optionTradeService', ['priceService', 'localStorageService', '$filt
                             option = value;
                         } else {
                             if (strikePriceCondition.rule === 'lesser') {
-                                if (option.strikePrice > value.strikePrice) {
+                                if (option.strikePrice < value.strikePrice) {
                                     option = value;
                                 }
                             } else {
-                                if (option.strikePrice < value.strikePrice) {
+                                if (option.strikePrice > value.strikePrice) {
                                     option = value;
                                 }
                             }
@@ -1206,7 +1207,9 @@ app.factory('optionTradeService', ['priceService', 'localStorageService', '$filt
             shortCallLadder : _shortCallLadder,
             longPutLadder : _longPutLadder,
             shortPutLadder : _shortPutLadder,
-            getOrders: _getOrders
+            getOrders: _getOrders,
+            createOrder : _createOrderObject,
+            orderSides : ORDER_SIDE
         }
     }
 ]);

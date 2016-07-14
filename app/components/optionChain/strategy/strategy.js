@@ -191,6 +191,7 @@ app.directive('optionsChainStrategy', [function () {
                 $element.find('div[name="strategyBox"]').hide();
                 _getData(key, $scope.symbol).then(function (data) {
                     $log.debug('option-chain with id : ' + $scope.widgetId + ' : setStrategy() data => ' + JSON.stringify(data));
+                    $scope.setMode('trade');
                 });
             };
 
