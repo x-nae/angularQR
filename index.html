@@ -5,6 +5,8 @@
     <title>QR</title>
     <link href="app/styles/gridstack/gridstack.min.css" rel="stylesheet"/>
     <link href="app/styles/gridstack/gridstackextra.min.css" rel="stylesheet"/>
+    <link href="app/styles/goldenlayout/goldenlayout-base.css" rel="stylesheet"/>
+    <link href="app/styles/goldenlayout/goldenlayout-dark-theme.css" rel="stylesheet"/>
     <link href="lib/bootstrap/bootstrap3.css" rel="stylesheet"/>
     <link href="app/styles/framework/infinit.css" rel="stylesheet"/>
     <link href="app/styles/framework/xinfinitDark.css" rel="stylesheet"/>
@@ -15,16 +17,22 @@
     <link href="app/styles/jQuery/jQuery.loadmask.css" rel="stylesheet"/>
     <link href="app/styles/qrStyles.css" rel="stylesheet"/>
     <link href="app/components/admin/admin.css" rel="stylesheet"/>
-    <link href="app/components/channel/channel.css" rel="stylesheet"/>
+    <link href="app/components/utils/channel/channel.css" rel="stylesheet"/>
+    <link href="app/components/utils/percentageBar/percentageBar.css" rel="stylesheet"/>
     <link href="app/components/virtualChannelOverview/virtualChannelOverview.css" rel="stylesheet"/>
     <link href="app/components/clientOverview/clientOverview.css" rel="stylesheet"/>
     <link href="app/components/serverStatus/serverStatus.css" rel="stylesheet"/>
+    <link href="app/components/channelAnalyzer/channelAnalyzer.css" rel="stylesheet"/>
+    <link href="app/components/corelationMatrix/corelationMatrix.css" rel="stylesheet"/>
+    <link href="app/components/optionChain/optionsChain.css" rel="stylesheet"/>
 </head>
 <body>
+    <input type="hidden" name="appid" value="123"/>
+    <input type="hidden" name="author" value="hta123"/>
     <div class="">
         <div class="AREA-NORTH">
-            <header></header>
-            <menu></menu>
+            <div header></div>
+            <div menu></div>
         </div>
         <div class="WRAPPER row">
             <div class="CONTAINER col-sm-24">
@@ -32,7 +40,7 @@
             </div>
         </div>
         <div class="AREA-SOUTH">
-            <footer></footer>
+            <div footer></div>
         </div>
     </div>
 
@@ -40,6 +48,7 @@
     <script src="lib/jQuery/jQuery.js"></script>
     <script src="lib/jQuery/jQueryUI.js"></script>
     <script src="lib/jQuery/jQuery.loadmask.js"></script>
+    <!--<script src="lib/jQuery/jQuery.tipsy.js"></script>-->
     <script src="lib/angular/angular.min.js"></script>
     <script src="lib/angular/angular-route.js"></script>
     <script src="lib/lodash/lodash.js"></script>
@@ -47,11 +56,16 @@
     <script src="lib/bootstrap/bootstarp.js"></script>
     <script src="lib/highstock/highstock.js"></script>
     <script src="lib/highstock/highcharts.more.js"></script>
+    <script src="lib/d3/d3.min.js"></script>
+    <!--<script src="lib/d3/d3-tip.js"></script>-->
+    <script src="lib/goldenlayout/goldenlayout.min.js"></script>
+
     <!--app-->
     <script src="app/app.js"></script>
-    <script src="app/utils.js"></script>
     <!--storage-->
     <script src="app/storage/storage.js"></script>
+    <!-- filters -->
+    <script src="app/filters/optionSymbolsFilter.js"></script>
     <!--services-->
     <script src="app/services/DataService.js"></script>
     <script src="app/services/NotificationService.js"></script>
@@ -59,12 +73,23 @@
     <script src="app/services/TradeService.js"></script>
     <script src="app/services/StatisticsDataService.js"></script>
     <script src="app/services/NAVDataService.js"></script>
+    <script src="app/services/optionSymbolService.js"></script>
+    <script src="app/services/optionTradeService.js"></script>
+    <script src="app/services/priceService.js"></script>
+    <script src="app/services/localStorageService.js"></script>
+    <script src="app/storage/storageService.js"></script>
     <!-- structure -->
     <script src="app/header/header.js"></script>
     <script src="app/footer/footer.js"></script>
     <script src="app/menu/menu.js"></script>
-    <!--widgets-->
+    <!--base widgets-->
     <script src="app/components/widget.js"></script>
+    <!--widget utils-->
+    <script src="app/components/utils/dropDown/dropDown.js"></script>
+    <script src="app/components/utils/channel/channel.js"></script>
+    <script src="app/components/utils/percentageBar/percentageBar.js"></script>
+    <script src="app/components/utils/portfolioDropdown/portfolioDropdown.js"></script>
+    <!--widgets-->
     <script src="app/components/admin/admin.js"></script>
     <script src="app/components/accountSummary/accountSummary.js"></script>
     <script src="app/components/portfolio/portfolio.js"></script>
@@ -80,6 +105,12 @@
     <script src="app/components/virtualChannelOverview/virtualChannelOverview.js"></script>
     <script src="app/components/serverStatus/serverStatus.js"></script>
     <script src="app/components/channelAnalyzer/channelAnalyzer.js"></script>
-    <script src="app/components/channel/channel.js"></script>
+    <script src="app/components/keyRiskIndicators/keyRiskIndicators.js"></script>
+    <script src="app/components/keyRiskIndicators/settings/settings.js"></script>
+    <script src="app/components/corelationMatrix/corelationMatrix.js"></script>
+    <script src="app/components/optionChain/optionsChain.js"></script>
+    <script src="app/components/optionChain/strategy/strategy.js"></script>
+    <script src="app/components/optionChain/table/optionsChainTable.js"></script>
+    <script src="app/components/optionChain/tradeTable/optionsChainTradeTable.js"></script>
 </body>
 </html>
