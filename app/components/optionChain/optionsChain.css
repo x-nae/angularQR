@@ -103,7 +103,6 @@
     width: 10%;
     float: left;
     height: 25px;
-    background: bisque;
     line-height: 15px;
     text-align: right;
     padding: 5px;
@@ -131,156 +130,7 @@
     -ms-filter: "FlipV";
 }
 
-/* Dark Theme*/
-
-.OC-WRAPPER {
-    background-color: #02303B;
-}
-
-.OC-TABLE-W {
-}
-
-.OC-TABLE-L1 {
-}
-
-.OC-TABLE-M1 {
-    -webkit-box-shadow: inset 0px 0px 29px -1px rgba(0, 0, 0, 0.62);
-    -moz-box-shadow: inset 0px 0px 29px -1px rgba(0, 0, 0, 0.62);
-    box-shadow: inset 0px 0px 29px -1px rgba(0, 0, 0, 0.62);
-}
-
-.OC-TABLE-R1 {
-}
-
-.OC-TABLE {
-}
-
-.OC-TR {
-    /*border-bottom: 1px solid $ tr-even;*/
-}
-
-.OC-TR:nth-child(even) {
-    background: $ tr-even
-}
-
-.OC-TR:nth-child(odd) {
-    background: $ tr-odd
-}
-
-.OC-TD {
-}
-
-.OC-X {
-    background: $ ba-color;
-
-    background: -moz-linear-gradient(top, $ ba-color 0%, lighten($ ba-color, 10%) 24%, darken($ ba-color, 10%) 79%, $ ba-color 100%);
-
-    background: -webkit-linear-gradient(top, $ ba-color 0%, lighten($ ba-color, 10%) 24%, darken($ ba-color, 10%) 79%, $ ba-color 100%);
-
-    background: linear-gradient(to bottom, $ ba-color 0%, lighten($ ba-color, 10%) 24%, darken($ ba-color, 10%) 79%, $ ba-color 100%);
-    color: $ ba-text-color-ex !important;
-}
-
-.OC-L1-TR {
-    border-bottom: 1px solid lighten($ tr-even, 5);
-}
-
-.OC-L1-TD {
-
-    color: $ ba-color;
-}
-
-.OC-L1-TR:nth-child(even) {
-    background: lighten($ tr-even, 5)
-}
-
-.OC-L1-TR:nth-child(odd) {
-    background: lighten($ tr-odd, 5)
-}
-
-.OC-X-W {
-}
-
-.OC-X-L1 {
-    background: rgba(255, 255, 255, 0.26);
-}
-
-.OC-X-M1 {
-}
-
-.OC-X-R1 {
-    background: rgba(255, 255, 255, 0.26);
-}
-
-.OC-X1-TR{background: transparent; }
-
 /* Header */
-
-.OC-WRAPPER{
-    width: 100%;
-    height: inherit;
-    display: inline-block;}
-.OC-TABLE-W{ width:100%; display:block; }
-.OC-TABLE-L1{ width:8%; float:left;}
-.OC-TABLE-M1{ width:84%; float:left; overflow:hidden; height: 182px;}
-.OC-TABLE-R1{ width:8%; float:left;}
-
-
-.OC-TABLE{ display: block;
-    min-width: 100%;
-    line-height: 25px;}
-.OC-TR{ display:flex;
-    border-bottom: 1px solid;
-    height: 26px;}
-
-.OC-TD{ display: inline-table;
-    float: left;
-    width: 7.142%;
-    text-align: right;
-    height: 25px;
-    padding: 5px;
-    line-height: 15px;}
-
-.OC-X{ height:25px; display:block; width:100%; line-height: 25px;}
-
-
-
-
-
-.OC-L1-TR {
-    border-bottom: 1px solid ;
-}
-
-.OC-L1-TD {
-    height: 25px;
-    width: 100%;
-
-    padding: 5px;
-    line-height: 15px;
-}
-
-
-.OC-X-W{ width:100%; display:block; }
-.OC-X-L1{     width: 8%;
-    float: left;
-    height: 25px;line-height: 15px;
-    text-align: left;
-    padding: 5px;     font-size: 18px;}
-.OC-X-M1{ width:84%; float:left; overflow:hidden; height: 25px;}
-.OC-X-R1{     width: 8%;
-    float: left;
-    height: 25px;
-    background: bisque;line-height: 15px;
-    text-align: right;
-    padding: 5px;     font-size: 18px;}
-
-
-.OC-TABLE-X1{ width:100%; float:left; overflow:hidden; height: 25px;}
-.OC-X1-TR{display:flex;
-    border-bottom: 1px solid;
-    height: 26px;}
-
-
 
 .OC-SIDEMENU-LEFT {
     display: block;
@@ -293,8 +143,6 @@
     left: 0px;
 }
 
-
-
 .OC-W320 {
     width: 320px;
     height: 390px;
@@ -304,19 +152,27 @@
 .OC-W280 {
     width: 280px;
     height: 390px;
-    float: left; background:#2d3f4b;
+    float: left;
+    /*background: #2d3f4b;*/
 }
 
-.OC-SIDEMENU-LEFT-header{ height:30px; width:100%; background:#2f4a5d; color:aqua;}
+.OC-SIDEMENU-LEFT-header {
+    height: 30px;
+    width: 100%;
+    /*background: #2f4a5d;*/
+    /*color: aqua;*/
+}
 
-
-.OC-SIDEMENU-LEFT ul li div{
+.OC-SIDEMENU-LEFT ul li div {
     float: left;
     line-height: 24px;
     width: 25%;
     font-size: 12px;
     text-align: center;
-    padding: 0 5px; display:block; height:30px; padding-top: 5px;
+    padding: 0 5px;
+    display: block;
+    height: 30px;
+    padding-top: 5px;
 }
 
 .OC-SIDEMENU-LEFT ul li {
@@ -326,32 +182,42 @@
 }
 
 .OC-SIDEMENU-LEFT ul li:hover {
-    background: red;
+    /*background: red;*/
 }
-.OC-SIDEMENU-LEFT-header li{
+
+.OC-SIDEMENU-LEFT-header li {
     display: block;
     border-bottom: 0px dashed !important;
-    height: 30px; line-height:20px !important;
+    height: 30px;
+    line-height: 20px !important;
 }
 
-.OC-SIDEMENU-LEFT-header li:first-child{ line-height:30px !important;
+.OC-SIDEMENU-LEFT-header li:first-child {
+    line-height: 30px !important;
 }
-
 
 .OC-SIDEMENU-LEFT ul li div:first-child {
-
-    width: 50%; text-align:left;    line-height: normal;
-
+    width: 50%;
+    text-align: left;
+    line-height: normal;
 }
 
-.OC-SIDEMENU-LEFT ul li div:first-child span { font-size:10px; margin-right:5px;
-
+.OC-SIDEMENU-LEFT ul li div:first-child span {
+    font-size: 10px;
+    margin-right: 5px;
 }
-.OC-SIDEMENU-LEFT ul li div .icon{ font-size: 24px;
+
+.OC-SIDEMENU-LEFT ul li div .icon {
+    font-size: 24px;
     opacity: 0.1;
     margin-top: 5px;
-    display: block; }
-.OC-SIDEMENU-LEFT ul li div .active{ opacity:1;}
+    display: block;
+}
+
+.OC-SIDEMENU-LEFT ul li div .active {
+    opacity: 1;
+}
+
 .OC-GO {
     border: none;
     height: 25px;
@@ -360,27 +226,48 @@
     line-height: 17px;
     border-radius: 15px;
 }
-.OC-GO-L{    float: right;
+
+.OC-GO-L {
+    float: right;
     margin: 0 11px;
 }
 
-.OC-W320-body{ height:350px; overflow-y:auto;}
+.OC-W320-body {
+    height: 350px;
+    overflow-y: auto;
+}
 
+.OC-HEADER table {
+}
 
-.OC-HEADER table{ }
-.OC-HEADER table tr{}
-.OC-HEADER table tr:nth-child(even) { background:inherit;}
-.OC-HEADER table tr:nth-child(odd) { background:inherit;}
+.OC-HEADER table tr {
+}
 
-.OC-HEADER table tr th{ text-align:left; padding:5px;}
-.OC-HEADER table tr:hover{ background:none !important;}
-.OC-HEADER table td{     position: relative;
+.OC-HEADER table tr:nth-child(even) {
+    background: inherit;
+}
+
+.OC-HEADER table tr:nth-child(odd) {
+    background: inherit;
+}
+
+.OC-HEADER table tr th {
+    text-align: left;
+    padding: 5px;
+}
+
+.OC-HEADER table tr:hover {
+    background: none !important;
+}
+
+.OC-HEADER table td {
+    position: relative;
     text-align: left;
     margin: 0px;
     padding: 0px 5px !important;
 }
-.OC-HEADER table td table th {
 
+.OC-HEADER table td table th {
     font-size: 12px !important;
     vertical-align: top;
 }
@@ -390,40 +277,41 @@
     vertical-align: middle;
 }
 
-
-
 .XWIDGET-TABS-l2 {
     background: inherit !important;
 }
 
+.OC-F-TB {
+    height: 35px;
+    width: 100%;
+    position: relative;
+}
 
-.OC-F-TB{ height:35px; width:100%; position:relative;}
 .OC-F-ULL li {
     list-style: none;
     float: left;
     line-height: 35px;
     padding: 0 30px;
-    font-size: 14px; cursor:pointer;
+    font-size: 14px;
+    cursor: pointer;
 }
 
 .OC-F-ULL {
     float: left;
 }
 
-
-
 .OC-F-ULR li {
     list-style: none;
     float: right;
     line-height: 35px;
     padding: 0 30px;
-    font-size: 14px; cursor:pointer;
+    font-size: 14px;
+    cursor: pointer;
 }
 
 .OC-F-ULR {
     float: right;
 }
-
 
 .OC-F-MID {
     position: absolute;
@@ -432,7 +320,7 @@
     top: -35px;
     left: 50%;
     margin-left: -150px;
-    width:300px;
+    width: 300px;
 }
 
 .OC-F-M-T {
@@ -445,16 +333,32 @@
     line-height: 20px;
 }
 
-.padding5{ padding:5px;}
+.padding5 {
+    padding: 5px;
+}
 
-.OC-F-M{ background:url(../images/tr-bg3.png) top center;  width:300px; height:68px;}
+.OC-F-M {
+    background: url(../images/tr-bg3.png) top center;
+    width: 300px;
+    height: 68px;
+}
 
-.FONT18{ font-size:18px;}
-.BOLD{ font-weight:bold;}
+.FONT18 {
+    font-size: 18px;
+}
 
-.OC-F-M2{ width:300px;border-width: 0px 1px 1px 1px; border-style:solid; height:46px;}
+.BOLD {
+    font-weight: bold;
+}
 
-/* Dark */
+.OC-F-M2 {
+    width: 300px;
+    border-width: 0px 1px 1px 1px;
+    border-style: solid;
+    height: 46px;
+}
+
+/* Dark Theme*/
 
 .OC-WRAPPER {
     background-color: #02303B; }
