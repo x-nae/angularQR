@@ -38,14 +38,6 @@ app.directive('optionsChainN', [function () {
                 $scope.mode = mode;
             };
 
-            //$scope.scrollDown = function () {
-            //    alert('hi');
-            //};
-            //
-            //$scope.scrollUp = function () {
-            //    alert('hi');
-            //};
-
             $scope.getPrice = function (expiry, strikePrice, buy) {
                 var symbol = $scope.optionMap[expiry][strikePrice];
                 var snap = priceService.getSnapshot(symbol);
